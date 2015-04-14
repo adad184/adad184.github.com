@@ -1,0 +1,434 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-cn">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>解决表单被键盘遮住的问题(续) | 里脊串的开发随笔</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="黎吉川">
+    
+
+    
+    <meta name="description" content="刚才检查代码的时候 发现了之前代码的一些问题 这里做一下修正 为此我为UIView和UITableView各新增了一个Category方法
+UIView的Category12345678910111213141516- (BOOL) haveSubview:(UIView*)subView&amp;#123;    UIView *v = subView;        while (v)    &amp;#12">
+<meta property="og:type" content="article">
+<meta property="og:title" content="解决表单被键盘遮住的问题(续)">
+<meta property="og:url" content="http://adad184.com/2013/12/19/jue-biao-dan-bei-jian-pan-zhe-zhu-de-wen-ti-xu/index.html">
+<meta property="og:site_name" content="里脊串的开发随笔">
+<meta property="og:description" content="刚才检查代码的时候 发现了之前代码的一些问题 这里做一下修正 为此我为UIView和UITableView各新增了一个Category方法
+UIView的Category12345678910111213141516- (BOOL) haveSubview:(UIView*)subView&amp;#123;    UIView *v = subView;        while (v)    &amp;#12">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="解决表单被键盘遮住的问题(续)">
+<meta name="twitter:description" content="刚才检查代码的时候 发现了之前代码的一些问题 这里做一下修正 为此我为UIView和UITableView各新增了一个Category方法
+UIView的Category12345678910111213141516- (BOOL) haveSubview:(UIView*)subView&amp;#123;    UIView *v = subView;        while (v)    &amp;#12">
+
+    
+    <link rel="alternative" href="/atom.xml" title="里脊串的开发随笔" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="里脊串的开发随笔" title="里脊串的开发随笔"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="里脊串的开发随笔">里脊串的开发随笔</a></h1>
+				<h2 class="blog-motto">途有境而观无垠</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜單">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:adad184.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2013/12/19/jue-biao-dan-bei-jian-pan-zhe-zhu-de-wen-ti-xu/" title="解决表单被键盘遮住的问题(续)" itemprop="url">解决表单被键盘遮住的问题(续)</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="http://adad184.com/about" title="黎吉川" target="_blank" itemprop="author">黎吉川</a>
+		
+  <p class="article-time">
+    <time datetime="2013-12-19T08:31:34.000Z" itemprop="datePublished"> 發表於 2013-12-19</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目錄</strong>
+		
+			
+		
+		</div>
+		
+		<p>刚才检查代码的时候 发现了之前代码的一些问题 这里做一下修正 为此我为UIView和UITableView各新增了一个Category方法</p>
+<figure class="highlight objc"><figcaption><span>UIView的Category</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="built_in">BOOL</span>) haveSubview:(<span class="built_in">UIView</span>*)subView</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">UIView</span> *v = subView;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">while</span> (v)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> ( <span class="keyword">self</span> == v )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">YES</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        v = v<span class="variable">.superview</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="literal">NO</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight objc"><figcaption><span>UITableVIew的Category方法</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="built_in">BOOL</span>) haveSubview:(<span class="built_in">UIView</span>*)subView</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> ( v &amp;&amp; [<span class="keyword">self</span> haveSubview:v] )</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">while</span> ( v &amp;&amp; ![[v class] isSubclassOfClass:[<span class="built_in">UITableViewCell</span> class]]) &#123;</span><br><span class="line">            v = v<span class="variable">.superview</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> ( v )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">NSLog</span>(<span class="string">@"%@"</span>,<span class="built_in">NSStringFromClass</span>(v<span class="variable">.class</span>));</span><br><span class="line">            </span><br><span class="line">            <span class="built_in">UITableViewCell</span> *cell = (<span class="built_in">UITableViewCell</span>*)v;</span><br><span class="line">            </span><br><span class="line">            <span class="built_in">NSLog</span>(<span class="string">@"%@"</span>,[<span class="keyword">self</span> indexPathForCell:cell]);</span><br><span class="line">            </span><br><span class="line">            [<span class="keyword">self</span> scrollToRowAtIndexPath:[<span class="keyword">self</span> indexPathForRowAtPoint:cell<span class="variable">.center</span>] atScrollPosition:<span class="built_in">UITableViewScrollPositionBottom</span> animated:<span class="literal">YES</span>];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这样 当我们需要处理弹出键盘时 就只需要如此调用就可以了</p>
+<figure class="highlight objc"><figcaption><span>调用方法</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">UIView</span> *v = [<span class="built_in">UIResponder</span> currentFirstResponder];</span><br><span class="line">[<span class="keyword">self</span><span class="variable">.tableView</span> scrollToView:v];</span><br></pre></td></tr></table></figure>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/技巧心得/">技巧心得</a>
+</div>
+
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://adad184.com/2013/12/19/jue-biao-dan-bei-jian-pan-zhe-zhu-de-wen-ti-xu/" data-title="解决表单被键盘遮住的问题(续) | 里脊串的开发随笔" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2014/01/31/yuan-xiang-mu-mmspinimageview-yong-yu-360-du-xian-shi-huan-pai-wu-ti/" title="开源项目:MMSpinImageView 用于360度显示环拍物体">
+  <strong>上一篇：</strong><br/>
+  <span>
+  开源项目:MMSpinImageView 用于360度显示环拍物体</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2013/12/12/mei-jie-jue-interactivepopgesturerecognizer-qia-zhu-de-wen-ti/"  title="完美解决 interactivePopGestureRecognizer 卡住的问题">
+ <strong>下一篇：</strong><br/> 
+ <span>完美解决 interactivePopGestureRecognizer 卡住的问题
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="顯示側邊欄"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目錄</strong>
+ 
+ 
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隱藏側邊欄"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分類</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/开源项目/" title="开源项目">开源项目<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/技巧心得/" title="技巧心得">技巧心得<sup>11</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/生活琐碎/" title="生活琐碎">生活琐碎<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/经验介绍/" title="经验介绍">经验介绍<sup>2</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+
+  <div class="linkslist">
+  <p class="asidetitle">友情鏈接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://coderq.com" target="_blank" title="一个面向程序员交流分享的新一代社区">码农圈</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://wuchong.me" target="_blank" title="Jark&#39;s Blog">Jark&#39;s Blog</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 訂閱</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Larry Page in Google. <br/>
+			This is my blog,believe it or not.</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2015 
+		
+		<a href="http://adad184.com/about" target="_blank" title="黎吉川">黎吉川</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#nothing"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});     
+</script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回頂部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

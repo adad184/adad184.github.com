@@ -1,0 +1,453 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-cn">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>支付宝iOS SDK的那些坑(系统繁忙，请稍后再试) | 里脊串的开发随笔</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="黎吉川">
+    
+
+    
+    <meta name="description" content="前言支付宝的iOS SDK真是个奇葩的存在 按理说这么重要的SDK 理应提供详尽的文档和技术支持(虽然说实际使用较简单)但是跑到官方论坛一看 都是各种各样的问题 以及千篇一律的解答
+这里不谈如何集成和使用SDK 只谈问题 如果你按照官方文档一步一步的调试发现任何问题没有 那么 恭喜你 运气不错
+如果你跟我一样 遇到跳转支付时现实”系统繁忙,请稍后再试” 的问题(如图 没截到iOS的 找了一张and">
+<meta property="og:type" content="article">
+<meta property="og:title" content="支付宝iOS SDK的那些坑(系统繁忙，请稍后再试)">
+<meta property="og:url" content="http://adad184.com/2014/08/27/sdk-sucks/index.html">
+<meta property="og:site_name" content="里脊串的开发随笔">
+<meta property="og:description" content="前言支付宝的iOS SDK真是个奇葩的存在 按理说这么重要的SDK 理应提供详尽的文档和技术支持(虽然说实际使用较简单)但是跑到官方论坛一看 都是各种各样的问题 以及千篇一律的解答
+这里不谈如何集成和使用SDK 只谈问题 如果你按照官方文档一步一步的调试发现任何问题没有 那么 恭喜你 运气不错
+如果你跟我一样 遇到跳转支付时现实”系统繁忙,请稍后再试” 的问题(如图 没截到iOS的 找了一张and">
+<meta property="og:image" content="http://7xibqv.com1.z0.glb.clouddn.com/2014-08-27-alipay-sdk-sucks.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="支付宝iOS SDK的那些坑(系统繁忙，请稍后再试)">
+<meta name="twitter:description" content="前言支付宝的iOS SDK真是个奇葩的存在 按理说这么重要的SDK 理应提供详尽的文档和技术支持(虽然说实际使用较简单)但是跑到官方论坛一看 都是各种各样的问题 以及千篇一律的解答
+这里不谈如何集成和使用SDK 只谈问题 如果你按照官方文档一步一步的调试发现任何问题没有 那么 恭喜你 运气不错
+如果你跟我一样 遇到跳转支付时现实”系统繁忙,请稍后再试” 的问题(如图 没截到iOS的 找了一张and">
+
+    
+    <link rel="alternative" href="/atom.xml" title="里脊串的开发随笔" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="里脊串的开发随笔" title="里脊串的开发随笔"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="里脊串的开发随笔">里脊串的开发随笔</a></h1>
+				<h2 class="blog-motto">途有境而观无垠</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜單">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:adad184.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/08/27/sdk-sucks/" title="支付宝iOS SDK的那些坑(系统繁忙，请稍后再试)" itemprop="url">支付宝iOS SDK的那些坑(系统繁忙，请稍后再试)</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="http://adad184.com/about" title="黎吉川" target="_blank" itemprop="author">黎吉川</a>
+		
+  <p class="article-time">
+    <time datetime="2014-08-27T08:39:45.000Z" itemprop="datePublished"> 發表於 2014-08-27</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目錄</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#问题"><span class="toc-number">2.</span> <span class="toc-text">问题</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#方案"><span class="toc-number">3.</span> <span class="toc-text">方案</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#尾声"><span class="toc-number">4.</span> <span class="toc-text">尾声</span></a></li></ol>
+		
+		</div>
+		
+		<h1 id="前言">前言</h1><p>支付宝的iOS SDK真是个奇葩的存在 按理说这么重要的SDK 理应提供详尽的文档和技术支持(虽然说实际使用较简单)<br>但是跑到<a href="http://club.alipay.com/thread-htm-fid-703-page-6.html" target="_blank" rel="external">官方论坛</a>一看 都是各种各样的问题 以及千篇一律的解答</p>
+<p>这里不谈如何集成和使用SDK 只谈问题 如果你按照官方文档一步一步的调试发现任何问题没有 那么 恭喜你 运气不错</p>
+<p>如果你跟我一样 遇到跳转支付时现实”系统繁忙,请稍后再试” 的问题(如图 没截到iOS的 找了一张android的图凑数)</p>
+<p><img src="http://7xibqv.com1.z0.glb.clouddn.com/2014-08-27-alipay-sdk-sucks.png" alt="问题截图"></p>
+<h1 id="问题">问题</h1><p>官方示例中支付相关的代码</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//构造订单</span></span><br><span class="line"><span class="built_in">NSString</span> *appScheme = <span class="string">@"AlipaySdkDemo"</span>;</span><br><span class="line"><span class="built_in">NSString</span>* orderInfo = [<span class="keyword">self</span> getOrderInfo:indexPath<span class="variable">.row</span>];</span><br><span class="line"><span class="built_in">NSString</span>* signedStr = [<span class="keyword">self</span> doRsa:orderInfo];</span><br><span class="line"></span><br><span class="line"><span class="comment">//形成订单参数</span></span><br><span class="line"><span class="built_in">NSString</span> *orderString = [<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"%@&amp;sign=\"%@\"&amp;sign_type=\"%@\""</span>,</span><br><span class="line">                         orderInfo, signedStr, <span class="string">@"RSA"</span>];</span><br><span class="line"></span><br><span class="line"><span class="comment">//调用支付借口</span></span><br><span class="line">[AlixLibService payOrder:orderString AndScheme:appScheme seletor:_result target:<span class="keyword">self</span>];</span><br></pre></td></tr></table></figure>
+<p>问题就出在<code>orderInfo</code>这里 那么<code>orderInfo</code>是什么呢?</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">-(<span class="built_in">NSString</span>*)getOrderInfo:(<span class="built_in">NSInteger</span>)index</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">/*</span><br><span class="line">     *点击获取prodcut实例并初始化订单信息</span><br><span class="line">     */</span></span><br><span class="line">    Product *product = [_products objectAtIndex:index];    </span><br><span class="line">    AlixPayOrder *order = [[AlixPayOrder alloc] init];</span><br><span class="line">    order<span class="variable">.partner</span> = PartnerID;</span><br><span class="line">    order<span class="variable">.seller</span> = SellerID;</span><br><span class="line"></span><br><span class="line">    order<span class="variable">.tradeNO</span> = [<span class="keyword">self</span> generateTradeNO]; <span class="comment">//订单ID（由商家自行制定）</span></span><br><span class="line">    order<span class="variable">.productName</span> = product<span class="variable">.subject</span>; <span class="comment">//商品标题</span></span><br><span class="line">    order<span class="variable">.productDescription</span> = product<span class="variable">.body</span>; <span class="comment">//商品描述</span></span><br><span class="line">    order<span class="variable">.amount</span> = [<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"%.2f"</span>,product<span class="variable">.price</span>]; <span class="comment">//商品价格</span></span><br><span class="line">    order<span class="variable">.notifyURL</span> =  <span class="string">@"http%3A%2F%2Fwwww.xxx.com"</span>; <span class="comment">//回调URL</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> [order description];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以到看<code>orderInfo</code>就是<code>AlixPayOrder</code>的字符串化 再看看其description函数<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- (<span class="built_in">NSString</span> *)description &#123;</span><br><span class="line">    <span class="built_in">NSMutableString</span> * discription = [<span class="built_in">NSMutableString</span> string];</span><br><span class="line">    [discription appendFormat:<span class="string">@"partner=\"%@\""</span>, <span class="keyword">self</span><span class="variable">.partner</span> ? <span class="keyword">self</span><span class="variable">.partner</span> : <span class="string">@""</span>];</span><br><span class="line">    [discription appendFormat:<span class="string">@"&amp;seller_id=\"%@\""</span>, <span class="keyword">self</span><span class="variable">.seller</span> ? <span class="keyword">self</span><span class="variable">.seller</span> : <span class="string">@""</span>];</span><br><span class="line">    [discription appendFormat:<span class="string">@"&amp;out_trade_no=\"%@\""</span>, <span class="keyword">self</span><span class="variable">.tradeNO</span> ? <span class="keyword">self</span><span class="variable">.tradeNO</span> : <span class="string">@""</span>];</span><br><span class="line">    [discription appendFormat:<span class="string">@"&amp;subject=\"%@\""</span>, <span class="keyword">self</span><span class="variable">.productName</span> ? <span class="keyword">self</span><span class="variable">.productName</span> : <span class="string">@""</span>];</span><br><span class="line">    [discription appendFormat:<span class="string">@"&amp;body=\"%@\""</span>, <span class="keyword">self</span><span class="variable">.productDescription</span> ? <span class="keyword">self</span><span class="variable">.productDescription</span> : <span class="string">@""</span>];</span><br><span class="line">    [discription appendFormat:<span class="string">@"&amp;total_fee=\"%@\""</span>, <span class="keyword">self</span><span class="variable">.amount</span> ? <span class="keyword">self</span><span class="variable">.amount</span> : <span class="string">@""</span>];</span><br><span class="line">    [discription appendFormat:<span class="string">@"&amp;notify_url=\"%@\""</span>, <span class="keyword">self</span><span class="variable">.notifyURL</span> ? <span class="keyword">self</span><span class="variable">.notifyURL</span> : <span class="string">@""</span>];</span><br><span class="line">    </span><br><span class="line">    [discription appendFormat:<span class="string">@"&amp;service=\"%@\""</span>, <span class="keyword">self</span><span class="variable">.serviceName</span> ? <span class="keyword">self</span><span class="variable">.serviceName</span> : <span class="string">@"mobile.securitypay.pay"</span>];</span><br><span class="line">    [discription appendFormat:<span class="string">@"&amp;_input_charset=\"%@\""</span>, <span class="keyword">self</span><span class="variable">.inputCharset</span> ? <span class="keyword">self</span><span class="variable">.inputCharset</span> : <span class="string">@"utf-8"</span>];</span><br><span class="line">    [discription appendFormat:<span class="string">@"&amp;payment_type=\"%@\""</span>, <span class="keyword">self</span><span class="variable">.paymentType</span> ? <span class="keyword">self</span><span class="variable">.paymentType</span> : <span class="string">@"1"</span>];</span><br><span class="line"></span><br><span class="line">    <span class="comment">//下面的这些参数，如果没有必要（value为空），则无需添加</span></span><br><span class="line">    [discription appendFormat:<span class="string">@"&amp;return_url=\"%@\""</span>, <span class="keyword">self</span><span class="variable">.returnUrl</span> ? <span class="keyword">self</span><span class="variable">.returnUrl</span> : <span class="string">@"www.xxx.com"</span>];</span><br><span class="line">    [discription appendFormat:<span class="string">@"&amp;it_b_pay=\"%@\""</span>, <span class="keyword">self</span><span class="variable">.itBPay</span> ? <span class="keyword">self</span><span class="variable">.itBPay</span> : <span class="string">@"1d"</span>];</span><br><span class="line">    [discription appendFormat:<span class="string">@"&amp;show_url=\"%@\""</span>, <span class="keyword">self</span><span class="variable">.showUrl</span> ? <span class="keyword">self</span><span class="variable">.showUrl</span> : <span class="string">@"www.xxx.com"</span>];</span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> (<span class="built_in">NSString</span> * key <span class="keyword">in</span> [<span class="keyword">self</span><span class="variable">.extraParams</span> allKeys]) &#123;</span><br><span class="line">        [discription appendFormat:<span class="string">@"&amp;%@=\"%@\""</span>, key, [<span class="keyword">self</span><span class="variable">.extraParams</span> objectForKey:key]];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> discription;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>我猜问题可能出现在这里<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">[discription appendFormat:<span class="string">@"&amp;return_url=\"%@\""</span>, <span class="keyword">self</span><span class="variable">.returnUrl</span> ? <span class="keyword">self</span><span class="variable">.returnUrl</span> : <span class="string">@"www.xxx.com"</span>];</span><br><span class="line">[discription appendFormat:<span class="string">@"&amp;it_b_pay=\"%@\""</span>, <span class="keyword">self</span><span class="variable">.itBPay</span> ? <span class="keyword">self</span><span class="variable">.itBPay</span> : <span class="string">@"1d"</span>];</span><br><span class="line">[discription appendFormat:<span class="string">@"&amp;show_url=\"%@\""</span>, <span class="keyword">self</span><span class="variable">.showUrl</span> ? <span class="keyword">self</span><span class="variable">.showUrl</span> : <span class="string">@"www.xxx.com"</span>];</span><br></pre></td></tr></table></figure></p>
+<p>可能是这种莫名其妙的默认值导致了问题的出现(代码里注释了无需添加 可为啥官方demo是没有问题的?)<br><code>orderInfo</code>也不过是一堆参数的拼凑而已 同时 我求证了同事在android的sdk里 参数也都是手工拼凑的 那么将必填参数自行组织一下 应该就可以了</p>
+<h1 id="方案">方案</h1><p>经过实践 只需要填下下面出现的这些参数 就没有问题了</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">-(<span class="built_in">NSString</span>*)getOrderInfo</span><br><span class="line">&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">NSMutableString</span> * discription = [<span class="built_in">NSMutableString</span> string] ;</span><br><span class="line">    [discription appendFormat:<span class="string">@"partner=\"%@\""</span>, PartnerID];</span><br><span class="line">    [discription appendFormat:<span class="string">@"&amp;seller_id=\"%@\""</span>, SellerID];</span><br><span class="line">    [discription appendFormat:<span class="string">@"&amp;out_trade_no=\"%@\""</span>, [<span class="keyword">self</span> getOrderID]];</span><br><span class="line">    [discription appendFormat:<span class="string">@"&amp;subject=\"%@\""</span>, yourSubject];</span><br><span class="line">    [discription appendFormat:<span class="string">@"&amp;body=\"%@\""</span>, yourBody];</span><br><span class="line">    [discription appendFormat:<span class="string">@"&amp;total_fee=\"%@\""</span>, yourPrice];</span><br><span class="line">    [discription appendFormat:<span class="string">@"&amp;notify_url=\"%@\""</span>, yourHandleAction];</span><br><span class="line">    [discription appendFormat:<span class="string">@"&amp;service=\"%@\""</span>, <span class="string">@"mobile.securitypay.pay"</span>];</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> discription;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="尾声">尾声</h1><p>当然 回过头来看 问题有这么几个</p>
+<ul>
+<li>官方demo写得不严谨 且注释太少</li>
+<li>官方文档写没有指出相关问题 以及对相应参数的解释(对于参数,仅提到了一句”<strong>支付参数提交时,需要组装订单信息 orderInfo,其中 参数以 key=”value”形式呈现,参数之间以“&amp;”分割, 获取 Alipay 支付对象调用支付。</strong>“”)</li>
+<li>官方论坛没有相应的技术支持</li>
+</ul>
+<p>结论就是: 坑爹</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/技巧心得/">技巧心得</a>
+</div>
+
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://adad184.com/2014/08/27/sdk-sucks/" data-title="支付宝iOS SDK的那些坑(系统繁忙，请稍后再试) | 里脊串的开发随笔" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2014/09/19/how-to-force-rotate-screen/" title="如何强制旋转屏幕">
+  <strong>上一篇：</strong><br/>
+  <span>
+  如何强制旋转屏幕</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2014/08/27/my-baby/"  title="hello my baby">
+ <strong>下一篇：</strong><br/> 
+ <span>hello my baby
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="顯示側邊欄"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目錄</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#问题"><span class="toc-number">2.</span> <span class="toc-text">问题</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#方案"><span class="toc-number">3.</span> <span class="toc-text">方案</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#尾声"><span class="toc-number">4.</span> <span class="toc-text">尾声</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隱藏側邊欄"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分類</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/开源项目/" title="开源项目">开源项目<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/技巧心得/" title="技巧心得">技巧心得<sup>11</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/生活琐碎/" title="生活琐碎">生活琐碎<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/经验介绍/" title="经验介绍">经验介绍<sup>2</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+
+  <div class="linkslist">
+  <p class="asidetitle">友情鏈接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://coderq.com" target="_blank" title="一个面向程序员交流分享的新一代社区">码农圈</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://wuchong.me" target="_blank" title="Jark&#39;s Blog">Jark&#39;s Blog</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 訂閱</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Larry Page in Google. <br/>
+			This is my blog,believe it or not.</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2015 
+		
+		<a href="http://adad184.com/about" target="_blank" title="黎吉川">黎吉川</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#nothing"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});     
+</script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回頂部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

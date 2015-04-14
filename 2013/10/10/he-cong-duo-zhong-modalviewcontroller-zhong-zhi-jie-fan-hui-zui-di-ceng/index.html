@@ -1,0 +1,437 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-cn">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>如何从多重 modalViewController 中直接返回最底层 | 里脊串的开发随笔</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="黎吉川">
+    
+
+    
+    <meta name="description" content="ModalViewController是经常会用到的展现ViewController的方式,而显示和收起ModalViewController也是很简单的
+123456- (void)presentViewController:(UIViewController *)viewControllerToPresent animated: (BOOL)flag completion:(void (^)(">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何从多重 modalViewController 中直接返回最底层">
+<meta property="og:url" content="http://adad184.com/2013/10/10/he-cong-duo-zhong-modalviewcontroller-zhong-zhi-jie-fan-hui-zui-di-ceng/index.html">
+<meta property="og:site_name" content="里脊串的开发随笔">
+<meta property="og:description" content="ModalViewController是经常会用到的展现ViewController的方式,而显示和收起ModalViewController也是很简单的
+123456- (void)presentViewController:(UIViewController *)viewControllerToPresent animated: (BOOL)flag completion:(void (^)(">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="如何从多重 modalViewController 中直接返回最底层">
+<meta name="twitter:description" content="ModalViewController是经常会用到的展现ViewController的方式,而显示和收起ModalViewController也是很简单的
+123456- (void)presentViewController:(UIViewController *)viewControllerToPresent animated: (BOOL)flag completion:(void (^)(">
+
+    
+    <link rel="alternative" href="/atom.xml" title="里脊串的开发随笔" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="里脊串的开发随笔" title="里脊串的开发随笔"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="里脊串的开发随笔">里脊串的开发随笔</a></h1>
+				<h2 class="blog-motto">途有境而观无垠</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜單">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:adad184.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2013/10/10/he-cong-duo-zhong-modalviewcontroller-zhong-zhi-jie-fan-hui-zui-di-ceng/" title="如何从多重 modalViewController 中直接返回最底层" itemprop="url">如何从多重 modalViewController 中直接返回最底层</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="http://adad184.com/about" title="黎吉川" target="_blank" itemprop="author">黎吉川</a>
+		
+  <p class="article-time">
+    <time datetime="2013-10-10T06:59:58.000Z" itemprop="datePublished"> 發表於 2013-10-10</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目錄</strong>
+		
+			
+		
+		</div>
+		
+		<p><code>ModalViewController</code>是经常会用到的展现<code>ViewController</code>的方式,而显示和收起<code>ModalViewController</code>也是很简单的</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)presentViewController:(<span class="built_in">UIViewController</span> *)viewControllerToPresent animated: (<span class="built_in">BOOL</span>)flag completion:(<span class="keyword">void</span> (^)(<span class="keyword">void</span>))completion <span class="built_in">NS_AVAILABLE_IOS</span>(<span class="number">5</span>_0);</span><br><span class="line">- (<span class="keyword">void</span>)dismissViewControllerAnimated: (<span class="built_in">BOOL</span>)flag completion: (<span class="keyword">void</span> (^)(<span class="keyword">void</span>))completion <span class="built_in">NS_AVAILABLE_IOS</span>(<span class="number">5</span>_0);</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)presentModalViewController:(<span class="built_in">UIViewController</span> *)modalViewController animated:(<span class="built_in">BOOL</span>)animated <span class="built_in">NS_DEPRECATED_IOS</span>(<span class="number">2</span>_0, <span class="number">6</span>_0);</span><br><span class="line">- (<span class="keyword">void</span>)dismissModalViewControllerAnimated:(<span class="built_in">BOOL</span>)animated <span class="built_in">NS_DEPRECATED_IOS</span>(<span class="number">2</span>_0, <span class="number">6</span>_0);</span><br></pre></td></tr></table></figure>
+<p>但是有的时候我们的需求很特殊,比如在一个<code>ModalViewController</code>里要present另一个<code>ModalViewController</code>,甚至再present一个<code>ModalViewController</code>,<strong>然后</strong>可能在某个时候APP发出一条消息,需要一下子dismiss掉所有的<code>ModalViewController</code>(比如你在使用过程中,突然APP检测到你的登录状态异常,需要重新登录,这个时候所有的页面都需要消失),这时候该如何办呢?</p>
+<p>正巧我现在正在做的项目遇到了这个问题,所以研究了一下,得到了以下的解决办法:</p>
+<p>首先,必须知道现在整个APP最顶层的<code>ViewController</code>是哪个,我的做法是在每个<code>ViewController</code>的<code>viewWillAppear</code>中记录一下,当然这个操作是自动完成的,因为每个项目,我都会从<code>UIViewController</code>派生一个子类,然后再从这个子类派生所有的<code>ViewController</code>方便管理.</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">MMViewController</span> : <span class="title">UIViewController</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">MMViewController</span></span></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)viewWillAppear:(<span class="built_in">BOOL</span>)animated</span><br><span class="line">&#123;</span><br><span class="line">    APP<span class="variable">.presentingController</span> = <span class="keyword">self</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<p>得到了顶层的<code>ViewController</code>以后,事情就简单了,我们只要追根溯源,找到最底层的<code>ViewController</code>就行了</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">if</span> ( APP<span class="variable">.presentingController</span> )</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">UIViewController</span> *vc = <span class="keyword">self</span><span class="variable">.presentingController</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> ( !vc<span class="variable">.presentingViewController</span> )</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">while</span> (vc<span class="variable">.presentingViewController</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        vc = vc<span class="variable">.presentingViewController</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    [vc dismissViewControllerAnimated:<span class="literal">YES</span> completion:^&#123;</span><br><span class="line"></span><br><span class="line">    &#125;];</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/技巧心得/">技巧心得</a>
+</div>
+
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://adad184.com/2013/10/10/he-cong-duo-zhong-modalviewcontroller-zhong-zhi-jie-fan-hui-zui-di-ceng/" data-title="如何从多重 modalViewController 中直接返回最底层 | 里脊串的开发随笔" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2013/11/11/jue-biao-dan-bei-jian-pan-zhe-zhu-de-wen-ti/" title="解决表单被键盘遮住的问题">
+  <strong>上一篇：</strong><br/>
+  <span>
+  解决表单被键盘遮住的问题</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2013/09/10/ren-zong-jie-de-yi-xie-app-de-dai-ma-shi-jian/"  title="个人总结的一些 APP 的代码实践">
+ <strong>下一篇：</strong><br/> 
+ <span>个人总结的一些 APP 的代码实践
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="顯示側邊欄"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目錄</strong>
+ 
+ 
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隱藏側邊欄"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分類</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/开源项目/" title="开源项目">开源项目<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/技巧心得/" title="技巧心得">技巧心得<sup>11</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/生活琐碎/" title="生活琐碎">生活琐碎<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/经验介绍/" title="经验介绍">经验介绍<sup>2</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+
+  <div class="linkslist">
+  <p class="asidetitle">友情鏈接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://coderq.com" target="_blank" title="一个面向程序员交流分享的新一代社区">码农圈</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://wuchong.me" target="_blank" title="Jark&#39;s Blog">Jark&#39;s Blog</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 訂閱</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Larry Page in Google. <br/>
+			This is my blog,believe it or not.</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2015 
+		
+		<a href="http://adad184.com/about" target="_blank" title="黎吉川">黎吉川</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#nothing"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});     
+</script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回頂部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>
