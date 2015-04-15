@@ -148,6 +148,7 @@ ga('send', 'pageview');
 <p>直到iphone6发布之后 我知道使用autolayout势在必行了 这时想起了以前在浏览Github看到过的一个第三方库Masonry 在花了几个小时的研究使用后 我就将autolayout掌握了(<code>重点是我并没有学习任何的官方文档或者其他的关于autolayout的知识</code>) 这就是我为什么要写下这篇文章来推荐它的原因</p>
 <h1 id="介绍">介绍</h1><p><a href="https://github.com/Masonry/Masonry" target="_blank" rel="external">Masonry 源码</a></p>
 <p>Masonry是一个轻量级的布局框架 拥有自己的描述语法 采用更优雅的链式语法封装自动布局 简洁明了 并具有高可读性 <code>而且同时支持 iOS 和 Max OS X</code></p>
+<a id="more"></a>
 <p>我们先来看一段官方的sample code来认识一下Masonry</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[view1 mas_makeConstraints:^(MASConstraintMaker *make) &#123;</span><br><span class="line">    make<span class="variable">.edges</span><span class="variable">.equalTo</span>(superview)<span class="variable">.with</span><span class="variable">.insets</span>(padding);</span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
 <p>看到block里面的那句话: <code>make edges equalTo superview with insets</code><br>通过链式的自然语言 就把view1给autolayout好了 是不是简单易懂? </p>
