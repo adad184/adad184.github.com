@@ -3,17 +3,38 @@
 <head>
   <meta charset="utf-8">
   
-  <title>文章归档: 2014/11 | 里脊串的开发随笔</title>
+  <title>find-unused-images-in-project | 里脊串的开发随笔</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description">
-<meta property="og:type" content="website">
-<meta property="og:title" content="里脊串的开发随笔">
-<meta property="og:url" content="http://adad184.com/archives/2014/11/index.html">
+  <meta name="description" content="前言一般项目进行都尾声的时候 就要开始清理项目了 一般包括
+
+不用的代码(多人维护的时候 总会有垃圾代码产生)
+不用的文件(大多是因为需求变更 遗留下来的代码文件)
+不用的资源(大多是图片资源)
+
+前两项不谈 都是体力活(当然 流程越规范 花费的时间越少)今天主要谈谈怎么处理图片资源
+实践我一般都是采用folder references的方式来组织资源(就是蓝色的文件夹哟 不过可能很多朋友已经用上">
+<meta property="og:type" content="article">
+<meta property="og:title" content="find-unused-images-in-project">
+<meta property="og:url" content="http://adad184.com/2015/05/11/find-unused-images-in-project/index.html">
 <meta property="og:site_name" content="里脊串的开发随笔">
-<meta property="og:description">
+<meta property="og:description" content="前言一般项目进行都尾声的时候 就要开始清理项目了 一般包括
+
+不用的代码(多人维护的时候 总会有垃圾代码产生)
+不用的文件(大多是因为需求变更 遗留下来的代码文件)
+不用的资源(大多是图片资源)
+
+前两项不谈 都是体力活(当然 流程越规范 花费的时间越少)今天主要谈谈怎么处理图片资源
+实践我一般都是采用folder references的方式来组织资源(就是蓝色的文件夹哟 不过可能很多朋友已经用上">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="里脊串的开发随笔">
-<meta name="twitter:description">
+<meta name="twitter:title" content="find-unused-images-in-project">
+<meta name="twitter:description" content="前言一般项目进行都尾声的时候 就要开始清理项目了 一般包括
+
+不用的代码(多人维护的时候 总会有垃圾代码产生)
+不用的文件(大多是因为需求变更 遗留下来的代码文件)
+不用的资源(大多是图片资源)
+
+前两项不谈 都是体力活(当然 流程越规范 花费的时间越少)今天主要谈谈怎么处理图片资源
+实践我一般都是采用folder references的方式来组织资源(就是蓝色的文件夹哟 不过可能很多朋友已经用上">
   
     <link rel="alternative" href="/atom.xml" title="里脊串的开发随笔" type="application/atom+xml">
   
@@ -85,40 +106,96 @@ ga('send', 'pageview');
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2014" class="archive-year">2014</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2014/11/05/beautyidea-wandoujia-design-award/" class="archive-article-date">
-  <time datetime="2014-11-05T03:39:58.000Z" itemprop="datePublished">11 05</time>
+        <section id="main"><article id="post-find-unused-images-in-project" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/05/11/find-unused-images-in-project/" class="article-date">
+  <time datetime="2015-05-11T02:48:34.000Z" itemprop="datePublished">2015-05-11</time>
 </a>
-      
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/经验介绍/">经验介绍</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2014/11/05/beautyidea-wandoujia-design-award/">「最美创意」豌豆荚设计奖获得者</a>
+    <h1 class="article-title" itemprop="name">
+      find-unused-images-in-project
     </h1>
   
 
-    </header>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="前言">前言</h2><p>一般项目进行都尾声的时候 就要开始清理项目了 一般包括</p>
+<ul>
+<li>不用的代码(多人维护的时候 总会有垃圾代码产生)</li>
+<li>不用的文件(大多是因为需求变更 遗留下来的代码文件)</li>
+<li>不用的资源(大多是图片资源)</li>
+</ul>
+<p>前两项不谈 都是体力活(当然 流程越规范 花费的时间越少)<br>今天主要谈谈怎么处理图片资源</p>
+<h2 id="实践">实践</h2><p>我一般都是采用<strong>folder references</strong>的方式来组织资源(就是蓝色的文件夹哟 不过可能很多朋友已经用上了Images.xcassets) 相比groups的方式 优点如下</p>
+<ul>
+<li>直接对资源文件和目录结构进行调整而不需要修改项目文件</li>
+<li>资源文件可以重名</li>
+<li>如果有不同的target 每个target维护不同的根资源文件夹就行了</li>
+</ul>
+<p>其他的优缺点对比 我就不在这里赘述了 相信有经验的同学都有体会</p>
+<p>采用<strong>folder references</strong>的时候 一般在代码中是要指明其绝对路径的</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="keyword">self</span><span class="variable">.btnCreate</span> setImageN:<span class="string">@"Res/circle/nav_create.png"</span> H:<span class="string">@"Res/circle/nav_create.png"</span> D:<span class="literal">nil</span> S:<span class="literal">nil</span>];</span><br></pre></td></tr></table></figure>
+<p>那么 要找到未使用的资源 其实就很简单了</p>
+<ol>
+<li>找到代码中所有被引用的资源</li>
+<li>遍历资源文件夹 与上面的结果相匹配 找到未引用的资源</li>
+</ol>
+<h2 id="脚本">脚本</h2><p>按照上面的逻辑 我用python写了一个简单的脚本如下</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python</span></span><br><span class="line"><span class="comment"># -*- coding: utf-8 -*</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> os, sys, re, shutil</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line"></span><br><span class="line">used_map = &#123;&#125;</span><br><span class="line">resPath  =  <span class="string">"./MagnetPF/Res/"</span>	<span class="comment">#资源目录相对路径</span></span><br><span class="line">depDir   =  <span class="string">"deprecated"</span>		<span class="comment">#过期目录 会将未使用文件挪入这个目录</span></span><br><span class="line">skipDir  = [<span class="string">"message"</span>]			<span class="comment">#将跳过的目录</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> root, dirs, files <span class="keyword">in</span> os.walk(<span class="string">"./"</span>):</span><br><span class="line"><span class="keyword">for</span> file <span class="keyword">in</span> files:</span><br><span class="line"><span class="keyword">if</span> file.endswith(<span class="string">".m"</span>):</span><br><span class="line"></span><br><span class="line">filepath = os.path.join(root, file)</span><br><span class="line">f = open(filepath, <span class="string">"r"</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> line <span class="keyword">in</span> f:</span><br><span class="line">match = re.findall(<span class="string">".*?@\"(Res.*?.png)\".*?"</span>, line)	<span class="comment">#匹配资源文件</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> match:</span><br><span class="line"><span class="keyword">for</span> image <span class="keyword">in</span> match:</span><br><span class="line"><span class="comment"># print image</span></span><br><span class="line">used_map[image] = <span class="number">1</span>	<span class="comment">#记录</span></span><br><span class="line"></span><br><span class="line">skipDir.append(depDir)	<span class="comment">#过期目录也会一并跳过</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> root, dirs, files <span class="keyword">in</span> os.walk(resPath):</span><br><span class="line"><span class="keyword">for</span> file <span class="keyword">in</span> files:</span><br><span class="line"></span><br><span class="line">orginfile = os.path.join(root, file) </span><br><span class="line"></span><br><span class="line">match = re.findall(<span class="string">".*?(Res.*?.png).*?"</span>, orginfile)	<span class="comment">#将相对路径过滤出来</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> match:</span><br><span class="line">matchfile = match[<span class="number">0</span>].replace(<span class="string">"@2x"</span>,<span class="string">""</span>).replace(<span class="string">"@3x"</span>,<span class="string">""</span>)	<span class="comment">#剔除@2x@3x字样</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">print</span> matchfile</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> used_map.has_key(matchfile):	<span class="comment">#检测到未使用资源</span></span><br><span class="line"></span><br><span class="line">filename  = orginfile.split(os.path.sep)[-<span class="number">1</span>]	<span class="comment">#获取文件名</span></span><br><span class="line">relPath   = orginfile.replace(resPath,<span class="string">""</span>)		<span class="comment">#获取相对路径</span></span><br><span class="line">originDir = relPath.split(os.path.sep)[<span class="number">0</span>]		<span class="comment">#获取第一层文件夹名(用于跳过筛选)</span></span><br><span class="line">tofile    = resPath + depDir + <span class="string">"/"</span> + relPath	<span class="comment">#目标文件 (将会被复制到这个路径)</span></span><br><span class="line">topath    = tofile.replace(filename,<span class="string">""</span>)			<span class="comment">#目标文件夹 (若没有则会创建这个文件夹)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> originDir <span class="keyword">in</span> skipDir:</span><br><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> os.path.exists(topath):</span><br><span class="line">os.mkdir(topath)</span><br><span class="line"></span><br><span class="line"><span class="keyword">print</span> <span class="string">"from: "</span> + orginfile</span><br><span class="line"><span class="keyword">print</span> <span class="string">"  to: "</span> + tofile</span><br><span class="line"><span class="keyword">print</span> <span class="string">""</span></span><br><span class="line"></span><br><span class="line">shutil.move(orginfile, tofile)</span><br></pre></td></tr></table></figure>
+<h2 id="小结">小结</h2><p>这个代码其实还有几个问题没有解决</p>
+<ol>
+<li>若含有资源文件的代码被注释 一样会被忽略而不会被移除(当然 代码清理也是应该要做的)</li>
+<li>对于用代码拼接的资源(比如xx01.png,xx02.png)会无法识别</li>
+<li>不适用于非<strong>folder references</strong>方式引用资源的工程</li>
+</ol>
+<p>同理 我们可以写类似的代码来清理多语言文件 :)</p>
+<p>代码其实是我上周六现学现卖边查google边写的 所以写得不好 若是大家有更好的方案 欢迎一起讨论学习</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://adad184.com/2015/05/11/find-unused-images-in-project/" data-id="ci9jk7a6u0003g0u2cgwy6bdj" class="article-share-link">分享到</a>
+      
+        <a href="http://adad184.com/2015/05/11/find-unused-images-in-project/#ds-thread" class="article-comment-link">文章評論</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Resource/">Resource</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Script/">Script</a></li></ul>
+
+    </footer>
   </div>
-</article>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2015/04/14/opensource-mmtweenanimation/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">开源项目:MMTweenAnimation</div>
+    </a>
+  
+</nav>
 
   
-  
-    </div></section>
-  
+</article>
+
+
+  <section id="comments">
+    <div id="ds-thread" class="ds-thread" data-thread-key="2015/05/11/find-unused-images-in-project/" data-title="find-unused-images-in-project" data-url="http://adad184.com/2015/05/11/find-unused-images-in-project/"></div>
+  </section>
+
 </section>
         
           <aside id="sidebar">
