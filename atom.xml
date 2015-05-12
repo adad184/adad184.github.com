@@ -4,7 +4,7 @@
   <subtitle><![CDATA[途有境而观无垠]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://adad184.com/"/>
-  <updated>2015-05-11T07:22:32.000Z</updated>
+  <updated>2015-05-12T02:09:58.000Z</updated>
   <id>http://adad184.com/</id>
   
   <author>
@@ -19,7 +19,7 @@
     <link href="http://adad184.com/2015/05/11/find-unused-images-in-project/"/>
     <id>http://adad184.com/2015/05/11/find-unused-images-in-project/</id>
     <published>2015-05-11T02:48:34.000Z</published>
-    <updated>2015-05-11T07:22:32.000Z</updated>
+    <updated>2015-05-12T02:09:58.000Z</updated>
     <content type="html"><![CDATA[<h2 id="前言">前言</h2><p>一般项目进行都尾声的时候 就要开始清理项目了 一般包括</p>
 <ul>
 <li>不用的代码(多人维护的时候 总会有垃圾代码产生)</li>
@@ -27,7 +27,8 @@
 <li>不用的资源(大多是图片资源)</li>
 </ul>
 <p>前两项不谈 都是体力活(当然 流程越规范 花费的时间越少)<br>今天主要谈谈怎么处理图片资源</p>
-<h2 id="实践">实践</h2><p>我一般都是采用<strong>folder references</strong>的方式来组织资源(就是蓝色的文件夹哟 不过可能很多朋友已经用上了Images.xcassets) 相比groups的方式 优点如下</p>
+<h2 id="实践">实践</h2><p><img src="http://7xibqv.com1.z0.glb.clouddn.com/2015-05-11-find-unused-images-in-project.png" alt="资源目录结构"></p>
+<p>我一般都是采用<strong>folder references</strong>的方式来组织资源(就是蓝色的文件夹哟 不过可能很多朋友已经用上了Images.xcassets) 相比groups的方式 优点如下</p>
 <ul>
 <li>直接对资源文件和目录结构进行调整而不需要修改项目文件</li>
 <li>资源文件可以重名</li>
