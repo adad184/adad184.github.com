@@ -3,17 +3,29 @@
 <head>
   <meta charset="utf-8">
   
-  <title>里脊串的开发随笔</title>
+  <title>如何使用masonry设计复合型cell | 里脊串的开发随笔</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description">
-<meta property="og:type" content="website">
-<meta property="og:title" content="里脊串的开发随笔">
-<meta property="og:url" content="http://adad184.com/index.html">
+  <meta name="description" content="前言其实早在@sunnyxx同学发布UIView-FDCollapsibleConstraints的时候  我就说要写一下怎么用代码来稍微麻烦的实现复用的问题 但是一直各种没时间 正好看到@叶孤城同学也说了一下他的解决办法 所以我来说一下我是如何解决这个问题的
+分析我们以叶孤城同学的例子来简单分析一下 假设view是这样的(为了方便 将所有的间隙设定为20)正常的布局是这样的
+布局代码如下:123">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何使用masonry设计复合型cell">
+<meta property="og:url" content="http://adad184.com/2015/06/08/complex-cell-with-masonry/index.html">
 <meta property="og:site_name" content="里脊串的开发随笔">
-<meta property="og:description">
+<meta property="og:description" content="前言其实早在@sunnyxx同学发布UIView-FDCollapsibleConstraints的时候  我就说要写一下怎么用代码来稍微麻烦的实现复用的问题 但是一直各种没时间 正好看到@叶孤城同学也说了一下他的解决办法 所以我来说一下我是如何解决这个问题的
+分析我们以叶孤城同学的例子来简单分析一下 假设view是这样的(为了方便 将所有的间隙设定为20)正常的布局是这样的
+布局代码如下:123">
+<meta property="og:image" content="http://7xibqv.com1.z0.glb.clouddn.com/2015-06-09-complex-cell-with-masonry1.png">
+<meta property="og:image" content="http://7xibqv.com1.z0.glb.clouddn.com/2015-06-09-complex-cell-with-masonry4.png">
+<meta property="og:image" content="http://7xibqv.com1.z0.glb.clouddn.com/2015-06-09-complex-cell-with-masonry5.png">
+<meta property="og:image" content="http://7xibqv.com1.z0.glb.clouddn.com/2015-06-09-complex-cell-with-masonry2.png">
+<meta property="og:image" content="http://7xibqv.com1.z0.glb.clouddn.com/2015-06-09-complex-cell-with-masonry3.png">
+<meta property="og:image" content="http://7xibqv.com1.z0.glb.clouddn.com/2015-06-09-complex-cell-with-masonry6.png">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="里脊串的开发随笔">
-<meta name="twitter:description">
+<meta name="twitter:title" content="如何使用masonry设计复合型cell">
+<meta name="twitter:description" content="前言其实早在@sunnyxx同学发布UIView-FDCollapsibleConstraints的时候  我就说要写一下怎么用代码来稍微麻烦的实现复用的问题 但是一直各种没时间 正好看到@叶孤城同学也说了一下他的解决办法 所以我来说一下我是如何解决这个问题的
+分析我们以叶孤城同学的例子来简单分析一下 假设view是这样的(为了方便 将所有的间隙设定为20)正常的布局是这样的
+布局代码如下:123">
   
     <link rel="alternative" href="/atom.xml" title="里脊串的开发随笔" type="application/atom+xml">
   
@@ -85,9 +97,7 @@ ga('send', 'pageview');
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-    <article id="post-complex-cell-with-masonry" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-complex-cell-with-masonry" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2015/06/08/complex-cell-with-masonry/" class="article-date">
   <time datetime="2015-06-08T09:20:54.000Z" itemprop="datePublished">2015-06-08</time>
@@ -104,8 +114,8 @@ ga('send', 'pageview');
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/06/08/complex-cell-with-masonry/">如何使用masonry设计复合型cell</a>
+    <h1 class="article-title" itemprop="name">
+      如何使用masonry设计复合型cell
     </h1>
   
 
@@ -144,297 +154,25 @@ ga('send', 'pageview');
     </footer>
   </div>
   
-</article>
-
-
-
+    
+<nav id="article-nav">
   
-    <article id="post-find-unused-images-in-project" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/05/11/find-unused-images-in-project/" class="article-date">
-  <time datetime="2015-05-11T02:48:34.000Z" itemprop="datePublished">2015-05-11</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/经验介绍/">经验介绍</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/05/11/find-unused-images-in-project/">查找项目中未使用的资源文件</a>
-    </h1>
+    <a href="/2015/05/11/find-unused-images-in-project/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">查找项目中未使用的资源文件</div>
+    </a>
   
+</nav>
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="前言">前言</h2><p>一般项目进行都尾声的时候 就要开始清理项目了 一般包括</p>
-<ul>
-<li>不用的代码(多人维护的时候 总会有垃圾代码产生)</li>
-<li>不用的文件(大多是因为需求变更 遗留下来的代码文件)</li>
-<li>不用的资源(大多是图片资源)</li>
-</ul>
-<p>前两项不谈 都是体力活(当然 流程越规范 花费的时间越少)<br>今天主要谈谈怎么处理图片资源</p>
-<h2 id="实践">实践</h2><p><img src="http://7xibqv.com1.z0.glb.clouddn.com/2015-05-11-find-unused-images-in-project.png" alt="资源目录结构"></p>
-<p>我一般都是采用<strong>folder references</strong>的方式来组织资源(就是蓝色的文件夹哟 不过可能很多朋友已经用上了Images.xcassets) 相比groups的方式 优点如下</p>
-<ul>
-<li>直接对资源文件和目录结构进行调整而不需要修改项目文件</li>
-<li>资源文件可以重名</li>
-<li>如果有不同的target 每个target维护不同的根资源文件夹就行了</li>
-</ul>
-<p>其他的优缺点对比 我就不在这里赘述了 相信有经验的同学都有体会</p>
-<p>采用<strong>folder references</strong>的时候 一般在代码中是要指明其绝对路径的</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="keyword">self</span><span class="variable">.btnCreate</span> setImageN:<span class="string">@"Res/circle/nav_create.png"</span> H:<span class="string">@"Res/circle/nav_create.png"</span> D:<span class="literal">nil</span> S:<span class="literal">nil</span>];</span><br></pre></td></tr></table></figure>
-<p>那么 要找到未使用的资源 其实就很简单了</p>
-<ol>
-<li>找到代码中所有被引用的资源</li>
-<li>遍历资源文件夹 与上面的结果相匹配 找到未引用的资源</li>
-</ol>
-<h2 id="脚本">脚本</h2><p>按照上面的逻辑 我用python写了一个简单的脚本如下</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python</span></span><br><span class="line"><span class="comment"># -*- coding: utf-8 -*</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> os, sys, re, shutil</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line"></span><br><span class="line">	used_map = &#123;&#125;</span><br><span class="line"> 	resPath  =  <span class="string">"./MagnetPF/Res/"</span>	<span class="comment">#资源目录相对路径</span></span><br><span class="line"> 	depDir   =  <span class="string">"deprecated"</span>		<span class="comment">#过期目录 会将未使用文件挪入这个目录</span></span><br><span class="line"> 	skipDir  = [<span class="string">"message"</span>]			<span class="comment">#将跳过的目录</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> root, dirs, files <span class="keyword">in</span> os.walk(<span class="string">"./"</span>):</span><br><span class="line">		<span class="keyword">for</span> file <span class="keyword">in</span> files:</span><br><span class="line">			<span class="keyword">if</span> file.endswith(<span class="string">".m"</span>):</span><br><span class="line"></span><br><span class="line">				filepath = os.path.join(root, file)</span><br><span class="line">				f = open(filepath, <span class="string">"r"</span>)</span><br><span class="line"></span><br><span class="line">				<span class="keyword">for</span> line <span class="keyword">in</span> f:</span><br><span class="line">					match = re.findall(<span class="string">".*?@\"(Res.*?.png)\".*?"</span>, line)	<span class="comment">#匹配资源文件</span></span><br><span class="line">					</span><br><span class="line">					<span class="keyword">if</span> match:</span><br><span class="line">						<span class="keyword">for</span> image <span class="keyword">in</span> match:</span><br><span class="line">							<span class="comment"># print image</span></span><br><span class="line">							used_map[image] = <span class="number">1</span>	<span class="comment">#记录</span></span><br><span class="line"></span><br><span class="line">	skipDir.append(depDir)	<span class="comment">#过期目录也会一并跳过</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> root, dirs, files <span class="keyword">in</span> os.walk(resPath):</span><br><span class="line">		<span class="keyword">for</span> file <span class="keyword">in</span> files:</span><br><span class="line"></span><br><span class="line">			orginfile = os.path.join(root, file) </span><br><span class="line"></span><br><span class="line">			match = re.findall(<span class="string">".*?(Res.*?.png).*?"</span>, orginfile)	<span class="comment">#将相对路径过滤出来</span></span><br><span class="line"></span><br><span class="line">			<span class="keyword">if</span> match:</span><br><span class="line">				matchfile = match[<span class="number">0</span>].replace(<span class="string">"@2x"</span>,<span class="string">""</span>).replace(<span class="string">"@3x"</span>,<span class="string">""</span>)	<span class="comment">#剔除@2x@3x字样</span></span><br><span class="line"></span><br><span class="line">				<span class="keyword">print</span> matchfile</span><br><span class="line"></span><br><span class="line">				<span class="keyword">if</span> <span class="keyword">not</span> used_map.has_key(matchfile):	<span class="comment">#检测到未使用资源</span></span><br><span class="line"></span><br><span class="line">					filename  = orginfile.split(os.path.sep)[-<span class="number">1</span>]	<span class="comment">#获取文件名</span></span><br><span class="line">					relPath   = orginfile.replace(resPath,<span class="string">""</span>)		<span class="comment">#获取相对路径</span></span><br><span class="line">					originDir = relPath.split(os.path.sep)[<span class="number">0</span>]		<span class="comment">#获取第一层文件夹名(用于跳过筛选)</span></span><br><span class="line">					tofile    = resPath + depDir + <span class="string">"/"</span> + relPath	<span class="comment">#目标文件 (将会被复制到这个路径)</span></span><br><span class="line">					topath    = tofile.replace(filename,<span class="string">""</span>)			<span class="comment">#目标文件夹 (若没有则会创建这个文件夹)</span></span><br><span class="line"></span><br><span class="line">					<span class="keyword">if</span> <span class="keyword">not</span> originDir <span class="keyword">in</span> skipDir:</span><br><span class="line">						<span class="keyword">if</span> <span class="keyword">not</span> os.path.exists(topath):</span><br><span class="line">							os.mkdir(topath)</span><br><span class="line"></span><br><span class="line">						<span class="keyword">print</span> <span class="string">"from: "</span> + orginfile</span><br><span class="line">						<span class="keyword">print</span> <span class="string">"  to: "</span> + tofile</span><br><span class="line">						<span class="keyword">print</span> <span class="string">""</span></span><br><span class="line"></span><br><span class="line">						shutil.move(orginfile, tofile)</span><br></pre></td></tr></table></figure>
-<h2 id="小结">小结</h2><p>这个代码其实还有几个问题没有解决</p>
-<ol>
-<li>若含有资源文件的代码被注释 一样会被忽略而不会被移除(当然 代码清理也是应该要做的)</li>
-<li>对于用代码拼接的资源(比如xx01.png,xx02.png)会无法识别</li>
-<li>不适用于非<strong>folder references</strong>方式引用资源的工程</li>
-</ol>
-<p>同理 我们可以写类似的代码来清理多语言文件 :)</p>
-<p>代码其实是我上周六现学现卖边查google边写的 所以写得不好 若是大家有更好的方案 欢迎一起讨论学习</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://adad184.com/2015/05/11/find-unused-images-in-project/" data-id="ciap0anox000cqfu2a3774y4o" class="article-share-link">分享到</a>
-      
-        <a href="http://adad184.com/2015/05/11/find-unused-images-in-project/#ds-thread" class="article-comment-link">文章評論</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Resource/">Resource</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Script/">Script</a></li></ul>
-
-    </footer>
-  </div>
   
 </article>
 
 
+  <section id="comments">
+    <div id="ds-thread" class="ds-thread" data-thread-key="2015/06/08/complex-cell-with-masonry/" data-title="如何使用masonry设计复合型cell" data-url="http://adad184.com/2015/06/08/complex-cell-with-masonry/"></div>
+  </section>
 
-  
-    <article id="post-opensource-mmtweenanimation" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/04/14/opensource-mmtweenanimation/" class="article-date">
-  <time datetime="2015-04-14T03:32:01.000Z" itemprop="datePublished">2015-04-14</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/开源项目/">开源项目</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/04/14/opensource-mmtweenanimation/">开源项目:MMTweenAnimation</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="前言">前言</h2><hr>
-<p><a href="https://github.com/adad184/MMTweenAnimation">MMTweenAnimation</a>其实酝酿了有一段时间了 起因是对<a href="https://github.com/facebook/pop">POP</a>重度使用后(<a href="http://adad184.com/2015/03/11/intro-to-pop/">POP上手教程</a>) 感到的一丝不足 </p>
-<ul>
-<li>首先 POP提供的自带动画类型太少(比如想实现如下图的物体落地的动画)</li>
-<li>其次 除了POPBasicAnimation之外 无法控制动画的duration</li>
-</ul>
-<p><img src="http://7xibqv.com1.z0.glb.clouddn.com/2015-4-14-opensource-mmtweenanimationdemo.gif" alt=""></p>
-<p>所以趁着休陪产假的空档 研究并做出了<strong>MMTweenAnimation</strong>的第一版</p>
-<h2 id="介绍">介绍</h2><hr>
-<p><strong>MMTweenAnimation</strong> 是基于Facebook的POP的动画扩展类 提供10种不同的函数动画 </p>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">Back</th>
-<th style="text-align:center">Bounce</th>
-<th style="text-align:center">Circ</th>
-<th style="text-align:center">Cubic</th>
-<th style="text-align:center">Elastic</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center"><img src="http://7xibqv.com1.z0.glb.clouddn.com/2015-4-14-opensource-mmtweenanimation1.gif" alt=""></td>
-<td style="text-align:center"><img src="http://7xibqv.com1.z0.glb.clouddn.com/2015-4-14-opensource-mmtweenanimation2.gif" alt=""></td>
-<td style="text-align:center"><img src="http://7xibqv.com1.z0.glb.clouddn.com/2015-4-14-opensource-mmtweenanimation3.gif" alt=""></td>
-<td style="text-align:center"><img src="http://7xibqv.com1.z0.glb.clouddn.com/2015-4-14-opensource-mmtweenanimation4.gif" alt=""></td>
-<td style="text-align:center"><img src="http://7xibqv.com1.z0.glb.clouddn.com/2015-4-14-opensource-mmtweenanimation5.gif" alt=""></td>
-</tr>
-</tbody>
-</table>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">Expo</th>
-<th style="text-align:center">Quad</th>
-<th style="text-align:center">Quart</th>
-<th style="text-align:center">Quint</th>
-<th style="text-align:center">Sine</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center"><img src="http://7xibqv.com1.z0.glb.clouddn.com/2015-4-14-opensource-mmtweenanimation6.gif" alt=""></td>
-<td style="text-align:center"><img src="http://7xibqv.com1.z0.glb.clouddn.com/2015-4-14-opensource-mmtweenanimation7.gif" alt=""></td>
-<td style="text-align:center"><img src="http://7xibqv.com1.z0.glb.clouddn.com/2015-4-14-opensource-mmtweenanimation8.gif" alt=""></td>
-<td style="text-align:center"><img src="http://7xibqv.com1.z0.glb.clouddn.com/2015-4-14-opensource-mmtweenanimation9.gif" alt=""></td>
-<td style="text-align:center"><img src="http://7xibqv.com1.z0.glb.clouddn.com/2015-4-14-opensource-mmtweenanimation10.gif" alt=""></td>
-</tr>
-</tbody>
-</table>
-        
-          <p class="article-more-link">
-            <a href="/2015/04/14/opensource-mmtweenanimation/#more">閱讀全文</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://adad184.com/2015/04/14/opensource-mmtweenanimation/" data-id="ciap0anp1000jqfu2dshx2otr" class="article-share-link">分享到</a>
-      
-        <a href="http://adad184.com/2015/04/14/opensource-mmtweenanimation/#ds-thread" class="article-comment-link">文章評論</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/animation/">animation</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/opensource/">opensource</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pop/">pop</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/03/30/hello-world/" class="article-date">
-  <time datetime="2015-03-30T12:46:00.000Z" itemprop="datePublished">2015-03-30</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/生活琐碎/">生活琐碎</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/03/30/hello-world/">hello world</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>hello, my little princess. </p>
-<p><img src="http://7xibqv.com1.z0.glb.clouddn.com/2015-04-14-hello-world.jpg" alt="my girl"></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://adad184.com/2015/03/30/hello-world/" data-id="ciap0anp6000sqfu257zrmwb8" class="article-share-link">分享到</a>
-      
-        <a href="http://adad184.com/2015/03/30/hello-world/#ds-thread" class="article-comment-link">文章評論</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/family/">family</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-opensource-mmparallaxcell" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/03/28/opensource-mmparallaxcell/" class="article-date">
-  <time datetime="2015-03-28T02:22:01.000Z" itemprop="datePublished">2015-03-28</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/开源项目/">开源项目</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/03/28/opensource-mmparallaxcell/">开源项目:MMParallaxCell</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="前言">前言</h2><hr>
-<p><a href="https://github.com/adad184/MMParallaxCell">MMParallaxCell</a>其实是个很简单的东西 首次使用是在<a href="https://itunes.apple.com/app/id917497614">最美创意</a>里 起因是某次改版的时候 想把之前的timeline的展现调整一下</p>
-<p><img src="http://7xibqv.com1.z0.glb.clouddn.com/2015-03-28-opensource-mmparallaxcell-1.png" alt="timeline"></p>
-<p>参考了很多APP的设计之后 把UI改成了现在的parallax这个样子</p>
-<p><img src="http://7xibqv.com1.z0.glb.clouddn.com/2015-03-28-opensource-mmparallaxcell-2.png" alt="parallax"></p>
-<p>这次修改 对于我自己来说 还是满意的 对比一下有没有一种立刻高大上了的感觉呢 ヽ(✿ﾟ▽ﾟ)ノ</p>
-<p>不过由于各种各样的原因 <strong>最美创意</strong>在很长一段时间内估计也不会更新了 </p>
-<h2 id="介绍">介绍</h2><hr>
-<p><strong><code>MMParallaxCell</code></strong>是<code>UITableviewCell</code>的子类 用于在<code>UITableview</code>中呈现滑动视差的一个效果 特点是简单易用 不同于同类型的其他项目 <strong><code>MMParallaxCell</code></strong>不需要在代码中做额外的操作 像普通的<code>UITableviewCell</code>使用就okay了</p>
-        
-          <p class="article-more-link">
-            <a href="/2015/03/28/opensource-mmparallaxcell/#more">閱讀全文</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://adad184.com/2015/03/28/opensource-mmparallaxcell/" data-id="ciap0anp8000xqfu2li9i6wwi" class="article-share-link">分享到</a>
-      
-        <a href="http://adad184.com/2015/03/28/opensource-mmparallaxcell/#ds-thread" class="article-comment-link">文章評論</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/opensource/">opensource</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-  
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
-    </nav>
-  
 </section>
         
           <aside id="sidebar">
