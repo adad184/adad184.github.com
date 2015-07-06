@@ -125,12 +125,12 @@ ga('send', 'pageview');
 <li>方案2: 使用pagingEnabled属性 扩大scrollview的显示范围即可(我采用的就是这种方法)</li>
 </ul>
 <p>方案1的计算相对麻烦一些 这里不赘述 我们来说说方案2到底是怎么回事</p>
-<p>正常来说 我们使用UIScrollView是这样的<br><img src="http://7xibqv.com1.z0.glb.clouddn.com/2015-07-76-opensource-xxpagingscrollview1.png" alt="此处输入图片的描述"></p>
-<p>当我们滑动时 看到的内容是这样的<br><img src="http://7xibqv.com1.z0.glb.clouddn.com/2015-07-76-opensource-xxpagingscrollview2.png" alt="此处输入图片的描述"></p>
-<p>但是实际上 我们现在想要看到的内容是这样的<br><img src="http://7xibqv.com1.z0.glb.clouddn.com/2015-07-76-opensource-xxpagingscrollview6.png" alt="此处输入图片的描述"></p>
-<p>那么 其实我们只要在原来的基础上 扩大UIScrollView的可显示范围就可以了<br><img src="http://7xibqv.com1.z0.glb.clouddn.com/2015-07-76-opensource-xxpagingscrollview3.png" alt="此处输入图片的描述"></p>
-<p>扩大的显示范围后 我们看到的就是这个样子<br><img src="http://7xibqv.com1.z0.glb.clouddn.com/2015-07-76-opensource-xxpagingscrollview4.png" alt="此处输入图片的描述"></p>
-<p>而为了达到这个目的 我们只需要把UIScrollView放入到另一个Container里面就可以了<br><img src="http://7xibqv.com1.z0.glb.clouddn.com/2015-07-76-opensource-xxpagingscrollview5.png" alt="此处输入图片的描述"></p>
+<p>正常来说 我们使用UIScrollView是这样的<br><img src="http://7xibqv.com1.z0.glb.clouddn.com/2015-07-76-opensource-xxpagingscrollview1.png" alt=""></p>
+<p>当我们滑动时 看到的内容是这样的<br><img src="http://7xibqv.com1.z0.glb.clouddn.com/2015-07-76-opensource-xxpagingscrollview2.png" alt=""></p>
+<p>但是实际上 我们现在想要看到的内容是这样的<br><img src="http://7xibqv.com1.z0.glb.clouddn.com/2015-07-76-opensource-xxpagingscrollview6.png" alt=""></p>
+<p>那么 其实我们只要在原来的基础上 扩大UIScrollView的可显示范围就可以了<br><img src="http://7xibqv.com1.z0.glb.clouddn.com/2015-07-76-opensource-xxpagingscrollview3.png" alt=""></p>
+<p>扩大的显示范围后 我们看到的就是这个样子<br><img src="http://7xibqv.com1.z0.glb.clouddn.com/2015-07-76-opensource-xxpagingscrollview4.png" alt=""></p>
+<p>而为了达到这个目的 我们只需要把UIScrollView放入到另一个Container里面就可以了<br><img src="http://7xibqv.com1.z0.glb.clouddn.com/2015-07-76-opensource-xxpagingscrollview5.png" alt=""></p>
 <p>到了这一步 我们就只要解决两个问题 </p>
 <ol>
 <li>让UIScrollView显示超出其本身范围的内容</li>
