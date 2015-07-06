@@ -87,6 +87,71 @@ ga('send', 'pageview');
       <div class="outer">
         <section id="main">
   
+    <article id="post-use-masonry-to-quick-solve-autolayout" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/09/28/use-masonry-to-quick-solve-autolayout/" class="article-date">
+  <time datetime="2014-09-28T01:53:49.000Z" itemprop="datePublished">2014-09-28</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/经验介绍/">经验介绍</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/09/28/use-masonry-to-quick-solve-autolayout/">Masonry介绍与使用实践(快速上手Autolayout)</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="前言">前言</h1><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MagicNumber -&gt; autoresizingMask -&gt; autolayout</span><br></pre></td></tr></table></figure>
+<p>以上是纯手写代码所经历的关于页面布局的三个时期</p>
+<ul>
+<li><p>在iphone1-iphone3gs时代 window的size固定为(320,480) 我们只需要简单计算一下相对位置就好了</p>
+</li>
+<li><p>在iphone4-iphone4s时代 苹果推出了retina屏 但是给了码农们非常大的福利:window的size不变</p>
+</li>
+<li><p>在iphone5-iphone5s时代 window的size变了(320,568) 这时<code>autoresizingMask</code>派上了用场(为啥这时候不用Autolayout?  因为还要支持ios5呗) 简单的适配一下即可</p>
+</li>
+<li><p>在iphone6+时代 window的width也发生了变化(相对5和5s的屏幕比例没有变化) 终于是时候抛弃<code>autoresizingMask</code>改用autolayout了(不用支持ios5了 相对于屏幕适配的多样性来说<code>autoresizingMask</code>也已经过时了)</p>
+</li>
+</ul>
+<p>那如何快速的上手autolayout呢? 说实话 当年ios6推出的同时新增了autolayout的特性 我看了一下官方文档和demo 就立马抛弃到一边了 因为实在过于的<code>繁琐和啰嗦</code>(有过经验的朋友肯定有同感)</p>
+<p>直到iphone6发布之后 我知道使用autolayout势在必行了 这时想起了以前在浏览Github看到过的一个第三方库Masonry 在花了几个小时的研究使用后 我就将autolayout掌握了(<code>重点是我并没有学习任何的官方文档或者其他的关于autolayout的知识</code>) 这就是我为什么要写下这篇文章来推荐它的原因</p>
+<h1 id="介绍">介绍</h1><p><a href="https://github.com/Masonry/Masonry">Masonry 源码</a></p>
+<p>Masonry是一个轻量级的布局框架 拥有自己的描述语法 采用更优雅的链式语法封装自动布局 简洁明了 并具有高可读性 <code>而且同时支持 iOS 和 Max OS X</code></p>
+        
+          <p class="article-more-link">
+            <a href="/2014/09/28/use-masonry-to-quick-solve-autolayout/#more">閱讀全文</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://adad184.com/2014/09/28/use-masonry-to-quick-solve-autolayout/" data-id="ciap0anpm001iqfu2dyvefsx4" class="article-share-link">分享到</a>
+      
+        <a href="http://adad184.com/2014/09/28/use-masonry-to-quick-solve-autolayout/#ds-thread" class="article-comment-link">文章評論</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Autolayout/">Autolayout</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Masonry/">Masonry</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-how-to-force-rotate-screen" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2014/09/19/how-to-force-rotate-screen/" class="article-date">
@@ -297,59 +362,6 @@ ga('send', 'pageview');
 
 
   
-    <article id="post-kai-yuan-xiang-mu-mmplaceholder" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2014/08/21/kai-yuan-xiang-mu-mmplaceholder/" class="article-date">
-  <time datetime="2014-08-21T04:17:14.000Z" itemprop="datePublished">2014-08-21</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/开源项目/">开源项目</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2014/08/21/kai-yuan-xiang-mu-mmplaceholder/">开源项目:MMPlaceHolder</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="前言">前言</h1><p>最近在做一个新的项目 免不了又要跟UI打交道 之前N多的经验告诉我 为了达到设计图上的100%Copy 避免不了在切图的<code>尺寸</code>和<code>位置</code>上花大量的时间 (为什么不按美术切给你的尺寸来? 这… 只能说美术很难跟我达到天人合一… ( ͡° ͜ʖ ͡°)</p>
-<p>那么能不能以实际的效果告诉设计师尺寸和位置呢?  如下面这样就皆大欢喜啦</p>
-<p><img src="http://7xibqv.com1.z0.glb.clouddn.com/2014-08-21-kai-yuan-xiang-mu-mmplaceholder-1.png" alt="效果"></p>
-<p>当然 很早之前就已经有前人做过这种事情了 比如</p>
-        
-          <p class="article-more-link">
-            <a href="/2014/08/21/kai-yuan-xiang-mu-mmplaceholder/#more">閱讀全文</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://adad184.com/2014/08/21/kai-yuan-xiang-mu-mmplaceholder/" data-id="ciap0anq10026qfu207uyti9z" class="article-share-link">分享到</a>
-      
-        <a href="http://adad184.com/2014/08/21/kai-yuan-xiang-mu-mmplaceholder/#ds-thread" class="article-comment-link">文章評論</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/opensource/">opensource</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/4/">Next &raquo;</a>
@@ -363,7 +375,7 @@ ga('send', 'pageview');
   <div class="widget-wrap">
     <h3 class="widget-title">分類</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/开源项目/">开源项目</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/技巧心得/">技巧心得</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/生活琐碎/">生活琐碎</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/经验介绍/">经验介绍</a><span class="category-list-count">4</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/开源项目/">开源项目</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/技巧心得/">技巧心得</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/生活琐碎/">生活琐碎</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/经验介绍/">经验介绍</a><span class="category-list-count">4</span></li></ul>
     </div>
   </div>
 
@@ -372,7 +384,7 @@ ga('send', 'pageview');
   <div class="widget-wrap">
     <h3 class="widget-title">標簽</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Autolayout/">Autolayout</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Complex/">Complex</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Masonry/">Masonry</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Resource/">Resource</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Script/">Script</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UITableviewCell/">UITableviewCell</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/aliplay/">aliplay</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/animation/">animation</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/autolayout/">autolayout</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/award/">award</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cell/">cell</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/family/">family</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/form/">form</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gesture/">gesture</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/imessage/">imessage</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/keyboard/">keyboard</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nimbus/">nimbus</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/opensource/">opensource</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/payment/">payment</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pop/">pop</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/practice/">practice</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rotate/">rotate</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/screen/">screen</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tableview/">tableview</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/today-extension/">today extension</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/view-controller/">view controller</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/widget/">widget</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Autolayout/">Autolayout</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Complex/">Complex</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Masonry/">Masonry</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Resource/">Resource</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Script/">Script</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UITableviewCell/">UITableviewCell</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/aliplay/">aliplay</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/animation/">animation</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/autolayout/">autolayout</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/award/">award</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cell/">cell</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/family/">family</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/form/">form</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gesture/">gesture</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/imessage/">imessage</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/keyboard/">keyboard</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nimbus/">nimbus</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/opensource/">opensource</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/paging/">paging</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/payment/">payment</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pop/">pop</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/practice/">practice</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rotate/">rotate</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/screen/">screen</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/scrollview/">scrollview</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/swift/">swift</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tableview/">tableview</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/today-extension/">today extension</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/view-controller/">view controller</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/widget/">widget</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -381,7 +393,7 @@ ga('send', 'pageview');
   <div class="widget-wrap">
     <h3 class="widget-title">標簽雲</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Autolayout/" style="font-size: 10px;">Autolayout</a><a href="/tags/Complex/" style="font-size: 10px;">Complex</a><a href="/tags/Masonry/" style="font-size: 15px;">Masonry</a><a href="/tags/Resource/" style="font-size: 10px;">Resource</a><a href="/tags/Script/" style="font-size: 10px;">Script</a><a href="/tags/UITableviewCell/" style="font-size: 10px;">UITableviewCell</a><a href="/tags/aliplay/" style="font-size: 10px;">aliplay</a><a href="/tags/animation/" style="font-size: 15px;">animation</a><a href="/tags/autolayout/" style="font-size: 10px;">autolayout</a><a href="/tags/award/" style="font-size: 10px;">award</a><a href="/tags/cell/" style="font-size: 10px;">cell</a><a href="/tags/family/" style="font-size: 15px;">family</a><a href="/tags/form/" style="font-size: 10px;">form</a><a href="/tags/gesture/" style="font-size: 10px;">gesture</a><a href="/tags/imessage/" style="font-size: 10px;">imessage</a><a href="/tags/keyboard/" style="font-size: 15px;">keyboard</a><a href="/tags/nimbus/" style="font-size: 10px;">nimbus</a><a href="/tags/opensource/" style="font-size: 20px;">opensource</a><a href="/tags/payment/" style="font-size: 10px;">payment</a><a href="/tags/pop/" style="font-size: 15px;">pop</a><a href="/tags/practice/" style="font-size: 15px;">practice</a><a href="/tags/rotate/" style="font-size: 10px;">rotate</a><a href="/tags/screen/" style="font-size: 10px;">screen</a><a href="/tags/tableview/" style="font-size: 10px;">tableview</a><a href="/tags/today-extension/" style="font-size: 10px;">today extension</a><a href="/tags/view-controller/" style="font-size: 10px;">view controller</a><a href="/tags/widget/" style="font-size: 10px;">widget</a>
+      <a href="/tags/Autolayout/" style="font-size: 10px;">Autolayout</a><a href="/tags/Complex/" style="font-size: 10px;">Complex</a><a href="/tags/Masonry/" style="font-size: 15px;">Masonry</a><a href="/tags/Resource/" style="font-size: 10px;">Resource</a><a href="/tags/Script/" style="font-size: 10px;">Script</a><a href="/tags/UITableviewCell/" style="font-size: 10px;">UITableviewCell</a><a href="/tags/aliplay/" style="font-size: 10px;">aliplay</a><a href="/tags/animation/" style="font-size: 15px;">animation</a><a href="/tags/autolayout/" style="font-size: 10px;">autolayout</a><a href="/tags/award/" style="font-size: 10px;">award</a><a href="/tags/cell/" style="font-size: 10px;">cell</a><a href="/tags/family/" style="font-size: 15px;">family</a><a href="/tags/form/" style="font-size: 10px;">form</a><a href="/tags/gesture/" style="font-size: 10px;">gesture</a><a href="/tags/imessage/" style="font-size: 10px;">imessage</a><a href="/tags/keyboard/" style="font-size: 15px;">keyboard</a><a href="/tags/nimbus/" style="font-size: 10px;">nimbus</a><a href="/tags/opensource/" style="font-size: 20px;">opensource</a><a href="/tags/paging/" style="font-size: 10px;">paging</a><a href="/tags/payment/" style="font-size: 10px;">payment</a><a href="/tags/pop/" style="font-size: 15px;">pop</a><a href="/tags/practice/" style="font-size: 15px;">practice</a><a href="/tags/rotate/" style="font-size: 10px;">rotate</a><a href="/tags/screen/" style="font-size: 10px;">screen</a><a href="/tags/scrollview/" style="font-size: 10px;">scrollview</a><a href="/tags/swift/" style="font-size: 10px;">swift</a><a href="/tags/tableview/" style="font-size: 10px;">tableview</a><a href="/tags/today-extension/" style="font-size: 10px;">today extension</a><a href="/tags/view-controller/" style="font-size: 10px;">view controller</a><a href="/tags/widget/" style="font-size: 10px;">widget</a>
     </div>
   </div>
 
@@ -390,7 +402,7 @@ ga('send', 'pageview');
   <div class="widget-wrap">
     <h3 class="widget-title">歸檔</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">五月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">四月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">三月 2015</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">十一月 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">十月 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">九月 2014</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">八月 2014</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/01/">一月 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/12/">十二月 2013</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/11/">十一月 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/10/">十月 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/09/">九月 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/08/">八月 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/07/">七月 2013</a><span class="archive-list-count">1</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">五月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">四月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">三月 2015</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">十一月 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">十月 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">九月 2014</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">八月 2014</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/01/">一月 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/12/">十二月 2013</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/11/">十一月 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/10/">十月 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/09/">九月 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/08/">八月 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/07/">七月 2013</a><span class="archive-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -400,6 +412,10 @@ ga('send', 'pageview');
     <h3 class="widget-title">近期文章</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2015/07/01/opensource-xxpagingscrollview/">开源项目:XXPagingScrollView</a>
+          </li>
         
           <li>
             <a href="/2015/06/08/complex-cell-with-masonry/">如何使用masonry设计复合型cell</a>
@@ -415,10 +431,6 @@ ga('send', 'pageview');
         
           <li>
             <a href="/2015/03/30/hello-world/">hello world</a>
-          </li>
-        
-          <li>
-            <a href="/2015/03/28/opensource-mmparallaxcell/">开源项目:MMParallaxCell</a>
           </li>
         
       </ul>
