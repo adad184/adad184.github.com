@@ -4,7 +4,7 @@
   <subtitle><![CDATA[途有境而观无垠]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://adad184.com/"/>
-  <updated>2015-07-06T02:35:51.000Z</updated>
+  <updated>2015-07-06T02:37:16.000Z</updated>
   <id>http://adad184.com/</id>
   
   <author>
@@ -19,10 +19,11 @@
     <link href="http://adad184.com/2015/07/01/opensource-xxpagingscrollview/"/>
     <id>http://adad184.com/2015/07/01/opensource-xxpagingscrollview/</id>
     <published>2015-07-01T08:39:46.000Z</published>
-    <updated>2015-07-06T02:35:51.000Z</updated>
+    <updated>2015-07-06T02:37:16.000Z</updated>
     <content type="html"><![CDATA[<h2 id="前言">前言</h2><hr>
 <p><a href="https://github.com/adad184/XXPagingScrollView" target="_blank" rel="external">XXPagingScrollView</a> 源于对<a href="http://adad184.com/2014/11/05/beautyidea-wandoujia-design-award/" target="_blank" rel="external">最美创意</a>的改版重构 由于对现在版本的UI不是太满意 加上想练习一下swift 所以决定用swift来重写最美创意第二版( T_T 因为设计的问题 暂已搁置 跪求惺惺相惜的设计师好基友~~)  </p>
 <p>界面暂时由我自己来设计 首页的风格我参考了<a href="https://itunes.apple.com/us/app/tinder/id547702041?mt=8" target="_blank" rel="external">Tinder</a>  所以就有了<code>XXPagingScrollView</code></p>
+<a id="more"></a>
 <h2 id="分析">分析</h2><hr>
 <p><img src="https://raw.githubusercontent.com/adad184/XXPagingScrollView/master/demo.gif" alt="XXPagingScrollView"></p>
 <p>通过演示图可以看到 <code>XXPagingScrollView</code> 就是可以自定义paging size的ScrollView 但是UIScrollView仅仅只有一个<code>pagingEnabled</code>属性 并不能指定paging size 这就是说UIScrollView的paging size大小就是其本身的大小 这是不符合我们的要求的</p>
@@ -55,7 +56,9 @@
 ]]></content>
     <summary type="html">
     <![CDATA[<h2 id="前言">前言</h2><hr>
-<p><a href="https://github.com/adad184/XXPagingScrollView" target="_blank" rel="external">XXPagingScrollView</a> 源于对]]>
+<p><a href="https://github.com/adad184/XXPagingScrollView">XXPagingScrollView</a> 源于对<a href="http://adad184.com/2014/11/05/beautyidea-wandoujia-design-award/">最美创意</a>的改版重构 由于对现在版本的UI不是太满意 加上想练习一下swift 所以决定用swift来重写最美创意第二版( T_T 因为设计的问题 暂已搁置 跪求惺惺相惜的设计师好基友~~)  </p>
+<p>界面暂时由我自己来设计 首页的风格我参考了<a href="https://itunes.apple.com/us/app/tinder/id547702041?mt=8">Tinder</a>  所以就有了<code>XXPagingScrollView</code></p>]]>
+    
     </summary>
     
       <category term="opensource" scheme="http://adad184.com/tags/opensource/"/>

@@ -114,38 +114,13 @@ ga('send', 'pageview');
     <div class="article-entry" itemprop="articleBody">
       
         <h2 id="前言">前言</h2><hr>
-<p><a href="https://github.com/adad184/XXPagingScrollView" target="_blank" rel="external">XXPagingScrollView</a> 源于对<a href="http://adad184.com/2014/11/05/beautyidea-wandoujia-design-award/" target="_blank" rel="external">最美创意</a>的改版重构 由于对现在版本的UI不是太满意 加上想练习一下swift 所以决定用swift来重写最美创意第二版( T_T 因为设计的问题 暂已搁置 跪求惺惺相惜的设计师好基友~~)  </p>
-<p>界面暂时由我自己来设计 首页的风格我参考了<a href="https://itunes.apple.com/us/app/tinder/id547702041?mt=8" target="_blank" rel="external">Tinder</a>  所以就有了<code>XXPagingScrollView</code></p>
-<h2 id="分析">分析</h2><hr>
-<p><img src="https://raw.githubusercontent.com/adad184/XXPagingScrollView/master/demo.gif" alt="XXPagingScrollView"></p>
-<p>通过演示图可以看到 <code>XXPagingScrollView</code> 就是可以自定义paging size的ScrollView 但是UIScrollView仅仅只有一个<code>pagingEnabled</code>属性 并不能指定paging size 这就是说UIScrollView的paging size大小就是其本身的大小 这是不符合我们的要求的</p>
-<p>那么怎样达到我们想要的效果呢?</p>
-<ul>
-<li>方案1: 不使用pagingEnabled属性 而是手动的计算并设置滑动偏移</li>
-<li>方案2: 使用pagingEnabled属性 扩大scrollview的显示范围即可(我采用的就是这种方法)</li>
-</ul>
-<p>方案1的计算相对麻烦一些 这里不赘述 我们来说说方案2到底是怎么回事</p>
-<p>正常来说 我们使用UIScrollView是这样的<br><img src="http://7xibqv.com1.z0.glb.clouddn.com/2015-07-76-opensource-xxpagingscrollview1.png" alt=""></p>
-<p>当我们滑动时 看到的内容是这样的<br><img src="http://7xibqv.com1.z0.glb.clouddn.com/2015-07-76-opensource-xxpagingscrollview2.png" alt=""></p>
-<p>但是实际上 我们现在想要看到的内容是这样的<br><img src="http://7xibqv.com1.z0.glb.clouddn.com/2015-07-76-opensource-xxpagingscrollview6.png" alt=""></p>
-<p>那么 其实我们只要在原来的基础上 扩大UIScrollView的可显示范围就可以了<br><img src="http://7xibqv.com1.z0.glb.clouddn.com/2015-07-76-opensource-xxpagingscrollview3.png" alt=""></p>
-<p>扩大的显示范围后 我们看到的就是这个样子<br><img src="http://7xibqv.com1.z0.glb.clouddn.com/2015-07-76-opensource-xxpagingscrollview4.png" alt=""></p>
-<p>而为了达到这个目的 我们只需要把UIScrollView放入到另一个Container里面就可以了<br><img src="http://7xibqv.com1.z0.glb.clouddn.com/2015-07-76-opensource-xxpagingscrollview5.png" alt=""></p>
-<p>到了这一步 我们就只要解决两个问题 </p>
-<ol>
-<li>让UIScrollView显示超出其本身范围的内容</li>
-<li>让UIScrollView响应超出其本身范围的触摸事件</li>
-</ol>
-<p>而这两个问题其实都容易解决</p>
-<ol>
-<li>clipsToBounds 就是用来干这个事情的</li>
-<li>重写UIView的pointInside事件就可以了</li>
-</ol>
-<p>至此 一个支持自定义paging size的scrollview就产生了</p>
-<h1 id="小结">小结</h1><hr>
-<p>其实根据这个思路写 代码非常的简单(总共不超过100行) 在这里分享只是因为这个解决办法相当的简单且巧妙(思路是google得来的) 且不对UIScrollView本身造成任何破坏</p>
-<p>最近感觉国内的iOS圈造轮子的情绪相当的高涨 但是其实可以换一种思路来解决问题</p>
-
+<p><a href="https://github.com/adad184/XXPagingScrollView">XXPagingScrollView</a> 源于对<a href="http://adad184.com/2014/11/05/beautyidea-wandoujia-design-award/">最美创意</a>的改版重构 由于对现在版本的UI不是太满意 加上想练习一下swift 所以决定用swift来重写最美创意第二版( T_T 因为设计的问题 暂已搁置 跪求惺惺相惜的设计师好基友~~)  </p>
+<p>界面暂时由我自己来设计 首页的风格我参考了<a href="https://itunes.apple.com/us/app/tinder/id547702041?mt=8">Tinder</a>  所以就有了<code>XXPagingScrollView</code></p>
+        
+          <p class="article-more-link">
+            <a href="/2015/07/01/opensource-xxpagingscrollview/#more">閱讀全文</a>
+          </p>
+        
       
     </div>
     <footer class="article-footer">
