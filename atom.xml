@@ -4,7 +4,7 @@
   <subtitle><![CDATA[途有境而观无垠]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://adad184.com/"/>
-  <updated>2015-07-08T07:29:33.000Z</updated>
+  <updated>2015-07-08T07:31:13.000Z</updated>
   <id>http://adad184.com/</id>
   
   <author>
@@ -19,9 +19,9 @@
     <link href="http://adad184.com/2015/07/08/my-favorite-libraries-and-plugins/"/>
     <id>http://adad184.com/2015/07/08/my-favorite-libraries-and-plugins/</id>
     <published>2015-07-08T07:50:46.000Z</published>
-    <updated>2015-07-08T07:29:33.000Z</updated>
+    <updated>2015-07-08T07:31:13.000Z</updated>
     <content type="html"><![CDATA[<h2 id="前言">前言</h2><hr>
-<p>第三方库是现在的程序员离不开的东西 不光是APP开发 基本上所有的商业项目 都会或多或少的第三方库 </p>
+<p>第三方库是现在的程序员离不开的东西 不光是APP开发 基本上所有的商业项目 都会或多或少的使用到第三方库 </p>
 <p>Github上Star&gt;100的开源库数量如下</p>
 <p>可以看到JS以绝对的优势排名第一 一定程度上也说明了JS在这几年为什么发展得这么迅速 不会点JS都不好意思说自己是码农 不过现在JS圈的造轮子浪潮也是愈演愈烈了 自己不写个框架都不好意思打招呼</p>
 <p>OC排名第四 相信这个排名还会上升 Swift暂时还挤不进前十 不过超过OC 也是指日可待(毕竟亲儿子)</p>
@@ -125,9 +125,9 @@
 ]]></content>
     <summary type="html">
     <![CDATA[<h2 id="前言">前言</h2><hr>
-<p>第三方库是现在的程序员离不开的东西 不光是APP开发 基本上所有的商业项目 都会或多或少的第三方库 </p>
+<p>第三方库是现在的程序员离不开的东西 不光是APP开发 基本上所有的商业项目 都会或多或少的使用到第三方库 </p>
 <p>Github上Star&gt;100的开源库数量如下</p>
-<p>可以看到JS以绝对的优势排名第一 一定程度]]>
+<p>可以看到JS以绝对的优势排名第一 一]]>
     </summary>
     
       <category term="Xcode" scheme="http://adad184.com/tags/Xcode/"/>
