@@ -4,7 +4,7 @@
   <subtitle><![CDATA[途有境而观无垠]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://adad184.com/"/>
-  <updated>2015-07-08T07:57:43.000Z</updated>
+  <updated>2015-07-08T08:39:54.000Z</updated>
   <id>http://adad184.com/</id>
   
   <author>
@@ -19,7 +19,7 @@
     <link href="http://adad184.com/2015/07/08/my-favorite-libraries-and-plugins/"/>
     <id>http://adad184.com/2015/07/08/my-favorite-libraries-and-plugins/</id>
     <published>2015-07-08T07:50:46.000Z</published>
-    <updated>2015-07-08T07:57:43.000Z</updated>
+    <updated>2015-07-08T08:39:54.000Z</updated>
     <content type="html"><![CDATA[<h2 id="前言">前言</h2><hr>
 <p>第三方库是现在的程序员离不开的东西 不光是APP开发 基本上所有的商业项目 都会或多或少的使用到第三方库 </p>
 <p>Github上Star&gt;100的开源库数量如下</p>
@@ -49,7 +49,7 @@
 </blockquote>
 <p>　　</p>
 <blockquote>
-<h3 id="ZXingObjC"><a href="https://github.com/AFNetworking/AFNetworkingrs/SDWebImage" target="_blank" rel="external">ZXingObjC</a></h3><p><a href="https://github.com/zxing/zxing" target="_blank" rel="external">zxing</a>是Google出品的二维码扫描组件 原本是Java编写的 现在也有了各种语言的移植版 而ZXingObjC就是其中之一<br>zxing支持各种主流的一维码二维码扫描 简单易用 小厂如果要实现二维码扫描这个功能 基本都会选择zxing<br>不过iOS7已内置了二维码扫描 而iOS8也已内置了一维码扫描 以后可能再也不需要用到ZXing了 :(</p>
+<h3 id="ZXingObjC"><a href="https://github.com/AFNetworking/AFNetworkingrs/SDWebImage" target="_blank" rel="external">ZXingObjC</a></h3><p><a href="https://github.com/zxing/zxing" target="_blank" rel="external">zxing</a>是Google出品的二维码扫描组件 原本是Java编写的 现在也有了各种语言的移植版 而ZXingObjC就是其中之一<br>zxing支持各种主流的一维码二维码扫描 简单易用 小厂如果要实现二维码扫描这个功能 基本都会选择zxing<br>不过iOS7已内置了二维码摄像头扫描 而iOS8也已内置了二维码静态图扫描 以后可能再也不需要用到ZXing了 :(</p>
 </blockquote>
 <p>　　</p>
 <blockquote>
