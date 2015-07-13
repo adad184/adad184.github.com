@@ -6,23 +6,13 @@
   <title>一次对MKMapView的性能优化 | 里脊串的开发随笔</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="前言
-最近做的项目主要是LBS这块 主打成员定位功能 我们的UI设计是这样的
-乍一看上去是挺好挺美观的 不同的人会显示不同的头像 可是当人扎堆的时候 问题就来了
-等等 先不要吐槽为什么不用地图聚合 因为这已经是地图放到最大了 聚合不适合这次的问题讨论)
-当人多的时候(例如上图所示) 地图滑动起来就能感觉到明显顿卡 那种不流畅感能折磨死人 所以 自然我们要解决这个问题
-分析
-首先看下我是怎么实现这个">
+最近做的项目主要是LBS这块 主打成员定位功能 我们的UI设计是这样的">
 <meta property="og:type" content="article">
 <meta property="og:title" content="一次对MKMapView的性能优化">
 <meta property="og:url" content="http://adad184.com/2015/07/13/improve-performance-with-mkmapview/index.html">
 <meta property="og:site_name" content="里脊串的开发随笔">
 <meta property="og:description" content="前言
-最近做的项目主要是LBS这块 主打成员定位功能 我们的UI设计是这样的
-乍一看上去是挺好挺美观的 不同的人会显示不同的头像 可是当人扎堆的时候 问题就来了
-等等 先不要吐槽为什么不用地图聚合 因为这已经是地图放到最大了 聚合不适合这次的问题讨论)
-当人多的时候(例如上图所示) 地图滑动起来就能感觉到明显顿卡 那种不流畅感能折磨死人 所以 自然我们要解决这个问题
-分析
-首先看下我是怎么实现这个">
+最近做的项目主要是LBS这块 主打成员定位功能 我们的UI设计是这样的">
 <meta property="og:image" content="http://7xibqv.com1.z0.glb.clouddn.com/2015-07-13-improve-performance-with-mkmapview1.png">
 <meta property="og:image" content="http://7xibqv.com1.z0.glb.clouddn.com/2015-07-13-improve-performance-with-mkmapview2.png">
 <meta property="og:image" content="http://7xibqv.com1.z0.glb.clouddn.com/2015-07-13-improve-performance-with-mkmapview3.png">
@@ -33,12 +23,7 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="一次对MKMapView的性能优化">
 <meta name="twitter:description" content="前言
-最近做的项目主要是LBS这块 主打成员定位功能 我们的UI设计是这样的
-乍一看上去是挺好挺美观的 不同的人会显示不同的头像 可是当人扎堆的时候 问题就来了
-等等 先不要吐槽为什么不用地图聚合 因为这已经是地图放到最大了 聚合不适合这次的问题讨论)
-当人多的时候(例如上图所示) 地图滑动起来就能感觉到明显顿卡 那种不流畅感能折磨死人 所以 自然我们要解决这个问题
-分析
-首先看下我是怎么实现这个">
+最近做的项目主要是LBS这块 主打成员定位功能 我们的UI设计是这样的">
   
     <link rel="alternative" href="/atom.xml" title="里脊串的开发随笔" type="application/atom+xml">
   
@@ -138,6 +123,7 @@ ga('send', 'pageview');
       
         <h2 id="前言">前言</h2><hr>
 <p>最近做的项目主要是LBS这块 主打成员定位功能 我们的UI设计是这样的<br><img src="http://7xibqv.com1.z0.glb.clouddn.com/2015-07-13-improve-performance-with-mkmapview1.png" alt=""></p>
+<a id="more"></a>
 <p>乍一看上去是挺好挺美观的 不同的人会显示不同的头像 可是当人扎堆的时候 问题就来了<br><img src="http://7xibqv.com1.z0.glb.clouddn.com/2015-07-13-improve-performance-with-mkmapview2.png" alt=""></p>
 <p>等等 先不要吐槽为什么不用地图聚合 因为这已经是地图放到最大了 聚合不适合这次的问题讨论)</p>
 <p>当人多的时候(例如上图所示) 地图滑动起来就能感觉到明显顿卡 那种不流畅感能折磨死人 所以 自然我们要解决这个问题</p>

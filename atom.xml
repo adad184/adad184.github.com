@@ -4,7 +4,7 @@
   <subtitle><![CDATA[途有境而观无垠]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://adad184.com/"/>
-  <updated>2015-07-13T07:30:42.000Z</updated>
+  <updated>2015-07-13T07:32:03.000Z</updated>
   <id>http://adad184.com/</id>
   
   <author>
@@ -19,9 +19,10 @@
     <link href="http://adad184.com/2015/07/13/improve-performance-with-mkmapview/"/>
     <id>http://adad184.com/2015/07/13/improve-performance-with-mkmapview/</id>
     <published>2015-07-13T07:50:46.000Z</published>
-    <updated>2015-07-13T07:30:42.000Z</updated>
+    <updated>2015-07-13T07:32:03.000Z</updated>
     <content type="html"><![CDATA[<h2 id="前言">前言</h2><hr>
 <p>最近做的项目主要是LBS这块 主打成员定位功能 我们的UI设计是这样的<br><img src="http://7xibqv.com1.z0.glb.clouddn.com/2015-07-13-improve-performance-with-mkmapview1.png" alt=""></p>
+<a id="more"></a>
 <p>乍一看上去是挺好挺美观的 不同的人会显示不同的头像 可是当人扎堆的时候 问题就来了<br><img src="http://7xibqv.com1.z0.glb.clouddn.com/2015-07-13-improve-performance-with-mkmapview2.png" alt=""></p>
 <p>等等 先不要吐槽为什么不用地图聚合 因为这已经是地图放到最大了 聚合不适合这次的问题讨论)</p>
 <p>当人多的时候(例如上图所示) 地图滑动起来就能感觉到明显顿卡 那种不流畅感能折磨死人 所以 自然我们要解决这个问题</p>
@@ -65,7 +66,8 @@
 ]]></content>
     <summary type="html">
     <![CDATA[<h2 id="前言">前言</h2><hr>
-<p>最近做的项目主要是LBS这块 主打成员定位功能 我们的UI设计是这样的<br><img src="http://7xibqv.com1.z0.glb.clouddn.com/2015-07-13-improve-perform]]>
+<p>最近做的项目主要是LBS这块 主打成员定位功能 我们的UI设计是这样的<br><img src="http://7xibqv.com1.z0.glb.clouddn.com/2015-07-13-improve-performance-with-mkmapview1.png" alt=""></p>]]>
+    
     </summary>
     
       <category term="MKMapView" scheme="http://adad184.com/tags/MKMapView/"/>
