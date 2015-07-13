@@ -3,12 +3,12 @@
 <head>
   <meta charset="utf-8">
   
-  <title>里脊串的开发随笔</title>
+  <title>Tag: MKMapView | 里脊串的开发随笔</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description">
 <meta property="og:type" content="website">
 <meta property="og:title" content="里脊串的开发随笔">
-<meta property="og:url" content="http://adad184.com/page/2/index.html">
+<meta property="og:url" content="http://adad184.com/tags/MKMapView/index.html">
 <meta property="og:site_name" content="里脊串的开发随笔">
 <meta property="og:description">
 <meta name="twitter:card" content="summary">
@@ -87,325 +87,37 @@ ga('send', 'pageview');
       <div class="outer">
         <section id="main">
   
-    <article id="post-opensource-mmtweenanimation" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/04/14/opensource-mmtweenanimation/" class="article-date">
-  <time datetime="2015-04-14T03:32:01.000Z" itemprop="datePublished">2015-04-14</time>
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2015" class="archive-year">2015</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      <a href="/2015/07/13/improve-performance-with-mkmapview/" class="archive-article-date">
+  <time datetime="2015-07-13T07:50:46.000Z" itemprop="datePublished">07 13</time>
 </a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/开源项目/">开源项目</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
+      
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2015/04/14/opensource-mmtweenanimation/">开源项目:MMTweenAnimation</a>
+      <a class="archive-article-title" href="/2015/07/13/improve-performance-with-mkmapview/">一次对MKMapView的性能优化</a>
     </h1>
   
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="前言">前言</h2><hr>
-<p><a href="https://github.com/adad184/MMTweenAnimation">MMTweenAnimation</a>其实酝酿了有一段时间了 起因是对<a href="https://github.com/facebook/pop">POP</a>重度使用后(<a href="http://adad184.com/2015/03/11/intro-to-pop/">POP上手教程</a>) 感到的一丝不足 </p>
-<ul>
-<li>首先 POP提供的自带动画类型太少(比如想实现如下图的物体落地的动画)</li>
-<li>其次 除了POPBasicAnimation之外 无法控制动画的duration</li>
-</ul>
-<p><img src="http://7xibqv.com1.z0.glb.clouddn.com/2015-4-14-opensource-mmtweenanimationdemo.gif" alt=""></p>
-<p>所以趁着休陪产假的空档 研究并做出了<strong>MMTweenAnimation</strong>的第一版</p>
-<h2 id="介绍">介绍</h2><hr>
-<p><strong>MMTweenAnimation</strong> 是基于Facebook的POP的动画扩展类 提供10种不同的函数动画 </p>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">Back</th>
-<th style="text-align:center">Bounce</th>
-<th style="text-align:center">Circ</th>
-<th style="text-align:center">Cubic</th>
-<th style="text-align:center">Elastic</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center"><img src="http://7xibqv.com1.z0.glb.clouddn.com/2015-4-14-opensource-mmtweenanimation1.gif" alt=""></td>
-<td style="text-align:center"><img src="http://7xibqv.com1.z0.glb.clouddn.com/2015-4-14-opensource-mmtweenanimation2.gif" alt=""></td>
-<td style="text-align:center"><img src="http://7xibqv.com1.z0.glb.clouddn.com/2015-4-14-opensource-mmtweenanimation3.gif" alt=""></td>
-<td style="text-align:center"><img src="http://7xibqv.com1.z0.glb.clouddn.com/2015-4-14-opensource-mmtweenanimation4.gif" alt=""></td>
-<td style="text-align:center"><img src="http://7xibqv.com1.z0.glb.clouddn.com/2015-4-14-opensource-mmtweenanimation5.gif" alt=""></td>
-</tr>
-</tbody>
-</table>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">Expo</th>
-<th style="text-align:center">Quad</th>
-<th style="text-align:center">Quart</th>
-<th style="text-align:center">Quint</th>
-<th style="text-align:center">Sine</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center"><img src="http://7xibqv.com1.z0.glb.clouddn.com/2015-4-14-opensource-mmtweenanimation6.gif" alt=""></td>
-<td style="text-align:center"><img src="http://7xibqv.com1.z0.glb.clouddn.com/2015-4-14-opensource-mmtweenanimation7.gif" alt=""></td>
-<td style="text-align:center"><img src="http://7xibqv.com1.z0.glb.clouddn.com/2015-4-14-opensource-mmtweenanimation8.gif" alt=""></td>
-<td style="text-align:center"><img src="http://7xibqv.com1.z0.glb.clouddn.com/2015-4-14-opensource-mmtweenanimation9.gif" alt=""></td>
-<td style="text-align:center"><img src="http://7xibqv.com1.z0.glb.clouddn.com/2015-4-14-opensource-mmtweenanimation10.gif" alt=""></td>
-</tr>
-</tbody>
-</table>
-        
-          <p class="article-more-link">
-            <a href="/2015/04/14/opensource-mmtweenanimation/#more">閱讀全文</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://adad184.com/2015/04/14/opensource-mmtweenanimation/" data-id="cic1l6h9q001c7pu29rezawbk" class="article-share-link">分享到</a>
-      
-        <a href="http://adad184.com/2015/04/14/opensource-mmtweenanimation/#ds-thread" class="article-comment-link">文章評論</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pop/">pop</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/动画/">动画</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/开源/">开源</a></li></ul>
-
-    </footer>
+    </header>
   </div>
-  
 </article>
 
-
-
-  
-    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/03/30/hello-world/" class="article-date">
-  <time datetime="2015-03-30T12:46:00.000Z" itemprop="datePublished">2015-03-30</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/生活琐碎/">生活琐碎</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/03/30/hello-world/">hello world</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>hello, my little princess. </p>
-<p><img src="http://7xibqv.com1.z0.glb.clouddn.com/2015-04-14-hello-world.jpg" alt="my girl"></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://adad184.com/2015/03/30/hello-world/" data-id="cic1l6h9s001j7pu2wdie0m9b" class="article-share-link">分享到</a>
-      
-        <a href="http://adad184.com/2015/03/30/hello-world/#ds-thread" class="article-comment-link">文章評論</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/家庭/">家庭</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-opensource-mmparallaxcell" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/03/28/opensource-mmparallaxcell/" class="article-date">
-  <time datetime="2015-03-28T02:22:01.000Z" itemprop="datePublished">2015-03-28</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/开源项目/">开源项目</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/03/28/opensource-mmparallaxcell/">开源项目:MMParallaxCell</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="前言">前言</h2><hr>
-<p><a href="https://github.com/adad184/MMParallaxCell">MMParallaxCell</a>其实是个很简单的东西 首次使用是在<a href="https://itunes.apple.com/app/id917497614">最美创意</a>里 起因是某次改版的时候 想把之前的timeline的展现调整一下</p>
-<p><img src="http://7xibqv.com1.z0.glb.clouddn.com/2015-03-28-opensource-mmparallaxcell-1.png" alt="timeline"></p>
-<p>参考了很多APP的设计之后 把UI改成了现在的parallax这个样子</p>
-<p><img src="http://7xibqv.com1.z0.glb.clouddn.com/2015-03-28-opensource-mmparallaxcell-2.png" alt="parallax"></p>
-<p>这次修改 对于我自己来说 还是满意的 对比一下有没有一种立刻高大上了的感觉呢 ヽ(✿ﾟ▽ﾟ)ノ</p>
-<p>不过由于各种各样的原因 <strong>最美创意</strong>在很长一段时间内估计也不会更新了 </p>
-<h2 id="介绍">介绍</h2><hr>
-<p><strong><code>MMParallaxCell</code></strong>是<code>UITableviewCell</code>的子类 用于在<code>UITableview</code>中呈现滑动视差的一个效果 特点是简单易用 不同于同类型的其他项目 <strong><code>MMParallaxCell</code></strong>不需要在代码中做额外的操作 像普通的<code>UITableviewCell</code>使用就okay了</p>
-        
-          <p class="article-more-link">
-            <a href="/2015/03/28/opensource-mmparallaxcell/#more">閱讀全文</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://adad184.com/2015/03/28/opensource-mmparallaxcell/" data-id="cic1l6h9u001o7pu2mspj5ll4" class="article-share-link">分享到</a>
-      
-        <a href="http://adad184.com/2015/03/28/opensource-mmparallaxcell/#ds-thread" class="article-comment-link">文章評論</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/UITableView/">UITableView</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/开源/">开源</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/最美创意/">最美创意</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-intro-to-pop" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/03/11/intro-to-pop/" class="article-date">
-  <time datetime="2015-03-11T00:47:29.000Z" itemprop="datePublished">2015-03-11</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/技巧心得/">技巧心得</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/03/11/intro-to-pop/">POP介绍与使用实践(快速上手动画)</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="前言">前言</h2><hr>
-<p>动画在APP开发过程中 大家多多少少都会接触到 而且随着ios7的扁平化风格启用之后 越来越多的APP开始尝试加入各种绚丽的动画交互效果以增加APP的用户体验(当然 还是以国外的APP居多)</p>
-<p>有过相关开发经验的同学肯定知道在iOS中 动画相关的部分都是基于Core Animation 但是今天我们不讨论Core Animation 今天的主角是<strong>POP</strong> -来自于Facebook的动画引擎(其实我不喜欢把POP定义为动画引擎 我愿意称它为函数发生器)</p>
-<h2 id="介绍">介绍</h2><hr>
-<p><a href="https://github.com/facebook/pop">官方地址 https://github.com/facebook/pop</a><br>官方介绍(翻译版)</p>
-<blockquote>
-<p>POP是一个在iOS与OS X上通用的极具扩展性的动画引擎 它在基本的静态动画的基础上增加的弹簧动画与衰减动画 使之能创造出更真实更具物理性的交互动画 POP的API可以快速的与现有的ObjC代码集成并可以作用于任意对象的任意属性<br>POP是个相当成熟且久经考验的框架 Facebook出品的令人惊叹的Paper应用中的所有动画和效果即出自POP</p>
-</blockquote>
-        
-          <p class="article-more-link">
-            <a href="/2015/03/11/intro-to-pop/#more">閱讀全文</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://adad184.com/2015/03/11/intro-to-pop/" data-id="cic1l6h9x001t7pu2rmpnuo0d" class="article-share-link">分享到</a>
-      
-        <a href="http://adad184.com/2015/03/11/intro-to-pop/#ds-thread" class="article-comment-link">文章評論</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pop/">pop</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/动画/">动画</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-bugs-in-autolayout-below-ios8" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/03/10/bugs-in-autolayout-below-ios8/" class="article-date">
-  <time datetime="2015-03-10T00:47:29.000Z" itemprop="datePublished">2015-03-10</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/技巧心得/">技巧心得</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/03/10/bugs-in-autolayout-below-ios8/">关于autolayout在ios8以下出现&#39;Auto Layout still required after executing -layoutSubviews.&#39;的bug</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="前言">前言</h1><hr>
-<p>很久没有更新blog了 一是因为换了工作在赶新项目导致白天没时间 二是因为孩子快出生了导致晚上没时间 周末就更不自由啦 </p>
-<p>看了今天的苹果发布会的新闻 还是挺激动的啊 不管是watch 还是macbook </p>
-<h1 id="问题">问题</h1><hr>
-<p>这次说的这个问题也是年前在调bug的时候出现的 由于开发一直是在ios8上进行的 所以一路顺风顺水没有任何问题 直到有一天 一个同事拿着他的ios7.x的iphone5S要我帮忙装一个最新的开发版 然后使用过程中就出现了闪退 一查就是如题的错误log<br><figure class="highlight erlang"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">Auto</span> <span class="variable">Layout</span> still required <span class="keyword">after</span> executing -layout<span class="variable">Subviews</span>.</span><br></pre></td></tr></table></figure></p>
-        
-          <p class="article-more-link">
-            <a href="/2015/03/10/bugs-in-autolayout-below-ios8/#more">閱讀全文</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://adad184.com/2015/03/10/bugs-in-autolayout-below-ios8/" data-id="cic1l6h9z001x7pu2z2m8q6cm" class="article-share-link">分享到</a>
-      
-        <a href="http://adad184.com/2015/03/10/bugs-in-autolayout-below-ios8/#ds-thread" class="article-comment-link">文章評論</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Autolayout/">Autolayout</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
   
   
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
-    </nav>
+    </div></section>
   
 </section>
         
