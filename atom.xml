@@ -84,7 +84,7 @@
     <link href="http://adad184.com/2015/07/08/my-favorite-libraries-and-plugins/"/>
     <id>http://adad184.com/2015/07/08/my-favorite-libraries-and-plugins/</id>
     <published>2015-07-08T07:50:46.000Z</published>
-    <updated>2015-07-14T02:30:03.000Z</updated>
+    <updated>2015-07-21T03:30:58.000Z</updated>
     <content type="html"><![CDATA[<h2 id="前言">前言</h2><hr>
 <p>第三方库是现在的程序员离不开的东西 不光是APP开发 基本上所有的商业项目 都会或多或少的使用到第三方库 </p>
 <p>Github上Star&gt;100的开源库数量如下</p>
@@ -154,7 +154,7 @@
 </blockquote>
 <p>　</p>
 <blockquote>
-<h3 id="realm"><a href="https://github.com/realm/realm-cocoa" target="_blank" rel="external">realm</a></h3><p>作为数据存储的一等公民 CoreData的地位不言而喻 不过也因为使用起来不够方便 才会出现<a href="https://github.com/magicalpanda/MagicalRecord" target="_blank" rel="external">MagicalRecord</a>这种辅助类 甚至<a href="https://github.com/ccgus/fmdb" target="_blank" rel="external">fmdb</a>这种基于纯sqlite的库<br>而realm以挑战者的身份闪亮登场 不仅读取<strong>性能更快</strong>(据说数倍于CoraData) 接口<strong>简单易用</strong>(以对象的形式使用数据 这点和leancloud的思路很相似) 并且还<strong>跨平台</strong>(iOS/Android均可使用 OC/Swift/Java都支持)<br>如果你习惯使用<a href="https://github.com/Mantle/Mantle" target="_blank" rel="external">Mantle</a>之类的Modal转换的话 <a href="https://github.com/matthewcheok/Realm-JSON" target="_blank" rel="external">Realm-JSON</a>肯定能讨你欢心<br>作为YCombinator的孵化项目 其质量还是能得以保证的 至少我试用下来 确实给我以很大的惊喜 不管是API的设计 还是数据对象的定义 就连数据库的版本升级 都非常的方便)</p>
+<h3 id="realm"><a href="https://github.com/realm/realm-cocoa" target="_blank" rel="external">realm</a></h3><p>作为数据存储的一等公民 CoreData的地位不言而喻 不过也因为使用起来不够方便 才会出现<a href="https://github.com/magicalpanda/MagicalRecord" target="_blank" rel="external">MagicalRecord</a>这种辅助类 甚至<a href="https://github.com/ccgus/fmdb" target="_blank" rel="external">fmdb</a>这种基于纯sqlite的库<br>而realm以挑战者的身份闪亮登场 不仅读取<strong>性能更快</strong>(据说数倍于CoraData) 接口<strong>简单易用</strong>(以对象的形式使用数据 这点和aws/leancloud的思路很相似) 并且还<strong>跨平台</strong>(iOS/Android均可使用 OC/Swift/Java都支持)<br>如果你习惯使用<a href="https://github.com/Mantle/Mantle" target="_blank" rel="external">Mantle</a>之类的Modal转换的话 <a href="https://github.com/matthewcheok/Realm-JSON" target="_blank" rel="external">Realm-JSON</a>肯定能讨你欢心<br>作为YCombinator的孵化项目 其质量还是能得以保证的 至少我试用下来 确实给我以很大的惊喜 不管是API的设计 还是数据对象的定义 就连数据库的版本升级 都非常的方便)</p>
 </blockquote>
 <p>　
 　</p>
