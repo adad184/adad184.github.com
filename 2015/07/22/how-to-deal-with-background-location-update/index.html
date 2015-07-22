@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>后台定位上传的代码实践 | 里脊串的开发随笔</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="前言
+之前的文章说过 我现在做的是LBS定位的社交APP 其中主要的一个功能就是能够实时定位社交圈中各个成员的位置 后台实时上传位置则是非常重要的一个技术点 接下来就来说说我关于这方面的实践经验
+需求
+先来看看实现这个功能的具体需求是什么 由于我们是实时定位的生活类社交APP 所以我们需要做到一下几点
+
+1. 如果用户的位置在持续变化 则隔一段时间上报一次由于我们希望能够实时的将用户的位置变化反馈">
+<meta property="og:type" content="article">
+<meta property="og:title" content="后台定位上传的代码实践">
+<meta property="og:url" content="http://adad184.com/2015/07/22/how-to-deal-with-background-location-update/index.html">
+<meta property="og:site_name" content="里脊串的开发随笔">
+<meta property="og:description" content="前言
+之前的文章说过 我现在做的是LBS定位的社交APP 其中主要的一个功能就是能够实时定位社交圈中各个成员的位置 后台实时上传位置则是非常重要的一个技术点 接下来就来说说我关于这方面的实践经验
+需求
+先来看看实现这个功能的具体需求是什么 由于我们是实时定位的生活类社交APP 所以我们需要做到一下几点
+
+1. 如果用户的位置在持续变化 则隔一段时间上报一次由于我们希望能够实时的将用户的位置变化反馈">
+<meta property="og:image" content="http://7xibqv.com1.z0.glb.clouddn.com/2015-07-21-how-to-deal-with-background-location-update1.png">
+<meta property="og:image" content="http://7xibqv.com1.z0.glb.clouddn.com/2015-07-21-how-to-deal-with-background-location-update2.png">
+<meta property="og:image" content="http://7xibqv.com1.z0.glb.clouddn.com/2015-07-21-how-to-deal-with-background-location-update3.png">
+<meta property="og:image" content="http://7xibqv.com1.z0.glb.clouddn.com/2015-07-21-how-to-deal-with-background-location-update4.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="后台定位上传的代码实践">
+<meta name="twitter:description" content="前言
+之前的文章说过 我现在做的是LBS定位的社交APP 其中主要的一个功能就是能够实时定位社交圈中各个成员的位置 后台实时上传位置则是非常重要的一个技术点 接下来就来说说我关于这方面的实践经验
+需求
+先来看看实现这个功能的具体需求是什么 由于我们是实时定位的生活类社交APP 所以我们需要做到一下几点
+
+1. 如果用户的位置在持续变化 则隔一段时间上报一次由于我们希望能够实时的将用户的位置变化反馈">
+  
+    <link rel="alternative" href="/atom.xml" title="里脊串的开发随笔" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <!--[if lt IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.min.js"></script><![endif]-->
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-46269103-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">里脊串的开发随笔</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">途有境而观无垠</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">首页</a>
+        
+          <a class="main-nav-link" href="/archives">归档</a>
+        
+          <a class="main-nav-link" href="/about">关于</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="http://www.baidu.com/baidu" method="get" accept-charset="utf-8" class="search-form">
+          <input type="search" name="word" maxlength="20" class="search-form-input" placeholder="Search">
+          <input type="submit" value="" class="search-form-submit">
+          <input name=tn type=hidden value="bds">
+          <input name=cl type=hidden value="3">
+          <input name=ct type=hidden value="2097152">
+          <input type="hidden" name="si" value="adad184.com">
+        </form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-how-to-deal-with-background-location-update" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/07/22/how-to-deal-with-background-location-update/" class="article-date">
+  <time datetime="2015-07-22T02:47:29.000Z" itemprop="datePublished">2015-07-22</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/技巧心得/">技巧心得</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      后台定位上传的代码实践
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="前言">前言</h2><hr>
+<p><a href="http://adad184.com/2015/07/13/improve-performance-with-mkmapview/" target="_blank" rel="external">之前的文章</a>说过 我现在做的是LBS定位的社交APP 其中主要的一个功能就是能够实时定位社交圈中各个成员的位置 <strong>后台实时上传位置</strong>则是非常重要的一个技术点 接下来就来说说我关于这方面的实践经验</p>
+<h2 id="需求">需求</h2><hr>
+<p>先来看看实现这个功能的具体需求是什么 由于我们是实时定位的生活类社交APP 所以我们需要做到一下几点</p>
+<blockquote>
+<p><strong>1. 如果用户的位置在持续变化 则隔一段时间上报一次</strong><br>由于我们希望能够实时的将用户的位置变化反馈在APP里 所以定时的上报是刚需<br><strong>2. 如果用户的移动速度很慢 则隔一段距离上报一次</strong><br>如果用户是低速率的状态(比如步行的移动速度大概就是1m/s左右) 这个时候如果还按(1)中的方式来上报的话 由于变化太小 地图上的点会非常的密集 这种数据的意义不大(而且如果要做轨迹服务的话 这些密集点都是必须有花掉的) 所以这时候我们按照距离间隔来上报<br><strong>3. 如果用户的位置在到达某处后没有变化 则不继续上报</strong><br>我们只关心位置的变化 如果用户的位置没有变化或者变化很小 其实是不需要上报其位置的(比如进入的公司 或者等一个很长时间的红灯) 这时候我们就不上报(以达到省电的目的)<br><strong>4. 切换到后台也要能定位上报</strong><br>后台上报是必须的 用户不可能一直运行着我们的APP (iOS4开始就支持了)<br><strong>5. APP因各种原因终止运行后(用户主动关闭, 系统杀掉) 也要能定位上报</strong><br>用户主动关闭APP的几率不大 但是因系统调度被杀掉的情况是很普遍的 这个时候我们也要能够上报 (iOS7开始已支持被杀掉后唤醒)</p>
+</blockquote>
+<p>分析完需求 接下来就开始介绍如何实现</p>
+<a id="more"></a>
+<h2 id="准备">准备</h2><hr>
+<p>首先做一些准备工作</p>
+<p>在target的<strong>Capabilities</strong>选项中打开<strong>Background Modes</strong> 并勾选<strong>Location updates</strong><br><img src="http://7xibqv.com1.z0.glb.clouddn.com/2015-07-21-how-to-deal-with-background-location-update1.png" alt=""></p>
+<p>然后在plist中添加<strong>NSLocationAlawaysUsageDescription</strong>的键 在value中随便键入任何内容<br><img src="http://7xibqv.com1.z0.glb.clouddn.com/2015-07-21-how-to-deal-with-background-location-update2.png" alt=""><br>完成这两步 我们的前期工作就完成了 <strong>Background Modes</strong>是iOS7带入的新功能 而<strong>NSLocationAlawaysUsageDescription</strong>为了增强权限机制引入的提示描述 不添加这个的话 定位功能可是使用不了的</p>
+<h2 id="代码">代码</h2><hr>
+<p>定位肯定要跟<strong>CLLocationManager</strong>打交道 所以我们先定义一个<strong>CLLocationManager</strong>的子类 并根据需求中的几点定义三个变量</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">MMLocationManager</span> : <span class="title">CLLocationManager</span></span></span><br><span class="line"></span><br><span class="line">+ (instancetype)sharedManager;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">assign</span>) <span class="built_in">CGFloat</span> minSpeed;     <span class="comment">//最小速度</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">assign</span>) <span class="built_in">CGFloat</span> minFilter;    <span class="comment">//最小范围</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">assign</span>) <span class="built_in">CGFloat</span> minInteval;   <span class="comment">//更新间隔</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<p>这里解释一下这几个参数</p>
+<ul>
+<li><strong>minSpeed</strong> 如果当前运动速度大于此值 则满足需求(1) 以时间为更新依据(minFilter) 如果当前运动速度小于此值 则满足需求(2) 以范围为更新依据(minInteval)</li>
+<li><strong>minFilter</strong> 最小的触发范围 用于需求(1)</li>
+<li><strong>minInteval</strong> 更新间隔 用于需求(2)</li>
+</ul>
+<p>接下来是初始化函数<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">- (instancetype)init</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">self</span> = [<span class="keyword">super</span> init];</span><br><span class="line"><span class="keyword">if</span> ( <span class="keyword">self</span> )</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">self</span><span class="variable">.minSpeed</span> = <span class="number">3</span>;</span><br><span class="line"><span class="keyword">self</span><span class="variable">.minFilter</span> = <span class="number">50</span>;</span><br><span class="line"><span class="keyword">self</span><span class="variable">.minInteval</span> = <span class="number">10</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">self</span><span class="variable">.delegate</span> = <span class="keyword">self</span>;</span><br><span class="line"><span class="keyword">self</span><span class="variable">.distanceFilter</span>  = <span class="keyword">self</span><span class="variable">.minFilter</span>;</span><br><span class="line"><span class="keyword">self</span><span class="variable">.desiredAccuracy</span> = kCLLocationAccuracyBest;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> <span class="keyword">self</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这里的默认值可以根据需求来调整</p>
+<p>然后是位置更新后的处理逻辑 其实也非常的简单<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)locationManager:(CLLocationManager *)manager didUpdateLocations:(<span class="built_in">NSArray</span> *)locations</span><br><span class="line">&#123;</span><br><span class="line">CLLocation *location = locations[<span class="number">0</span>];</span><br><span class="line"></span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"%@"</span>,location);</span><br><span class="line"></span><br><span class="line"><span class="comment">//根据实际情况来调整触发范围</span></span><br><span class="line">[<span class="keyword">self</span> adjustDistanceFilter:location];</span><br><span class="line"></span><br><span class="line"><span class="comment">//上传数据</span></span><br><span class="line">[<span class="keyword">self</span> uploadLocation:location];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>而这个<strong>adjustDistanceFilter</strong>函数 就是整个代码的核心 会根据当前速度来动态的调整<strong>distanceFilter</strong>这个参数 以满足我们的需求<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span><br><span class="line">*  规则: 如果速度小于minSpeed m/s 则把触发范围设定为50m</span><br><span class="line">*  否则将触发范围设定为minSpeed*minInteval</span><br><span class="line">*  此时若速度变化超过10% 则更新当前的触发范围(这里限制是因为不能不停的设置distanceFilter,</span><br><span class="line">*  否则uploadLocation会不停被触发)</span><br><span class="line">*/</span></span><br><span class="line">- (<span class="keyword">void</span>)adjustDistanceFilter:(CLLocation*)location</span><br><span class="line">&#123;</span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"adjust:%f"</span>,location<span class="variable">.speed</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> ( location<span class="variable">.speed</span> &lt; <span class="number">0</span> )</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">if</span> ( <span class="keyword">self</span><span class="variable">.distanceFilter</span> &lt; <span class="keyword">self</span><span class="variable">.minFilter</span> )</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">self</span><span class="variable">.distanceFilter</span> = <span class="keyword">self</span><span class="variable">.minFilter</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> ( location<span class="variable">.speed</span> &lt; <span class="keyword">self</span><span class="variable">.minSpeed</span> )</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">if</span> ( fabs(<span class="keyword">self</span><span class="variable">.distanceFilter</span>-<span class="keyword">self</span><span class="variable">.minFilter</span>) &gt; <span class="number">0.1</span>f )</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">self</span><span class="variable">.distanceFilter</span> = <span class="keyword">self</span><span class="variable">.minFilter</span>;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="built_in">CGFloat</span> lastSpeed = <span class="keyword">self</span><span class="variable">.distanceFilter</span>/<span class="keyword">self</span><span class="variable">.minInteval</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> ( (fabs(lastSpeed-location<span class="variable">.speed</span>)/lastSpeed &gt; <span class="number">0.1</span>f) || (lastSpeed &lt; <span class="number">0</span>) )</span><br><span class="line">&#123;</span><br><span class="line"><span class="built_in">CGFloat</span> newSpeed  = (<span class="keyword">int</span>)(location<span class="variable">.speed</span>+<span class="number">0.5</span>f);</span><br><span class="line"><span class="built_in">CGFloat</span> newFilter = newSpeed*<span class="keyword">self</span><span class="variable">.minInteval</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">self</span><span class="variable">.distanceFilter</span> = newFilter;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这里要注意到的是<strong>distanceFilter</strong>这个参数不能一直进行设置 因为每次设置完以后 再接下来的一秒以后 会立即触发<code>didUpdateLocations</code>回调(系统的标准最短更新间隔是1秒 即更新频率为1hz) 所以这里只有当变化超过10%的时候才会重置<strong>distanceFilter</strong></p>
+<p>接下来 为了能够正确的在被杀掉的情况下被唤醒 我们还要做最后一步操作 在<strong>AppDelegate</strong>的<code>didFinishLaunchingWithOptions</code>中加入下面的代码<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> ([launchOptions objectForKey:<span class="built_in">UIApplicationLaunchOptionsLocationKey</span>]) &#123;</span><br><span class="line"><span class="keyword">if</span> ( [[MMLocationManager sharedManager] respondsToSelector:<span class="keyword">@selector</span>(requestAlwaysAuthorization)] )</span><br><span class="line">&#123;</span><br><span class="line">[[MMLocationManager sharedManager] requestAlwaysAuthorization];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">[[MMLocationManager sharedManager] startUpdatingLocation];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这是因为被杀掉的APP 在后台被系统唤醒时 <strong>launchOptions会包含</strong>UIApplicationLaunchOptionsLocationKey**字段来进行标识 这时我们再重新启动定位功能即可</p>
+<p>至此 满足我们需求的定位功能就完成了 为此我写了一个demo来验证 结果如下<br><img src="http://7xibqv.com1.z0.glb.clouddn.com/2015-07-21-how-to-deal-with-background-location-update3.png" alt=""><br><img src="http://7xibqv.com1.z0.glb.clouddn.com/2015-07-21-how-to-deal-with-background-location-update4.png" alt=""></p>
+<p>接下来我们会讨论一下相关的几个问题</p>
+<h2 id="讨论">讨论</h2><hr>
+<blockquote>
+<h3 id="为什么不用定时器来控制定位间隔">为什么不用定时器来控制定位间隔</h3><p>网上有很多教程是用NSTimer来实现的 但是其实这样不是很好 虽然定位的间隔是固定的 但是耗电的问题无法解决 后台会持续的更新定位 无论当前的位置是否在更新 当然 如果你的使用场景就是要每隔一段时间来上传 就可以使用定时器来处理</p>
+</blockquote>
+<p>　</p>
+<blockquote>
+<h3 id="使用distanceFilter来处理_会有些什么问题">使用distanceFilter来处理 会有些什么问题</h3><p>由于distanceFilter=currentSpeed*minInteval 那么间隔的时间因为速度的变化而会有波动 但是这个波动是在可接受范围的 如果速度加快或者变慢 那么下一次的更新时间则会相应的缩短或者变长 但是因为我们是在真实生活环境中 速度的变化不可能那么快 所以这个误差是可以接受的 另外我们对distanceFilter针对速度进行矫正 因而总体来说 间隔还是会保持在我们与其的范围内的</p>
+</blockquote>
+<p>　</p>
+<blockquote>
+<h3 id="为什么不使用allowDeferredLocationUpdatesUntilTraveled:timeout:">为什么不使用<strong>allowDeferredLocationUpdatesUntilTraveled:timeout:</strong></h3><p><a href="https://developer.apple.com/library/prerelease/ios/documentation/CoreLocation/Reference/CLLocationManager_Class/index.html#//apple_ref/occ/instm/CLLocationManager/allowDeferredLocationUpdatesUntilTraveled:timeout:" target="_blank" rel="external">allowDeferredLocationUpdatesUntilTraveled</a>是iOS6推出的一个新的API 看名字我们可以知道这个函数的作用是延迟位置更新 直到移动了xx米或者时间超过了xx秒 那么这个函数不正好满足了我们的所有要求么? 可是万万没想到 事情并不是这样的 这个函数并不好用</p>
+</blockquote>
+<p>接下来是吐槽时间 ლ(⁰⊖⁰ლ)</p>
+<p>为什么说这个函数不好用呢? 首先 这个函数的要求很多 我们来看看要这个函数起作用要满足哪些条件</p>
+<blockquote>
+<ul>
+<li>必须iPhone5以及之后的硬件设备才支持</li>
+<li>desiredAccuracy必须设置为<code>kCLLocationAccuracyBest</code>或者<code>kCLLocationAccuracyBestForNavigation</code></li>
+<li>distanceFilter必须设置为<code>kCLDistanceFilterNone</code></li>
+<li>只在APP运行在后台时生效 前台运行时是不会进行延迟处理的</li>
+<li>只有系统在<strong>低功耗(Low Power State)</strong>的时候<strong>才有可能</strong>生效</li>
+</ul>
+</blockquote>
+<p>关于<strong>Low Power State</strong>在iOS中的描述 我只在苹果官网的文档中找到<a href="https://developer.apple.com/library/prerelease/ios/documentation/Performance/Conceptual/EnergyGuide-iOS/FundamentalConcepts.html#//apple_ref/doc/uid/TP40015243-CH4-SW1" target="_blank" rel="external">部分定义</a></p>
+<blockquote>
+<p>iOS is very good at getting a device into a low power state when it’s not being used. At idle, very little power is drawn and energy impact is low. When tasks are actively occurring, system resources are being used and those resources require energy. However, sporadic tasks can cause the device to enter an intermediate state—neither idle nor active—when the device isn’t doing anything. There may not be enough time during these intermediate states for the device to reach absolute idle before the next task executes. When this occurs, energy is wasted and the user’s battery drains faster.</p>
+</blockquote>
+<p>据我简单的了解 这个**Low Power State”只有在黑屏的状态下(不只是锁屏)才有可能触发 只要有任何电量屏幕的操作(就连推送也算) 都会使APP退出这个状态 同时 如果在充电状态下 也是无法进入的</p>
+<p>我尝试在真机和模拟器上使用这个API 但结果APP还是以1HZ的频率在定位(设置了kCLDistanceFilterNone的原因)<br>虽然<code>locationManager:didFinishDeferredUpdatesWithError:</code>在指定的时间后成功的回调了 但是结果还是没有deffer 于是我查了一下 原来这个函数无法直接进行调试的 因为:</p>
+<blockquote>
+<ul>
+<li>不支持模拟器 <code>deferredLocationUpdatesAvailable</code>用于检测设备是否支持 模拟器会返回NO</li>
+<li>不支持真机调试 因为调试时Xcode会阻止程序休眠 导致程序无法进入低功耗状态 </li>
+</ul>
+</blockquote>
+<p>结论就是…这个东西连调试都没办法 所以我也没有那么多时间跑到外面去测试这个东西… 况且使用我上述的方法已经基本可以满足需求… 所以我已放弃继续研究这个API了 因为就算使用了这个东西 也仅仅是锦上添花而已</p>
+<p>如果有哪些同学知道如何正确的使用这个东西 请留言告诉我 万分感谢!</p>
+<h2 id="小结">小结</h2><hr>
+<p>文中的demo可以在<a href="https://github.com/adad184/DemoBackgroundLocationUpdate" target="_blank" rel="external">这里找到</a> 另外demo中用到了Realm来存储数据(模拟上传操作) 有兴趣的同学可以看一下</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://adad184.com/2015/07/22/how-to-deal-with-background-location-update/" data-id="cice5te1y0003u4u2w08adn8q" class="article-share-link">分享到</a>
+      
+        <a href="http://adad184.com/2015/07/22/how-to-deal-with-background-location-update/#ds-thread" class="article-comment-link">文章評論</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/后台/">后台</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/定位/">定位</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2015/07/13/improve-performance-with-mkmapview/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">一次对MKMapView的性能优化</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+  <section id="comments">
+    <div id="ds-thread" class="ds-thread" data-thread-key="2015/07/22/how-to-deal-with-background-location-update/" data-title="后台定位上传的代码实践" data-url="http://adad184.com/2015/07/22/how-to-deal-with-background-location-update/"></div>
+  </section>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分類</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/开源项目/">开源项目</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/技巧心得/">技巧心得</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/生活琐碎/">生活琐碎</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/经验介绍/">经验介绍</a><span class="category-list-count">6</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">標簽</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Autolayout/">Autolayout</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MKMapView/">MKMapView</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Masonry/">Masonry</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NimbusKit/">NimbusKit</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Swift/">Swift</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Today-Extension/">Today Extension</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UIScrollView/">UIScrollView</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UITableView/">UITableView</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UIViewController/">UIViewController</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Widget/">Widget</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Xcode/">Xcode</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iMessage/">iMessage</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pop/">pop</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/优化/">优化</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/动画/">动画</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/后台/">后台</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/定位/">定位</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/实践/">实践</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/家庭/">家庭</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/开源/">开源</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/性能/">性能</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/手势/">手势</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/技巧/">技巧</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/插件/">插件</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/支付/">支付</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/支付宝/">支付宝</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/教程/">教程</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/旋转屏幕/">旋转屏幕</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/最美创意/">最美创意</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生活/">生活</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/第三方库/">第三方库</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/脚本/">脚本</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/获奖/">获奖</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/表单/">表单</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计/">设计</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/资源/">资源</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/键盘/">键盘</a><span class="tag-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">標簽雲</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Autolayout/" style="font-size: 13.33px;">Autolayout</a><a href="/tags/MKMapView/" style="font-size: 10px;">MKMapView</a><a href="/tags/Masonry/" style="font-size: 13.33px;">Masonry</a><a href="/tags/NimbusKit/" style="font-size: 10px;">NimbusKit</a><a href="/tags/Swift/" style="font-size: 10px;">Swift</a><a href="/tags/Today-Extension/" style="font-size: 10px;">Today Extension</a><a href="/tags/UIScrollView/" style="font-size: 10px;">UIScrollView</a><a href="/tags/UITableView/" style="font-size: 16.67px;">UITableView</a><a href="/tags/UIViewController/" style="font-size: 10px;">UIViewController</a><a href="/tags/Widget/" style="font-size: 10px;">Widget</a><a href="/tags/Xcode/" style="font-size: 10px;">Xcode</a><a href="/tags/iMessage/" style="font-size: 10px;">iMessage</a><a href="/tags/pop/" style="font-size: 13.33px;">pop</a><a href="/tags/优化/" style="font-size: 13.33px;">优化</a><a href="/tags/动画/" style="font-size: 13.33px;">动画</a><a href="/tags/后台/" style="font-size: 10px;">后台</a><a href="/tags/定位/" style="font-size: 10px;">定位</a><a href="/tags/实践/" style="font-size: 10px;">实践</a><a href="/tags/家庭/" style="font-size: 10px;">家庭</a><a href="/tags/开源/" style="font-size: 20px;">开源</a><a href="/tags/性能/" style="font-size: 10px;">性能</a><a href="/tags/手势/" style="font-size: 10px;">手势</a><a href="/tags/技巧/" style="font-size: 10px;">技巧</a><a href="/tags/插件/" style="font-size: 10px;">插件</a><a href="/tags/支付/" style="font-size: 10px;">支付</a><a href="/tags/支付宝/" style="font-size: 10px;">支付宝</a><a href="/tags/教程/" style="font-size: 16.67px;">教程</a><a href="/tags/旋转屏幕/" style="font-size: 10px;">旋转屏幕</a><a href="/tags/最美创意/" style="font-size: 16.67px;">最美创意</a><a href="/tags/生活/" style="font-size: 10px;">生活</a><a href="/tags/第三方库/" style="font-size: 10px;">第三方库</a><a href="/tags/脚本/" style="font-size: 10px;">脚本</a><a href="/tags/获奖/" style="font-size: 10px;">获奖</a><a href="/tags/表单/" style="font-size: 13.33px;">表单</a><a href="/tags/设计/" style="font-size: 10px;">设计</a><a href="/tags/资源/" style="font-size: 10px;">资源</a><a href="/tags/键盘/" style="font-size: 13.33px;">键盘</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">歸檔</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">五月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">四月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">三月 2015</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">十一月 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">十月 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">九月 2014</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">八月 2014</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/01/">一月 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/12/">十二月 2013</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/11/">十一月 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/10/">十月 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/09/">九月 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/08/">八月 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/07/">七月 2013</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">近期文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2015/07/22/how-to-deal-with-background-location-update/">后台定位上传的代码实践</a>
+          </li>
+        
+          <li>
+            <a href="/2015/07/13/improve-performance-with-mkmapview/">一次对MKMapView的性能优化</a>
+          </li>
+        
+          <li>
+            <a href="/2015/07/08/my-favorite-libraries-and-plugins/">个人常用iOS第三方库以及XCode插件介绍</a>
+          </li>
+        
+          <li>
+            <a href="/2015/07/01/opensource-xxpagingscrollview/">开源项目:XXPagingScrollView</a>
+          </li>
+        
+          <li>
+            <a href="/2015/06/08/complex-cell-with-masonry/">如何使用Masonry设计复合型cell</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">友情鏈接</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="https://github.com/adad184" target="_blank">Github</a>
+          </li>
+        
+          <li>
+            <a href="http://stackoverflow.com/users/1340076/adali" target="_blank">StackOverflow</a>
+          </li>
+        
+          <li>
+            <a href="http://www.weibo.com/ljc1986" target="_blank">Weibo</a>
+          </li>
+        
+          <li>
+            <a href="https://www.dropbox.com/sh/y636n1ysardp0m7/AAD8h0RT37cOVgIKkrtSZcQwa" target="_blank">Dropbox</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2015 里脊串<br>
+      Powered by <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a>
+      .
+      Theme by <a href="https://github.com/xiangming/landscape-plus" target="_blank">Landscape+</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+    <a href="/about" class="mobile-nav-link">关于</a>
+  
+</nav>
+    
+<!-- Duoshuo start -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"adad184"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+     || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+  </script>
+<!-- Duoshuo end -->
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+
+  </div>
+</body>
+</html>
