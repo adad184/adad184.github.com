@@ -23,7 +23,7 @@
 1. 如果用户的位置在持续变化 则隔一段时间上报一次　　由于我们希望能够实时的将用户的位置变化">
 <meta property="og:image" content="http://7xibqv.com1.z0.glb.clouddn.com/2015-07-21-how-to-deal-with-background-location-update1.png">
 <meta property="og:image" content="http://7xibqv.com1.z0.glb.clouddn.com/2015-07-21-how-to-deal-with-background-location-update2.png">
-<meta property="og:image" content="http://7xibqv.com1.z0.glb.clouddn.com/2015-07-21-how-to-deal-with-background-location-update4.png">
+<meta property="og:image" content="http://7xibqv.com1.z0.glb.clouddn.com/2015-07-21-how-to-deal-with-background-location-update5.png">
 <meta property="og:image" content="http://7xibqv.com1.z0.glb.clouddn.com/2015-07-21-how-to-deal-with-background-location-update3.png">
 <meta property="og:image" content="http://7xibqv.com1.z0.glb.clouddn.com/2015-07-21-how-to-deal-with-background-location-update4.png">
 <meta name="twitter:card" content="summary">
@@ -148,7 +148,7 @@ ga('send', 'pageview');
 <p>首先做一些准备工作</p>
 <p>在target的<strong>Capabilities</strong>选项中打开<strong>Background Modes</strong> 并勾选<strong>Location updates</strong><br><img src="http://7xibqv.com1.z0.glb.clouddn.com/2015-07-21-how-to-deal-with-background-location-update1.png" alt=""></p>
 <p>然后在plist中添加<strong>NSLocationAlawaysUsageDescription</strong>的键 在value中随便键入任何内容<br><img src="http://7xibqv.com1.z0.glb.clouddn.com/2015-07-21-how-to-deal-with-background-location-update2.png" alt=""><br>完成这两步 我们的前期工作就完成了 <strong>Background Modes</strong>是iOS7带入的新功能 而<strong>NSLocationAlawaysUsageDescription</strong>为了增强权限机制引入的提示描述 不添加这个的话 定位功能可是使用不了的 之后我们要调用<code>requestAlwaysAuthorization</code> 提示中就会显示这个描述</p>
-<p>在评论中有朋友问起 为什么要使用<code>requestAlwaysAuthorization</code>而不使用<code>requestWhenInUseAuthorization</code>呢 我<a href="http://www.zoejblog.com/ios2014wwdc-what-is-new-in-core-location-ji-lu/" target="_blank" rel="external">借用一张图</a>来说明一下<br><img src="http://7xibqv.com1.z0.glb.clouddn.com/2015-07-21-how-to-deal-with-background-location-update4.png" alt=""></p>
+<p>在评论中有朋友问起 为什么要使用<code>requestAlwaysAuthorization</code>而不使用<code>requestWhenInUseAuthorization</code>呢 我<a href="http://www.zoejblog.com/ios2014wwdc-what-is-new-in-core-location-ji-lu/" target="_blank" rel="external">借用一张图</a>来说明一下<br><img src="http://7xibqv.com1.z0.glb.clouddn.com/2015-07-21-how-to-deal-with-background-location-update5.png" alt=""></p>
 <p>简单来说 两者的区别在于前者支持<strong>Region Monitoring</strong>和<strong>Significant Location Changes</strong>而后者不支持<br>但其实还有一个非常重要的区别 就是前者<strong>支持程序被杀掉后的系统自动唤醒</strong> 而后者不支持 这是非常重要的一个区别</p>
 <h2 id="代码">代码</h2><hr>
 <p>定位肯定要跟<strong>CLLocationManager</strong>打交道 所以我们先定义一个<strong>CLLocationManager</strong>的子类 并根据需求中的几点定义三个变量</p>
