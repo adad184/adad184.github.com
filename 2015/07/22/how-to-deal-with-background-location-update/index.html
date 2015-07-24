@@ -23,6 +23,7 @@
 1. 如果用户的位置在持续变化 则隔一段时间上报一次　　由于我们希望能够实时的将用户的位置变化">
 <meta property="og:image" content="http://7xibqv.com1.z0.glb.clouddn.com/2015-07-21-how-to-deal-with-background-location-update1.png">
 <meta property="og:image" content="http://7xibqv.com1.z0.glb.clouddn.com/2015-07-21-how-to-deal-with-background-location-update2.png">
+<meta property="og:image" content="http://7xibqv.com1.z0.glb.clouddn.com/2015-07-21-how-to-deal-with-background-location-update4.png">
 <meta property="og:image" content="http://7xibqv.com1.z0.glb.clouddn.com/2015-07-21-how-to-deal-with-background-location-update3.png">
 <meta property="og:image" content="http://7xibqv.com1.z0.glb.clouddn.com/2015-07-21-how-to-deal-with-background-location-update4.png">
 <meta name="twitter:card" content="summary">
@@ -136,7 +137,7 @@ ga('send', 'pageview');
 <p>先来看看实现这个功能的具体需求是什么 由于我们是实时定位的生活类社交APP 所以我们需要做到一下几点</p>
 <blockquote>
 <p><strong>1. 如果用户的位置在持续变化 则隔一段时间上报一次</strong><br>　　由于我们希望能够实时的将用户的位置变化反馈在APP里 所以定时的上报是刚需</p>
-<p><strong>2. 如果用户的移动速度很慢 则隔一段距离上报一次</strong><br>　　如果用户是低速率的状态(比如步行的移动速度大概就是1m/s左右) 这个时候如果还按(1)中的方式来上报的话 由于变化太小 地图上的点会非常的密集 这种数据的意义不大(而且如果要做轨迹服务的话 这些密集点都是必须有花掉的) 所以这时候我们按照距离间隔来上报</p>
+<p><strong>2. 如果用户的移动速度很慢 则隔一段距离上报一次</strong><br>　　如果用户是低速率的状态(比如步行的移动速度大概就是1m/s左右) 这个时候如果还按(1)中的方式来上报的话 由于变化太小 地图上的点会非常的密集 这种数据的意义不大(而且如果要做轨迹服务的话 这些密集点都是必须优化掉的) 所以这时候我们按照距离间隔来上报</p>
 <p><strong>3. 如果用户的位置在到达某处后没有变化 则不继续上报</strong><br>　　我们只关心位置的变化 如果用户的位置没有变化或者变化很小 其实是不需要上报其位置的(比如进入的公司 或者等一个很长时间的红灯) 这时候我们就不上报(以达到省电的目的)</p>
 <p><strong>4. 切换到后台也要能定位上报</strong><br>　　后台上报是必须的 用户不可能一直运行着我们的APP (iOS4开始就支持了)</p>
 <p><strong>5. APP因各种原因终止运行后(用户主动关闭, 系统杀掉) 也要能定位上报</strong><br>　　用户主动关闭APP的几率不大 但是因系统调度被杀掉的情况是很普遍的 这个时候我们也要能够上报 (iOS7开始已支持被杀掉后唤醒)</p>
@@ -146,7 +147,9 @@ ga('send', 'pageview');
 <h2 id="准备">准备</h2><hr>
 <p>首先做一些准备工作</p>
 <p>在target的<strong>Capabilities</strong>选项中打开<strong>Background Modes</strong> 并勾选<strong>Location updates</strong><br><img src="http://7xibqv.com1.z0.glb.clouddn.com/2015-07-21-how-to-deal-with-background-location-update1.png" alt=""></p>
-<p>然后在plist中添加<strong>NSLocationAlawaysUsageDescription</strong>的键 在value中随便键入任何内容<br><img src="http://7xibqv.com1.z0.glb.clouddn.com/2015-07-21-how-to-deal-with-background-location-update2.png" alt=""><br>完成这两步 我们的前期工作就完成了 <strong>Background Modes</strong>是iOS7带入的新功能 而<strong>NSLocationAlawaysUsageDescription</strong>为了增强权限机制引入的提示描述 不添加这个的话 定位功能可是使用不了的</p>
+<p>然后在plist中添加<strong>NSLocationAlawaysUsageDescription</strong>的键 在value中随便键入任何内容<br><img src="http://7xibqv.com1.z0.glb.clouddn.com/2015-07-21-how-to-deal-with-background-location-update2.png" alt=""><br>完成这两步 我们的前期工作就完成了 <strong>Background Modes</strong>是iOS7带入的新功能 而<strong>NSLocationAlawaysUsageDescription</strong>为了增强权限机制引入的提示描述 不添加这个的话 定位功能可是使用不了的 之后我们要调用<code>requestAlwaysAuthorization</code> 提示中就会显示这个描述</p>
+<p>在评论中有朋友问起 为什么要使用<code>requestAlwaysAuthorization</code>而不使用<code>requestWhenInUseAuthorization</code>呢 我<a href="http://www.zoejblog.com/ios2014wwdc-what-is-new-in-core-location-ji-lu/" target="_blank" rel="external">借用一张图</a>来说明一下<br><img src="http://7xibqv.com1.z0.glb.clouddn.com/2015-07-21-how-to-deal-with-background-location-update4.png" alt=""></p>
+<p>简单来说 两者的区别在于前者支持<strong>Region Monitoring</strong>和<strong>Significant Location Changes</strong>而后者不支持<br>但其实还有一个非常重要的区别 就是前者<strong>支持程序被杀掉后的系统自动唤醒</strong> 而后者不支持 这是非常重要的一个区别</p>
 <h2 id="代码">代码</h2><hr>
 <p>定位肯定要跟<strong>CLLocationManager</strong>打交道 所以我们先定义一个<strong>CLLocationManager</strong>的子类 并根据需求中的几点定义三个变量</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">MMLocationManager</span> : <span class="title">CLLocationManager</span></span></span><br><span class="line"></span><br><span class="line">+ (instancetype)sharedManager;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">assign</span>) <span class="built_in">CGFloat</span> minSpeed;     <span class="comment">//最小速度</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">assign</span>) <span class="built_in">CGFloat</span> minFilter;    <span class="comment">//最小范围</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">assign</span>) <span class="built_in">CGFloat</span> minInteval;   <span class="comment">//更新间隔</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
