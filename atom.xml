@@ -4,7 +4,7 @@
   <subtitle><![CDATA[途有境而观无垠]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://adad184.com/"/>
-  <updated>2015-07-28T08:27:25.000Z</updated>
+  <updated>2015-07-28T08:29:20.000Z</updated>
   <id>http://adad184.com/</id>
   
   <author>
@@ -19,13 +19,14 @@
     <link href="http://adad184.com/2015/07/28/use-git-with-sourcetree-and-beyondcompare/"/>
     <id>http://adad184.com/2015/07/28/use-git-with-sourcetree-and-beyondcompare/</id>
     <published>2015-07-28T09:48:34.000Z</published>
-    <updated>2015-07-28T08:27:25.000Z</updated>
+    <updated>2015-07-28T08:29:20.000Z</updated>
     <content type="html"><![CDATA[<h2 id="前言">前言</h2><p>作为一个Coder 源代码控制管理系统(SCM)肯定是不陌生的 比如我就用过<strong>VSS</strong>-&gt;<strong>SVN</strong>-&gt;<strong>Git</strong> 其他有名的还有<strong>CVS</strong>和<strong>Mercurial</strong>等等<br>移动互联网时代 Git基本已成为大家的不二之选了(<a href="https://github.com/" target="_blank" rel="external">Github</a>功不可没啊)</p>
 <p>今天不介绍Git的好处和使用方法 主要介绍一下两款与Git配套使用的好工具</p>
 <ul>
 <li><a href="https://www.sourcetreeapp.com/" target="_blank" rel="external">SourceTree</a></li>
 <li><a href="http://www.scootersoftware.com/" target="_blank" rel="external">BeyondCompare</a></li>
 </ul>
+<a id="more"></a>
 <h2 id="SourceTree">SourceTree</h2><p>作为一个懒人 Git的命令行我是不太爱的 所以GUI的工具就成了我的首选<br>Mac下的Git工具真是五花八门 著名的有<a href="http://www.git-tower.com/" target="_blank" rel="external">Tower</a> <a href="http://www.syntevo.com/smartgit/" target="_blank" rel="external">SmartGit</a>等等(更多可以看下<a href="https://git-scm.com/download/gui/linux" target="_blank" rel="external">这里的介绍</a>)</p>
 <p>今天我们介绍的是<strong>SourceTree</strong> 出品方为<a href="https://www.atlassian.com/" target="_blank" rel="external">Atlassian</a> 旗下的产品还有著名的track工具<a href="https://www.atlassian.com/software/jira" target="_blank" rel="external">JIRA</a> Github的竞争者<a href="https://www.atlassian.com/software/bitbucket/overview" target="_blank" rel="external">Bitbucket</a>等等(这两个我也是经常用的 尤其是BitBucket 支持免费私有仓哦~) </p>
 <p>SourceTree的特点如下</p>
@@ -56,7 +57,13 @@
 <h2 id="小结">小结</h2><p>工欲善其事必先利其器 好的开发工具可以让你事半功倍 节约宝贵的时间 这样就可以少加班了 (ﾉ&gt;ω&lt;)ﾉ (然并卵)</p>
 ]]></content>
     <summary type="html">
-    <![CDATA[<h2 id="前言">前言</h2><p>作为一个Coder 源代码控制管理系统(SCM)肯定是不陌生的 比如我就用过<strong>VSS</strong>-&gt;<strong>SVN</strong>-&gt;<strong>Git</strong> 其他有名的还有<s]]>
+    <![CDATA[<h2 id="前言">前言</h2><p>作为一个Coder 源代码控制管理系统(SCM)肯定是不陌生的 比如我就用过<strong>VSS</strong>-&gt;<strong>SVN</strong>-&gt;<strong>Git</strong> 其他有名的还有<strong>CVS</strong>和<strong>Mercurial</strong>等等<br>移动互联网时代 Git基本已成为大家的不二之选了(<a href="https://github.com/">Github</a>功不可没啊)</p>
+<p>今天不介绍Git的好处和使用方法 主要介绍一下两款与Git配套使用的好工具</p>
+<ul>
+<li><a href="https://www.sourcetreeapp.com/">SourceTree</a></li>
+<li><a href="http://www.scootersoftware.com/">BeyondCompare</a></li>
+</ul>]]>
+    
     </summary>
     
       <category term="BeyondCompare" scheme="http://adad184.com/tags/BeyondCompare/"/>
