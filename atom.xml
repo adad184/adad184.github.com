@@ -4,7 +4,7 @@
   <subtitle><![CDATA[途有境而观无垠]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://adad184.com/"/>
-  <updated>2015-07-24T06:17:32.000Z</updated>
+  <updated>2015-07-28T03:16:53.000Z</updated>
   <id>http://adad184.com/</id>
   
   <author>
@@ -13,6 +13,30 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[Git的好伙伴:SourceTree & BeyondCompare]]></title>
+    <link href="http://adad184.com/2015/07/28/use-git-with-sourcetree-and-beyondcompare/"/>
+    <id>http://adad184.com/2015/07/28/use-git-with-sourcetree-and-beyondcompare/</id>
+    <published>2015-07-28T09:48:34.000Z</published>
+    <updated>2015-07-28T03:16:53.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="前言">前言</h2><p>作为一个Coder 源代码控制管理系统(SCM)肯定是不陌生的 比如我就用过<strong>VSS</strong>-&gt;<strong>SVN</strong>-&gt;<strong>Git</strong> 其他有名的还有<strong>CVS</strong>和<strong>Mercurial</strong>等等<br>现在的移动互联网时代 Git基本已成为大家的不二之选了(Github也是功不可没啊)</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h2 id="前言">前言</h2><p>作为一个Coder 源代码控制管理系统(SCM)肯定是不陌生的 比如我就用过<strong>VSS</strong>-&gt;<strong>SVN</strong>-&gt;<strong>Git</strong> 其他有名的还有<s]]>
+    </summary>
+    
+      <category term="BeyondCompare" scheme="http://adad184.com/tags/BeyondCompare/"/>
+    
+      <category term="Git" scheme="http://adad184.com/tags/Git/"/>
+    
+      <category term="SourceTree" scheme="http://adad184.com/tags/SourceTree/"/>
+    
+      <category term="工具" scheme="http://adad184.com/tags/%E5%B7%A5%E5%85%B7/"/>
+    
+      <category term="经验介绍" scheme="http://adad184.com/categories/%E7%BB%8F%E9%AA%8C%E4%BB%8B%E7%BB%8D/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[后台定位上传的代码实践]]></title>
