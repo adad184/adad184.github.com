@@ -4,7 +4,7 @@
   <subtitle><![CDATA[途有境而观无垠]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://adad184.com/"/>
-  <updated>2015-07-28T03:16:53.000Z</updated>
+  <updated>2015-07-28T08:27:25.000Z</updated>
   <id>http://adad184.com/</id>
   
   <author>
@@ -19,8 +19,41 @@
     <link href="http://adad184.com/2015/07/28/use-git-with-sourcetree-and-beyondcompare/"/>
     <id>http://adad184.com/2015/07/28/use-git-with-sourcetree-and-beyondcompare/</id>
     <published>2015-07-28T09:48:34.000Z</published>
-    <updated>2015-07-28T03:16:53.000Z</updated>
-    <content type="html"><![CDATA[<h2 id="前言">前言</h2><p>作为一个Coder 源代码控制管理系统(SCM)肯定是不陌生的 比如我就用过<strong>VSS</strong>-&gt;<strong>SVN</strong>-&gt;<strong>Git</strong> 其他有名的还有<strong>CVS</strong>和<strong>Mercurial</strong>等等<br>现在的移动互联网时代 Git基本已成为大家的不二之选了(Github也是功不可没啊)</p>
+    <updated>2015-07-28T08:27:25.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="前言">前言</h2><p>作为一个Coder 源代码控制管理系统(SCM)肯定是不陌生的 比如我就用过<strong>VSS</strong>-&gt;<strong>SVN</strong>-&gt;<strong>Git</strong> 其他有名的还有<strong>CVS</strong>和<strong>Mercurial</strong>等等<br>移动互联网时代 Git基本已成为大家的不二之选了(<a href="https://github.com/" target="_blank" rel="external">Github</a>功不可没啊)</p>
+<p>今天不介绍Git的好处和使用方法 主要介绍一下两款与Git配套使用的好工具</p>
+<ul>
+<li><a href="https://www.sourcetreeapp.com/" target="_blank" rel="external">SourceTree</a></li>
+<li><a href="http://www.scootersoftware.com/" target="_blank" rel="external">BeyondCompare</a></li>
+</ul>
+<h2 id="SourceTree">SourceTree</h2><p>作为一个懒人 Git的命令行我是不太爱的 所以GUI的工具就成了我的首选<br>Mac下的Git工具真是五花八门 著名的有<a href="http://www.git-tower.com/" target="_blank" rel="external">Tower</a> <a href="http://www.syntevo.com/smartgit/" target="_blank" rel="external">SmartGit</a>等等(更多可以看下<a href="https://git-scm.com/download/gui/linux" target="_blank" rel="external">这里的介绍</a>)</p>
+<p>今天我们介绍的是<strong>SourceTree</strong> 出品方为<a href="https://www.atlassian.com/" target="_blank" rel="external">Atlassian</a> 旗下的产品还有著名的track工具<a href="https://www.atlassian.com/software/jira" target="_blank" rel="external">JIRA</a> Github的竞争者<a href="https://www.atlassian.com/software/bitbucket/overview" target="_blank" rel="external">Bitbucket</a>等等(这两个我也是经常用的 尤其是BitBucket 支持免费私有仓哦~) </p>
+<p>SourceTree的特点如下</p>
+<blockquote>
+<ul>
+<li><strong>免费</strong><br>SourceTree是免费使用的 只要简单的注册一下就好了</li>
+<li><strong>跨平台</strong><br>Windows和Mac都可以用</li>
+<li><strong>完美支持Github和Bitbucket</strong><br>我所有Github和Bitbucket上的项目都是用它来管理的 当然 公司的项目也是用SourceTree管理 无不干扰</li>
+<li><strong>支持Git Flow</strong><br><a href="http://nvie.com/posts/a-successful-git-branching-model/" target="_blank" rel="external">Git Flow</a>(<a href="http://www.juvenxu.com/2010/11/28/a-successful-git-branching-model/" target="_blank" rel="external">翻译版</a>)是一套关于Git的使用实践 现在已得到广泛的认可和推广 如果使用得当 开发管理的过程将变得更轻松和清晰</li>
+</ul>
+</blockquote>
+<p>这是SourceTree的Repo列表界面 也是打开时的默认界面 这里可以对所有的Repo进行统一的管理 也支持分组<br><img src="https://www.sourcetreeapp.com/images/sourcetree-hero-mac-bookmarks@2x.png" alt=""></p>
+<p>这是SourceTree的Repo详情界面 这里是单独对某个Repo操作的地方 Git的所有操作你都可以在GUI上进行 非常的方便顺手<br><img src="https://www.sourcetreeapp.com/images/sourcetree-hero-mac-log@2x.png" alt=""></p>
+<p>具体细节就请自己使用之后慢慢体会吧 这里就不多介绍了</p>
+<h2 id="BeyondCompare">BeyondCompare</h2><p>我的BeyondCompare使用经验可以追溯到很多年前(那时候还在深圳的公司) 虽然大部分代码都是跑在Linux上的 但是公司还是选择在Windows上面做交叉编译 那个时候我们用的开发工具就是<a href="http://www.sourceinsight.com/" target="_blank" rel="external">SourceInsight</a>+BeyondCompare(SourceInsight也是神器 用过的同学应该都知道好在哪 可惜的是没有Mac版  而那个时候BC还是2.x的版本)</p>
+<p>BeyondCompare是一款非常强大的文件对比工具 (比Xcode和SourceTree自带的不知道高明到哪去了 (ーωーก) 如果有过Merge经验的同学肯定能体会到有大量冲突时的痛苦 BeyondCompare可以帮你轻松解决这个问题</p>
+<p>可是BeyondCompare之前是一直只有Windows版的 3.0开始支持Linux 4.0开始才支持Mac</p>
+<p>接下来介绍一下SourceTree中如何集成BeyondCompare</p>
+<ol>
+<li>先安装好BeyondCompare(请支持正版)</li>
+<li><p>打开SourceTree的<strong>Preferences</strong> 选择<strong>Diff</strong> 在下面的<strong>External Diff/Merge</strong>中做如下设置<br> Visual Diff Tool: <strong>Other</strong><br> Diff Command: <strong>/usr/local/bin/bcomp</strong><br> Arguments: <strong>\$LOCAL \$REMOTE</strong></p>
+<p> Merge Tool: <strong>Other</strong><br> Merge Command: <strong>/usr/local/bin/bcomp</strong><br> Arguments: <strong>\$LOCAL \$REMOTE \$BASE \$MERGED</strong></p>
+</li>
+<li>打开终端 输入命令<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ln -s /Applications/Beyond\ Compare.app/Contents/MacOS/bcomp /usr/local/bin/</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>这样就设置完成了 当有冲突的时候 在菜单中选择<strong>Resolve Conflicts</strong> -&gt; <strong>Launch External Merge Tool</strong> 即可打开BeyondCompare进行Merge操作<br><img src="http://7xibqv.com1.z0.glb.clouddn.com/2015-07-28-use-git-with-sourcetree-and-beyondcompare1.png" alt=""></p>
+<h2 id="小结">小结</h2><p>工欲善其事必先利其器 好的开发工具可以让你事半功倍 节约宝贵的时间 这样就可以少加班了 (ﾉ&gt;ω&lt;)ﾉ (然并卵)</p>
 ]]></content>
     <summary type="html">
     <![CDATA[<h2 id="前言">前言</h2><p>作为一个Coder 源代码控制管理系统(SCM)肯定是不陌生的 比如我就用过<strong>VSS</strong>-&gt;<strong>SVN</strong>-&gt;<strong>Git</strong> 其他有名的还有<s]]>
