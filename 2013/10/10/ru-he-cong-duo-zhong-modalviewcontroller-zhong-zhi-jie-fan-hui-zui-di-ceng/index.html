@@ -125,6 +125,8 @@ ga('send', 'pageview');
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">if</span> ( APP<span class="variable">.presentingController</span> )</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">UIViewController</span> *vc = <span class="keyword">self</span><span class="variable">.presentingController</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> ( !vc<span class="variable">.presentingViewController</span> )</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">while</span> (vc<span class="variable">.presentingViewController</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        vc = vc<span class="variable">.presentingViewController</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    [vc dismissViewControllerAnimated:<span class="literal">YES</span> completion:^&#123;</span><br><span class="line"></span><br><span class="line">    &#125;];</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
+    </div>
+    <footer class="article-footer">
 
     <!--版权信息开始-->
       <div class="copyright">
@@ -137,8 +139,7 @@ ga('send', 'pageview');
   </span>
 </div>
     <!--版权信息结束-->
-    </div>
-    <footer class="article-footer">
+
       <a data-url="http://adad184.com/2013/10/10/ru-he-cong-duo-zhong-modalviewcontroller-zhong-zhi-jie-fan-hui-zui-di-ceng/" data-id="cicr03m840043rsu244c3gf9w" class="article-share-link">分享到</a>
       
         <a href="http://adad184.com/2013/10/10/ru-he-cong-duo-zhong-modalviewcontroller-zhong-zhi-jie-fan-hui-zui-di-ceng/#ds-thread" class="article-comment-link">文章評論</a>
