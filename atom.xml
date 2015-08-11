@@ -4,7 +4,7 @@
   <subtitle><![CDATA[途有境而观无垠]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://adad184.com/"/>
-  <updated>2015-08-11T09:53:09.000Z</updated>
+  <updated>2015-08-11T09:54:33.000Z</updated>
   <id>http://adad184.com/</id>
   
   <author>
@@ -19,7 +19,7 @@
     <link href="http://adad184.com/2015/08/11/practice-in-mapview-navigation-with-URI/"/>
     <id>http://adad184.com/2015/08/11/practice-in-mapview-navigation-with-URI/</id>
     <published>2015-08-11T09:48:34.000Z</published>
-    <updated>2015-08-11T09:53:09.000Z</updated>
+    <updated>2015-08-11T09:54:33.000Z</updated>
     <content type="html"><![CDATA[<h2 id="前言">前言</h2><p>之前<a href="http://adad184.com/2015/07/13/improve-performance-with-mkmapview/" target="_blank" rel="external">介绍</a>了我正在做的是一款定位主打的应用 然后最近我们需要做一个定位导航的功能 能够让用户从当前位置导航到指定目的地(默认以驾车的方式导航)</p>
 <p>手机上的导航方式 分<strong>应用内导航</strong>和<strong>应用外导航</strong></p>
 <blockquote>
@@ -28,7 +28,7 @@
 <li>应用外导航<br>是以URI跳转的方式(在iOS中就是以URL Scheme的方式) 直接跳到对应的地图APP中 直接利用对方的功能来导航<br>这样的优点 一是接入方便 二是不增加自己APP的开销 缺点就是如果用户没有装这个地图应用就没办法使用这个地图的服务</li>
 </ul>
 </blockquote>
-<p>说起应用内导航 当年是被<strong>图吧</strong>坑惨了 两年前 高德和百度都没有推出导航SDK的时候 市面上好像就只有图吧有应用内导航SDK 所以不得已用了图吧SDK 如今图吧SDK仍然高居我最讨厌最难用的地图SDk榜的榜首(话说百度的SDK和图吧的SDK设计感觉上是一脉相承的 不晓得是不是百度做地图时挖了一大批图吧的人?) 而且就是这个难用的SDK 竟然还是收费的</p>
+<p>说起应用内导航 当年是被<strong>图吧</strong>坑惨了 两年前 高德和百度都没有推出导航SDK的时候 市面上好像就只有图吧有应用内导航SDK 所以不得已用了图吧SDK 如今图吧SDK仍是我心中最难用的地图SDK(话说百度的SDK和图吧的SDK设计感觉上是一脉相承的 不晓得是不是百度做地图时挖了一大批图吧的人?) 而且就是这个难用的SDK 竟然还是收费的</p>
 <p>而今天要说的 就是第二种 因为网上说的都不是很全面 所以今天把对这种方式的研究结果总结一下</p>
 <a id="more"></a>
 <h2 id="研究">研究</h2><p>先来看一下我们要达到什么效果 就是当我们点导航的时候 会弹出下面这个选择列表</p>
@@ -103,7 +103,7 @@
 <li>应用外导航<br>是以URI跳转的方式(在iOS中就是以URL Scheme的方式) 直接跳到对应的地图APP中 直接利用对方的功能来导航<br>这样的优点 一是接入方便 二是不增加自己APP的开销 缺点就是如果用户没有装这个地图应用就没办法使用这个地图的服务</li>
 </ul>
 </blockquote>
-<p>说起应用内导航 当年是被<strong>图吧</strong>坑惨了 两年前 高德和百度都没有推出导航SDK的时候 市面上好像就只有图吧有应用内导航SDK 所以不得已用了图吧SDK 如今图吧SDK仍然高居我最讨厌最难用的地图SDk榜的榜首(话说百度的SDK和图吧的SDK设计感觉上是一脉相承的 不晓得是不是百度做地图时挖了一大批图吧的人?) 而且就是这个难用的SDK 竟然还是收费的</p>
+<p>说起应用内导航 当年是被<strong>图吧</strong>坑惨了 两年前 高德和百度都没有推出导航SDK的时候 市面上好像就只有图吧有应用内导航SDK 所以不得已用了图吧SDK 如今图吧SDK仍是我心中最难用的地图SDK(话说百度的SDK和图吧的SDK设计感觉上是一脉相承的 不晓得是不是百度做地图时挖了一大批图吧的人?) 而且就是这个难用的SDK 竟然还是收费的</p>
 <p>而今天要说的 就是第二种 因为网上说的都不是很全面 所以今天把对这种方式的研究结果总结一下</p>]]>
     
     </summary>
