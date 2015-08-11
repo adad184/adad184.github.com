@@ -4,7 +4,7 @@
   <subtitle><![CDATA[途有境而观无垠]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://adad184.com/"/>
-  <updated>2015-08-03T06:41:53.000Z</updated>
+  <updated>2015-08-11T09:52:37.000Z</updated>
   <id>http://adad184.com/</id>
   
   <author>
@@ -15,11 +15,104 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title><![CDATA[URI跳转方式地图导航的代码实践]]></title>
+    <link href="http://adad184.com/2015/08/11/practice-in-mapview-navigation-with-URI/"/>
+    <id>http://adad184.com/2015/08/11/practice-in-mapview-navigation-with-URI/</id>
+    <published>2015-08-11T09:48:34.000Z</published>
+    <updated>2015-08-11T09:52:37.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="前言">前言</h2><p>之前<a href="http://adad184.com/2015/07/13/improve-performance-with-mkmapview/" target="_blank" rel="external">介绍</a>了我正在做的是一款定位主打的应用 然后最近我们需要做一个定位导航的功能 能够让用户从当前位置导航到指定目的地(默认以驾车的方式导航)</p>
+<p>手机上的导航方式 分<strong>应用内导航</strong>和<strong>应用外导航</strong></p>
+<blockquote>
+<ul>
+<li>应用内导航<br>是指使用地图服务提供的SDK(比如高德,百度等等) 直接将导航功能嵌入到我们自己的APP内部<br>但是这个方案我个人不喜欢 一是接入要一定的时间 二是增加APP的内存占用 </li>
+<li>应用外导航<br>是以URI跳转的方式(在iOS中就是以URL Scheme的方式) 直接跳到对应的地图APP中 直接利用对方的功能来导航<br>这样的优点 一是接入方便 二是不增加自己APP的开销 缺点就是如果用户没有装这个地图应用就没办法使用这个地图的服务</li>
+</ul>
+</blockquote>
+<p>说起应用内导航 当年是被<strong>图吧</strong>坑惨了 两年前 高德和百度都没有推出导航SDK的时候 市面上好像就只有图吧有应用内导航SDK 所以不得已用了图吧SDK 如今图吧SDK仍然高居我最讨厌最难用的地图SDk榜的榜首(话说百度的SDK和图吧的SDK设计感觉上是一脉相承的 不晓得是不是百度做地图时挖了一大批图吧的人?) 而且就是这个难用的SDK 竟然还是收费的</p>
+<p>而今天要说的 就是第二种 因为网上说的都不是很全面 所以今天把对这种方式的研究结果总结一下</p>
+<h2 id="研究">研究</h2><p>先来看一下我们要达到什么效果 就是当我们点导航的时候 会弹出下面这个选择列表</p>
+<p><img src="http://7xibqv.com1.z0.glb.clouddn.com/2015-08-11-practice-in-mapview-navigation-with-URI0.jpg" alt=""></p>
+<p>当然 如果没有安装某个地图APP 那么对应的选项是不会出现的 检测APP是否安装 只要调用下面这个方法就可以了<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[[<span class="built_in">UIApplication</span> sharedApplication] canOpenURL:[<span class="built_in">NSURL</span> URLWithString:<span class="string">@"appurlscheme://"</span>]</span><br></pre></td></tr></table></figure></p>
+<p>关于APP的URL Scheme相关内容这里就不介绍了 大家可以自行去研究</p>
+<p>那么我们上图提到了4个地图应用 分别是</p>
+<ol>
+<li>苹果地图</li>
+<li>百度地图</li>
+<li>高德地图</li>
+<li>谷歌地图</li>
+</ol>
+<p>这些也是当前我们用得最多的几种地图了(什么 你们说还有腾讯地图? 可惜腾讯地图暂时还不支持URI的方式打开 所以这里就没列出来 等可以用了我会补上)</p>
+<p>下面来对比一下几种地图<br>|   地图       |    URL Scheme        | 文档     | 是否可以跳回到APP     |<br>|:————:    |:————————:    |:——:    |:————————-:    |<br>| 苹果地图     |                      | <a href="https://developer.apple.com/library/prerelease/ios/documentation/MapKit/Reference/MKMapItem_class/index.html" target="_blank" rel="external">文档</a>     |         否            |<br>| 百度地图     |    baidumap://       | <a href="http://developer.baidu.com/map/index.php?title=uri/api/ios" target="_blank" rel="external">文档</a>     |         否            |<br>| 高德地图     |    iosamap://        | <a href="http://lbs.amap.com/api/uri-api/ios-uri-explain/" target="_blank" rel="external">文档</a>     |         是            |<br>| 谷歌地图     | comgooglemaps://     | <a href="https://developers.google.com/maps/documentation/ios/urlscheme" target="_blank" rel="external">文档</a>     |         是            |</p>
+<p>苹果地图是系统自带的(而且苹果地图最好的方式也不是用URI的方式开打) 所以无需URL Scheme就可以打开的<br>其次 当跳到地图APP之后可以跳回是一种很好的体验(参考微信的跳转) 但是遗憾的是 苹果地图和百度地图都不支持跳回</p>
+<p>接下来我们就回到正题 说一说每种地图的跳转方式</p>
+<p>假设我们有一个指定的目的坐标<strong>coordinate</strong> 而我们自己的APP的URL Scheme是<strong>urlScheme</strong> 名称是<strong>appName</strong><br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">CLLocationCoordinate2D coordinate;</span><br><span class="line"><span class="built_in">NSString</span> *urlScheme;</span><br><span class="line"><span class="built_in">NSString</span> *appName;</span><br></pre></td></tr></table></figure></p>
+<h3 id="苹果地图">苹果地图</h3><hr>
+<p>苹果地图可以通过<code>openURL</code>的方式打开<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSString</span> *urlString = [[<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"http://maps.apple.com/?daddr=%f,%f&amp;saddr=slat,slng"</span>,coordinate<span class="variable">.latitude</span>, coordinate<span class="variable">.longitude</span>] stringByAddingPercentEscapesUsingEncoding:<span class="built_in">NSUTF8StringEncoding</span>]</span><br><span class="line"></span><br><span class="line">[[<span class="built_in">UIApplication</span> sharedApplication] openURL:[<span class="built_in">NSURL</span> URLWithString:urlString]];</span><br></pre></td></tr></table></figure></p>
+<p>但是这种方式 <strong>不能以当前位置为起点</strong> 所以不符合我们的要求 网上说可以用下面这种方式 但是我没成功<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">NSString *urlString = [[NSString stringWithFormat:@&#34;http://maps.apple.com/?daddr=%f,%f&#38;saddr=Current+Location&#34;,coordinate.latitude, coordinate.longitude] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];</span><br></pre></td></tr></table></figure></p>
+<p>但是苹果提供了另一种方式 使用<strong>MKMapItem</strong><br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">MKMapItem</span> *currentLocation = [<span class="built_in">MKMapItem</span> mapItemForCurrentLocation];</span><br><span class="line"><span class="built_in">MKMapItem</span> *toLocation = [[<span class="built_in">MKMapItem</span> alloc] initWithPlacemark:[[<span class="built_in">MKPlacemark</span> alloc] initWithCoordinate:coordinate addressDictionary:<span class="literal">nil</span>]];</span><br><span class="line">                                             </span><br><span class="line">[<span class="built_in">MKMapItem</span> openMapsWithItems:@[currentLocation, toLocation] </span><br><span class="line">               launchOptions:@&#123;<span class="built_in">MKLaunchOptionsDirectionsModeKey</span>: <span class="built_in">MKLaunchOptionsDirectionsModeDriving</span>,</span><br><span class="line">                               <span class="built_in">MKLaunchOptionsShowsTrafficKey</span>: [<span class="built_in">NSNumber</span> numberWithBool:<span class="literal">YES</span>]&#125;];</span><br></pre></td></tr></table></figure></p>
+<p>效果如下<br><img src="http://7xibqv.com1.z0.glb.clouddn.com/2015-08-11-practice-in-mapview-navigation-with-URI1.jpg" alt=""></p>
+<h3 id="百度地图">百度地图</h3><hr>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSString</span> *urlString = [[<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"baidumap://map/direction?origin=&#123;&#123;我的位置&#125;&#125;&amp;destination=latlng:%f,%f|name=目的地&amp;mode=driving&amp;coord_type=gcj02"</span>,coordinate<span class="variable">.latitude</span>, coordinate<span class="variable">.longitude</span>] stringByAddingPercentEscapesUsingEncoding:<span class="built_in">NSUTF8StringEncoding</span>];</span><br><span class="line">                                             </span><br><span class="line">[[<span class="built_in">UIApplication</span> sharedApplication] openURL:[<span class="built_in">NSURL</span> URLWithString:urlString]];</span><br></pre></td></tr></table></figure>
+<p>要注意几点</p>
+<blockquote>
+<ol>
+<li>origin=<br>这个是不能被修改的 不然无法把出发位置设置为当前位置</li>
+<li>destination=latlng:%f,%f|name=目的地<br>name=XXXX  <strong>name</strong>这个字段不能省略 否则导航会失败 而后面的文字则可以随便填</li>
+<li>coord_type=gcj02<br>coord_type允许的值为bd09ll、gcj02、wgs84 如果你APP的地图SDK用的是百度地图SDK 请填bd09ll 否则 就填gcj02 wgs84你基本是用不上了(关于地图加密这里也不多谈 请自行学习)</li>
+</ol>
+</blockquote>
+<p>效果如下<br><img src="http://7xibqv.com1.z0.glb.clouddn.com/2015-08-11-practice-in-mapview-navigation-with-URI2.jpg" alt=""></p>
+<h3 id="高德地图">高德地图</h3><hr>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSString</span> *urlString = [[<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"iosamap://navi?sourceApplication=%@&amp;backScheme=%@&amp;lat=%f&amp;lon=%f&amp;dev=0&amp;style=2"</span>,appName,urlScheme,coordinate<span class="variable">.latitude</span>, coordinate<span class="variable">.longitude</span>] stringByAddingPercentEscapesUsingEncoding:<span class="built_in">NSUTF8StringEncoding</span>];</span><br><span class="line"></span><br><span class="line">[[<span class="built_in">UIApplication</span> sharedApplication] openURL:[<span class="built_in">NSURL</span> URLWithString:urlString]];</span><br></pre></td></tr></table></figure>
+<p>要注意几点</p>
+<blockquote>
+<ol>
+<li>sourceApplication=%@&amp;backScheme=%@<br>sourceApplication代表你自己APP的名称 会在之后跳回的时候显示出来 所以必须填写  backScheme是你APP的URL Scheme  不填是跳不回来的哟</li>
+<li>dev=0<br>这里填0就行了 跟上面的gcj02一个意思  1代表wgs84 也用不上</li>
+</ol>
+</blockquote>
+<p>效果如下<br><img src="http://7xibqv.com1.z0.glb.clouddn.com/2015-08-11-practice-in-mapview-navigation-with-URI3.jpg" alt=""></p>
+<p>退出导航后 会提示是否跳回到APP<br><img src="http://7xibqv.com1.z0.glb.clouddn.com/2015-08-11-practice-in-mapview-navigation-with-URI4.jpg" alt=""></p>
+<h3 id="谷歌地图">谷歌地图</h3><hr>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSString</span> *urlString = [[<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"comgooglemaps://?x-source=%@&amp;x-success=%@&amp;saddr=&amp;daddr=%f,%f&amp;directionsmode=driving"</span>,appName,urlScheme,coordinate<span class="variable">.latitude</span>, coordinate<span class="variable">.longitude</span>] stringByAddingPercentEscapesUsingEncoding:<span class="built_in">NSUTF8StringEncoding</span>];</span><br><span class="line"></span><br><span class="line">[[<span class="built_in">UIApplication</span> sharedApplication] openURL:[<span class="built_in">NSURL</span> URLWithString:urlString]];</span><br></pre></td></tr></table></figure>
+<p>要注意几点</p>
+<blockquote>
+<ol>
+<li>x-source=%@&amp;x-success=%@<br>跟高德一样 这里分别代表APP的名称和URL Scheme</li>
+<li>saddr=<br>这里留空则表示从当前位置触发</li>
+</ol>
+</blockquote>
+<p>效果如下 在有多条路线的时候 谷歌地图会让你选择其中一条<br><img src="http://7xibqv.com1.z0.glb.clouddn.com/2015-08-11-practice-in-mapview-navigation-with-URI5.jpg" alt=""></p>
+<p>选择之后就进入了导航页面<br><img src="http://7xibqv.com1.z0.glb.clouddn.com/2015-08-11-practice-in-mapview-navigation-with-URI6.jpg" alt=""></p>
+<h3 id="腾讯地图">腾讯地图</h3><p>既然提到了腾讯地图 那么还是说一下 从网上和<a href="http://lbs.qq.com/uri_v1/guide-route.html" target="_blank" rel="external">官方文档</a>可以得知 大概调用的URI如下</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSString</span> *urlString = [[<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"qqmap://map/routeplan?type=drive&amp;fromcoord=CurrentLocation&amp;tocoord=%f,%f&amp;coord_type=1&amp;policy=0"</span>,coordinate<span class="variable">.latitude</span>, coordinate<span class="variable">.longitude</span>] stringByAddingPercentEscapesUsingEncoding:<span class="built_in">NSUTF8StringEncoding</span>];</span><br><span class="line"></span><br><span class="line">[[<span class="built_in">UIApplication</span> sharedApplication] openURL:[<span class="built_in">NSURL</span> URLWithString:urlString]];</span><br></pre></td></tr></table></figure>
+<p>但是很遗憾 调用之后出错了 无法导航</p>
+<p>效果如下<br><img src="http://7xibqv.com1.z0.glb.clouddn.com/2015-08-11-practice-in-mapview-navigation-with-URI7.jpg" alt=""></p>
+<h2 id="小结">小结</h2><hr>
+<p>文中的demo可以在<a href="https://github.com/adad184/DemoNavigationURI" target="_blank" rel="external">这里</a>找到</p>
+<p>相对来说 高德地图做得更用心一点 毕竟也是苹果的服务提供商 而百度相对来说则差一点 谷歌的话 不翻墙还是用不了 而苹果自带的地图则不多说了 功能还是太简单了 </p>
+<p>这里只是用最简单的方式对导航功能进行了调用 各家的地图其实还有很多参数和功能没有使用到 需要知道的同学可以在文章开头的文档链接中找到详细的描述 </p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h2 id="前言">前言</h2><p>之前<a href="http://adad184.com/2015/07/13/improve-performance-with-mkmapview/" target="_blank" rel="external">介绍</a>了我正]]>
+    </summary>
+    
+      <category term="URI" scheme="http://adad184.com/tags/URI/"/>
+    
+      <category term="地图" scheme="http://adad184.com/tags/%E5%9C%B0%E5%9B%BE/"/>
+    
+      <category term="导航" scheme="http://adad184.com/tags/%E5%AF%BC%E8%88%AA/"/>
+    
+      <category term="经验介绍" scheme="http://adad184.com/categories/%E7%BB%8F%E9%AA%8C%E4%BB%8B%E7%BB%8D/"/>
+    
+  </entry>
+  
+  <entry>
     <title><![CDATA[如何轻松实现iOS9多任务管理器效果(iCarousel高级教程)]]></title>
     <link href="http://adad184.com/2015/08/01/advanced-icarousel-tutorial-copycat-of-ios9-task-tray/"/>
     <id>http://adad184.com/2015/08/01/advanced-icarousel-tutorial-copycat-of-ios9-task-tray/</id>
     <published>2015-08-01T02:47:29.000Z</published>
-    <updated>2015-08-03T06:41:53.000Z</updated>
+    <updated>2015-08-04T09:20:18.000Z</updated>
     <content type="html"><![CDATA[<h2 id="前言">前言</h2><hr>
 <p>iOS9马上要发布了 为了我司APP的兼容性问题 特意把手上的iOS Mac XCode都升级到了最新的beta版 然后发现iOS9的多任务管理器风格大变 变成了下面这种样子<br><img src="http://7xibqv.com1.z0.glb.clouddn.com/2015-08-03-advanced-icarousel-tutorial-copycat-of-ios9-task-tray1.gif" alt=""></p>
 <p>我忽然想起来之前的文章提到我最爱的UI控件<a href="https://github.com/nicklockwood/iCarousel" target="_blank" rel="external">iCarousel</a>要实现类似这种效果其实是很简单的 一时兴起就花时间试验了一下 效果还不错 所以接下来我就介绍一下iCarousel的高级用法: <strong>如何使用iCarousel的自定义方式来实现iOS9的多任务管理器效果</strong></p>
