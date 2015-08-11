@@ -157,7 +157,43 @@ ga('send', 'pageview');
 <li>谷歌地图</li>
 </ol>
 <p>这些也是当前我们用得最多的几种地图了(什么 你们说还有腾讯地图? 可惜腾讯地图暂时还不支持URI的方式打开 所以这里就没列出来 等可以用了我会补上)</p>
-<p>下面来对比一下几种地图<br>|   地图   |    URL Scheme    | 文档 | 是否可以跳回到APP |<br>|————-|—————————|———|—————————-|<br>| 苹果地图 |                  | <a href="https://developer.apple.com/library/prerelease/ios/documentation/MapKit/Reference/MKMapItem_class/index.html" target="_blank" rel="external">文档</a> |         否        |<br>| 百度地图 |    baidumap://   | <a href="http://developer.baidu.com/map/index.php?title=uri/api/ios" target="_blank" rel="external">文档</a> |         否        |<br>| 高德地图 |    iosamap://    | <a href="http://lbs.amap.com/api/uri-api/ios-uri-explain/" target="_blank" rel="external">文档</a> |         是        |<br>| 谷歌地图 | comgooglemaps:// | <a href="https://developers.google.com/maps/documentation/ios/urlscheme" target="_blank" rel="external">文档</a> |         是        |</p>
+<p>下面来对比一下几种地图</p>
+<table>
+<thead>
+<tr>
+<th>地图</th>
+<th>URL Scheme</th>
+<th>文档</th>
+<th>是否可以跳回到APP</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>苹果地图</td>
+<td></td>
+<td><a href="https://developer.apple.com/library/prerelease/ios/documentation/MapKit/Reference/MKMapItem_class/index.html" target="_blank" rel="external">文档</a></td>
+<td>否</td>
+</tr>
+<tr>
+<td>百度地图</td>
+<td>baidumap://</td>
+<td><a href="http://developer.baidu.com/map/index.php?title=uri/api/ios" target="_blank" rel="external">文档</a></td>
+<td>否</td>
+</tr>
+<tr>
+<td>高德地图</td>
+<td>iosamap://</td>
+<td><a href="http://lbs.amap.com/api/uri-api/ios-uri-explain/" target="_blank" rel="external">文档</a></td>
+<td>是</td>
+</tr>
+<tr>
+<td>谷歌地图</td>
+<td>comgooglemaps://</td>
+<td><a href="https://developers.google.com/maps/documentation/ios/urlscheme" target="_blank" rel="external">文档</a></td>
+<td>是</td>
+</tr>
+</tbody>
+</table>
 <p>苹果地图是系统自带的(而且苹果地图最好的方式也不是用URI的方式开打) 所以无需URL Scheme就可以打开的<br>其次 当跳到地图APP之后可以跳回是一种很好的体验(参考微信的跳转) 但是遗憾的是 苹果地图和百度地图都不支持跳回</p>
 <p>接下来我们就回到正题 说一说每种地图的跳转方式</p>
 <p>假设我们有一个指定的目的坐标<strong>coordinate</strong> 而我们自己的APP的URL Scheme是<strong>urlScheme</strong> 名称是<strong>appName</strong><br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">CLLocationCoordinate2D coordinate;</span><br><span class="line"><span class="built_in">NSString</span> *urlScheme;</span><br><span class="line"><span class="built_in">NSString</span> *appName;</span><br></pre></td></tr></table></figure></p>
