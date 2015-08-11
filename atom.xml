@@ -4,7 +4,7 @@
   <subtitle><![CDATA[途有境而观无垠]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://adad184.com/"/>
-  <updated>2015-08-11T09:52:37.000Z</updated>
+  <updated>2015-08-11T09:53:09.000Z</updated>
   <id>http://adad184.com/</id>
   
   <author>
@@ -19,7 +19,7 @@
     <link href="http://adad184.com/2015/08/11/practice-in-mapview-navigation-with-URI/"/>
     <id>http://adad184.com/2015/08/11/practice-in-mapview-navigation-with-URI/</id>
     <published>2015-08-11T09:48:34.000Z</published>
-    <updated>2015-08-11T09:52:37.000Z</updated>
+    <updated>2015-08-11T09:53:09.000Z</updated>
     <content type="html"><![CDATA[<h2 id="前言">前言</h2><p>之前<a href="http://adad184.com/2015/07/13/improve-performance-with-mkmapview/" target="_blank" rel="external">介绍</a>了我正在做的是一款定位主打的应用 然后最近我们需要做一个定位导航的功能 能够让用户从当前位置导航到指定目的地(默认以驾车的方式导航)</p>
 <p>手机上的导航方式 分<strong>应用内导航</strong>和<strong>应用外导航</strong></p>
 <blockquote>
@@ -30,6 +30,7 @@
 </blockquote>
 <p>说起应用内导航 当年是被<strong>图吧</strong>坑惨了 两年前 高德和百度都没有推出导航SDK的时候 市面上好像就只有图吧有应用内导航SDK 所以不得已用了图吧SDK 如今图吧SDK仍然高居我最讨厌最难用的地图SDk榜的榜首(话说百度的SDK和图吧的SDK设计感觉上是一脉相承的 不晓得是不是百度做地图时挖了一大批图吧的人?) 而且就是这个难用的SDK 竟然还是收费的</p>
 <p>而今天要说的 就是第二种 因为网上说的都不是很全面 所以今天把对这种方式的研究结果总结一下</p>
+<a id="more"></a>
 <h2 id="研究">研究</h2><p>先来看一下我们要达到什么效果 就是当我们点导航的时候 会弹出下面这个选择列表</p>
 <p><img src="http://7xibqv.com1.z0.glb.clouddn.com/2015-08-11-practice-in-mapview-navigation-with-URI0.jpg" alt=""></p>
 <p>当然 如果没有安装某个地图APP 那么对应的选项是不会出现的 检测APP是否安装 只要调用下面这个方法就可以了<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[[<span class="built_in">UIApplication</span> sharedApplication] canOpenURL:[<span class="built_in">NSURL</span> URLWithString:<span class="string">@"appurlscheme://"</span>]</span><br></pre></td></tr></table></figure></p>
@@ -94,7 +95,17 @@
 <p>这里只是用最简单的方式对导航功能进行了调用 各家的地图其实还有很多参数和功能没有使用到 需要知道的同学可以在文章开头的文档链接中找到详细的描述 </p>
 ]]></content>
     <summary type="html">
-    <![CDATA[<h2 id="前言">前言</h2><p>之前<a href="http://adad184.com/2015/07/13/improve-performance-with-mkmapview/" target="_blank" rel="external">介绍</a>了我正]]>
+    <![CDATA[<h2 id="前言">前言</h2><p>之前<a href="http://adad184.com/2015/07/13/improve-performance-with-mkmapview/">介绍</a>了我正在做的是一款定位主打的应用 然后最近我们需要做一个定位导航的功能 能够让用户从当前位置导航到指定目的地(默认以驾车的方式导航)</p>
+<p>手机上的导航方式 分<strong>应用内导航</strong>和<strong>应用外导航</strong></p>
+<blockquote>
+<ul>
+<li>应用内导航<br>是指使用地图服务提供的SDK(比如高德,百度等等) 直接将导航功能嵌入到我们自己的APP内部<br>但是这个方案我个人不喜欢 一是接入要一定的时间 二是增加APP的内存占用 </li>
+<li>应用外导航<br>是以URI跳转的方式(在iOS中就是以URL Scheme的方式) 直接跳到对应的地图APP中 直接利用对方的功能来导航<br>这样的优点 一是接入方便 二是不增加自己APP的开销 缺点就是如果用户没有装这个地图应用就没办法使用这个地图的服务</li>
+</ul>
+</blockquote>
+<p>说起应用内导航 当年是被<strong>图吧</strong>坑惨了 两年前 高德和百度都没有推出导航SDK的时候 市面上好像就只有图吧有应用内导航SDK 所以不得已用了图吧SDK 如今图吧SDK仍然高居我最讨厌最难用的地图SDk榜的榜首(话说百度的SDK和图吧的SDK设计感觉上是一脉相承的 不晓得是不是百度做地图时挖了一大批图吧的人?) 而且就是这个难用的SDK 竟然还是收费的</p>
+<p>而今天要说的 就是第二种 因为网上说的都不是很全面 所以今天把对这种方式的研究结果总结一下</p>]]>
+    
     </summary>
     
       <category term="URI" scheme="http://adad184.com/tags/URI/"/>
