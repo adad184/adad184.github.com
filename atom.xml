@@ -4,7 +4,7 @@
   <subtitle><![CDATA[途有境而观无垠]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://adad184.com/"/>
-  <updated>2015-08-11T09:59:55.000Z</updated>
+  <updated>2015-08-18T01:53:31.000Z</updated>
   <id>http://adad184.com/</id>
   
   <author>
@@ -19,7 +19,7 @@
     <link href="http://adad184.com/2015/08/11/practice-in-mapview-navigation-with-URI/"/>
     <id>http://adad184.com/2015/08/11/practice-in-mapview-navigation-with-URI/</id>
     <published>2015-08-11T09:48:34.000Z</published>
-    <updated>2015-08-11T09:59:55.000Z</updated>
+    <updated>2015-08-18T01:53:31.000Z</updated>
     <content type="html"><![CDATA[<h2 id="前言">前言</h2><p>之前<a href="http://adad184.com/2015/07/13/improve-performance-with-mkmapview/" target="_blank" rel="external">介绍</a>了我正在做的是一款定位主打的应用 然后最近我们需要做一个定位导航的功能 能够让用户从当前位置导航到指定目的地(默认以驾车的方式导航)</p>
 <p>手机上的导航方式 分<strong>应用内导航</strong>和<strong>应用外导航</strong></p>
 <blockquote>
@@ -125,6 +125,7 @@
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSString</span> *urlString = [[<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"qqmap://map/routeplan?type=drive&amp;fromcoord=CurrentLocation&amp;tocoord=%f,%f&amp;coord_type=1&amp;policy=0"</span>,coordinate<span class="variable">.latitude</span>, coordinate<span class="variable">.longitude</span>] stringByAddingPercentEscapesUsingEncoding:<span class="built_in">NSUTF8StringEncoding</span>];</span><br><span class="line"></span><br><span class="line">[[<span class="built_in">UIApplication</span> sharedApplication] openURL:[<span class="built_in">NSURL</span> URLWithString:urlString]];</span><br></pre></td></tr></table></figure>
 <p>但是很遗憾 调用之后出错了 无法导航</p>
 <p>效果如下<br><img src="http://7xibqv.com1.z0.glb.clouddn.com/2015-08-11-practice-in-mapview-navigation-with-URI7.jpg" alt=""></p>
+<h3 id="补充说明">补充说明</h3><p>iOS9发布以后 很多朋友发现openURL的方式都失败了 这是因为iOS对openURL做了进一步限制<br>不过适配起来也很简单 在plist中加一条名为LSApplicationQueriesSchemes的Array类型的Key 并把上述地图的scheme添加进去就行了 如图<br><img src="http://7xibqv.com1.z0.glb.clouddn.com/2015-08-11-practice-in-mapview-navigation-with-URI8.png" alt=""></p>
 <h2 id="小结">小结</h2><hr>
 <p>文中的demo可以在<a href="https://github.com/adad184/DemoNavigationURI" target="_blank" rel="external">这里</a>找到</p>
 <p>相对来说 高德地图做得更用心一点 毕竟也是苹果的服务提供商 而百度相对来说则差一点 谷歌的话 不翻墙还是用不了 而苹果自带的地图则不多说了 功能还是太简单了 </p>
