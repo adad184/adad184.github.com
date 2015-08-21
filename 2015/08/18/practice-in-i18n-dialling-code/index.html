@@ -7,14 +7,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="前言上周在忙产品的国际化(i18n)的问题 其中一个很重要的地方就是电话号码的国际化(我们以电话号码为主账号) 电话号码有个很重要的部分就是区号 
 
-上图是我们产品的登录界面 除了常规的电话号码之外 前面还有一个区号 代表这个电话号码所属的是哪个国家和地区 关于区号的概念 可以看一下维基百科">
+上图是我们产品的区号选择 除了常规的电话号码之外 后面还有一个区号 代表这个电话号码所属的是哪个国家和地区 关于区号的概念 可以看一下维基百科">
 <meta property="og:type" content="article">
 <meta property="og:title" content="处理i18n国际电话区号的代码实践">
 <meta property="og:url" content="http://adad184.com/2015/08/18/practice-in-i18n-dialling-code/index.html">
 <meta property="og:site_name" content="里脊串的开发随笔">
 <meta property="og:description" content="前言上周在忙产品的国际化(i18n)的问题 其中一个很重要的地方就是电话号码的国际化(我们以电话号码为主账号) 电话号码有个很重要的部分就是区号 
 
-上图是我们产品的登录界面 除了常规的电话号码之外 前面还有一个区号 代表这个电话号码所属的是哪个国家和地区 关于区号的概念 可以看一下维基百科">
+上图是我们产品的区号选择 除了常规的电话号码之外 后面还有一个区号 代表这个电话号码所属的是哪个国家和地区 关于区号的概念 可以看一下维基百科">
 <meta property="og:image" content="http://7xibqv.com1.z0.glb.clouddn.com/2015-08-18-practice-in-i18n-dialling-code5.png">
 <meta property="og:image" content="http://7xibqv.com1.z0.glb.clouddn.com/2015-08-18-practice-in-i18n-dialling-code1.png">
 <meta property="og:image" content="http://7xibqv.com1.z0.glb.clouddn.com/2015-08-18-practice-in-i18n-dialling-code2.png">
@@ -24,7 +24,7 @@
 <meta name="twitter:title" content="处理i18n国际电话区号的代码实践">
 <meta name="twitter:description" content="前言上周在忙产品的国际化(i18n)的问题 其中一个很重要的地方就是电话号码的国际化(我们以电话号码为主账号) 电话号码有个很重要的部分就是区号 
 
-上图是我们产品的登录界面 除了常规的电话号码之外 前面还有一个区号 代表这个电话号码所属的是哪个国家和地区 关于区号的概念 可以看一下维基百科">
+上图是我们产品的区号选择 除了常规的电话号码之外 后面还有一个区号 代表这个电话号码所属的是哪个国家和地区 关于区号的概念 可以看一下维基百科">
   
     <link rel="alternative" href="/atom.xml" title="里脊串的开发随笔" type="application/atom+xml">
   
@@ -124,7 +124,7 @@ ga('send', 'pageview');
       
         <h2 id="前言">前言</h2><p>上周在忙产品的国际化(i18n)的问题 其中一个很重要的地方就是电话号码的国际化(我们以电话号码为主账号) 电话号码有个很重要的部分就是区号 </p>
 <p><img src="http://7xibqv.com1.z0.glb.clouddn.com/2015-08-18-practice-in-i18n-dialling-code5.png" alt=""></p>
-<p>上图是我们产品的登录界面 除了常规的电话号码之外 前面还有一个区号 代表这个电话号码所属的是哪个国家和地区 关于区号的概念 可以看一下<a href="https://zh.wikipedia.org/wiki/%E5%9B%BD%E9%99%85%E7%94%B5%E8%AF%9D%E5%8C%BA%E5%8F%B7%E5%88%97%E8%A1%A8" target="_blank" rel="external">维基百科</a></p>
+<p>上图是我们产品的区号选择 除了常规的电话号码之外 后面还有一个区号 代表这个电话号码所属的是哪个国家和地区 关于区号的概念 可以看一下<a href="https://zh.wikipedia.org/wiki/%E5%9B%BD%E9%99%85%E7%94%B5%E8%AF%9D%E5%8C%BA%E5%8F%B7%E5%88%97%E8%A1%A8" target="_blank" rel="external">维基百科</a></p>
 <a id="more"></a>
 <p>看到这里 可能有人奇怪 这有什么难的? 不就是按照列表来展示吗?  这样有几个问题</p>
 <ul>
