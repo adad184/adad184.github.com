@@ -4,7 +4,7 @@
   <subtitle><![CDATA[途有境而观无垠]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://adad184.com/"/>
-  <updated>2015-08-31T06:48:50.000Z</updated>
+  <updated>2015-08-31T06:50:56.000Z</updated>
   <id>http://adad184.com/</id>
   
   <author>
@@ -19,7 +19,7 @@
     <link href="http://adad184.com/2015/08/31/image-rotate-with-antialiasing/"/>
     <id>http://adad184.com/2015/08/31/image-rotate-with-antialiasing/</id>
     <published>2015-08-31T09:48:34.000Z</published>
-    <updated>2015-08-31T06:48:50.000Z</updated>
+    <updated>2015-08-31T06:50:56.000Z</updated>
     <content type="html"><![CDATA[<h2 id="前言">前言</h2><p>周末在微博上看到<a href="http://www.weibo.com/kevinzhow" target="_blank" rel="external">@周楷雯Kevin</a>说起CALayer抗锯齿的问题</p>
 <p><img src="http://7xibqv.com1.z0.glb.clouddn.com/2015-08-31-image-rotate-with-antialiasing1.png" alt=""></p>
 <p>具体做法是:<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">layer<span class="variable">.allowsEdgeAntialiasing</span> = <span class="literal">true</span></span><br></pre></td></tr></table></figure></p>
@@ -33,7 +33,7 @@
 <p><img src="http://7xibqv.com1.z0.glb.clouddn.com/2015-08-31-image-rotate-with-antialiasing2.png" alt=""></p>
 <p>结果表明 <code>allowsEdgeAntialiasing</code>的性能还是比透明边的方式要差一点 所以…</p>
 <ul>
-<li>如果你的应用要支持iOS6- 可以参考透明边的方法</li>
+<li>如果你的应用要支持iOS6- 可以参考透明边的方法 唯一的缺点是显示出来会比原来小那么一点点(我的做法是直接cut掉1px的边 当然你也可以直接在图像外面加1px的透明边)</li>
 <li>如果你的应用仅支持iOS7 推荐使用<strong>allowsEdgeAntialiasing</strong>来设置 简单方便咯 如果性能上觉得吃力的话 可以再考虑透明边的方法</li>
 </ul>
 <h2 id="小结">小结</h2><hr>
