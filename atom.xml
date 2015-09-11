@@ -4,7 +4,7 @@
   <subtitle><![CDATA[途有境而观无垠]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://adad184.com/"/>
-  <updated>2015-09-11T02:45:24.000Z</updated>
+  <updated>2015-09-11T02:59:08.000Z</updated>
   <id>http://adad184.com/</id>
   
   <author>
@@ -19,21 +19,21 @@
     <link href="http://adad184.com/2015/09/10/introduce-to-appetize-io/"/>
     <id>http://adad184.com/2015/09/10/introduce-to-appetize-io/</id>
     <published>2015-09-10T07:37:33.000Z</published>
-    <updated>2015-09-11T02:45:24.000Z</updated>
+    <updated>2015-09-11T02:59:08.000Z</updated>
     <content type="html"><![CDATA[<h2 id="前言">前言</h2><hr>
 <p>前几天开源了<a href="https://github.com/adad184/MMPopupView" target="_blank" rel="external">MMPopupView</a> 今天想上传到<a href="www.cocoacontrols.com">CocoaControls</a>上(CocoaControls应该不用过多介绍了吧? 想发现些新鲜好玩的控件 就每天去瞟两眼) 发现上传时填写信息项里多了一步</p>
-<p><img src="http://7xibqv.com1.z0.glb.clouddn.com/2015-09-11-introduce-to-appetize-io4.png" alt=""></p>
+<p><img src="http://7xibqv.com1.z0.glb.clouddn.com/2015-09-11-introduce-to-appetize-io4.jpeg" alt=""></p>
 <p>联想到CocoaControls之前改版了 应该是那个时候加入的<strong>appetize.io</strong>这个功能 简单来说 就是能让你的demo直接跑在网页里的服务 你只要把demo上传到<strong>appetize.io</strong>的网站上就可以了 </p>
 <a id="more"></a>
 <h1 id="介绍">介绍</h1><hr>
 <p><a href="https://appetize.io/" target="_blank" rel="external"><strong>appetize.io</strong></a>是一个为iOS和Android提供APP在线演示的网站 只要将你的demo程序上传到<strong>appetize.io</strong> 就可以直接在网页上运行你的demo </p>
 <p>按照官网的教程 先编译一个模拟器版本 然后再将对应的.app打包成zip上传 填入你的邮箱即可</p>
-<p><img src="http://7xibqv.com1.z0.glb.clouddn.com/2015-09-11-introduce-to-appetize-io1.png" alt=""></p>
+<p><img src="http://7xibqv.com1.z0.glb.clouddn.com/2015-09-11-introduce-to-appetize-io1.jpeg" alt=""></p>
 <p>之后就可以在你的邮箱中收到一封带有对应信息的邮件</p>
-<p><img src="http://7xibqv.com1.z0.glb.clouddn.com/2015-09-11-introduce-to-appetize-io2.png" alt=""></p>
+<p><img src="http://7xibqv.com1.z0.glb.clouddn.com/2015-09-11-introduce-to-appetize-io2.jpeg" alt=""></p>
 <p>除了<a href="https://appetize.io/app/ke24eekmfccbupfvhfxekx4m5r?device=iphone5s&amp;scale=75&amp;orientation=portrait" target="_blank" rel="external">演示的地址</a>之外 还有对应的<strong>public key</strong>和<strong>private key</strong> 而<strong>public key</strong>就是前言中提到的<strong>CocoaControls</strong>需要的字段 把这个填进去就可以在<strong>CocoaControls</strong>中直接预览你的demo了 如我这个<a href="https://www.cocoacontrols.com/controls/mmpopupview/" target="_blank" rel="external">例子</a> </p>
 <p>不仅如此 你还可以直接在<a href="https://appetize.io/embed" target="_blank" rel="external">官网上生成</a>嵌入到其他的网页中的代码(CocoaControls就是这么做的 比之前的截图预览方便多了) 各种参数还可以任意定制哦</p>
-<p><img src="http://7xibqv.com1.z0.glb.clouddn.com/2015-09-11-introduce-to-appetize-io3.png" alt=""></p>
+<p><img src="http://7xibqv.com1.z0.glb.clouddn.com/2015-09-11-introduce-to-appetize-io3.jpeg" alt=""></p>
 <p>当然如果你有更高级的需求 也可以直接使用<a href="https://appetize.io/api" target="_blank" rel="external">他们的API</a>来操作 这个就不多介绍了</p>
 <h1 id="小结">小结</h1><hr>
 <p>这个东西还真是挺有趣的 原理也不复杂 动画是通过远端截图一张张的来呈现的 点击事件则是本端监听并传输给远端 不过好像每运行一个实际就要开一个模拟器 不晓得服务器端是不是用类似docker的技术实现的? </p>
@@ -41,7 +41,7 @@
     <summary type="html">
     <![CDATA[<h2 id="前言">前言</h2><hr>
 <p>前几天开源了<a href="https://github.com/adad184/MMPopupView">MMPopupView</a> 今天想上传到<a href="www.cocoacontrols.com">CocoaControls</a>上(CocoaControls应该不用过多介绍了吧? 想发现些新鲜好玩的控件 就每天去瞟两眼) 发现上传时填写信息项里多了一步</p>
-<p><img src="http://7xibqv.com1.z0.glb.clouddn.com/2015-09-11-introduce-to-appetize-io4.png" alt=""></p>
+<p><img src="http://7xibqv.com1.z0.glb.clouddn.com/2015-09-11-introduce-to-appetize-io4.jpeg" alt=""></p>
 <p>联想到CocoaControls之前改版了 应该是那个时候加入的<strong>appetize.io</strong>这个功能 简单来说 就是能让你的demo直接跑在网页里的服务 你只要把demo上传到<strong>appetize.io</strong>的网站上就可以了 </p>]]>
     
     </summary>
