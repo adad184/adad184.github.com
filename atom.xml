@@ -1411,7 +1411,7 @@
     <link href="http://adad184.com/2014/10/29/how-to-setup-today-extension-programmatically/"/>
     <id>http://adad184.com/2014/10/29/how-to-setup-today-extension-programmatically/</id>
     <published>2014-10-29T02:11:49.000Z</published>
-    <updated>2015-07-10T07:44:56.000Z</updated>
+    <updated>2015-09-11T01:07:57.000Z</updated>
     <content type="html"><![CDATA[<h1 id="前言">前言</h1><p>随着iOS8的发布 各种iPhone的新玩法出现了 其中最引人关注的就是<code>today extension</code>(也叫做widget) 这个在android上存在了多年的小玩意 也是iPhone一直被人诟病的东西 终于能用上了</p>
 <p>网上有很多相关的文章教你如何编写一个简单的widget 但是却没有一篇适合我们这种纯代码的拥趸(也有很多人说应该放弃纯代码 改用Storyboard了) 那么接下来我就说说 如何用纯代码的方式来构建一个widget</p>
 <h1 id="准备">准备</h1><p>首先 你得有个正常的app项目(这是必须的 extension必须依附于某个app中 当然 不这样 你也无法单独安装某个widget)</p>
@@ -1453,7 +1453,8 @@
 <p>试着运行一下  你会发现世界变得很美丽了</p>
 <p><img src="http://7xibqv.com1.z0.glb.clouddn.com/2014-10-29-how-to-setup-today-extension-programmatically2.gif" alt="效果"></p>
 <p><strong>至此 发挥你的想象吧 you can do whatever you want!</strong></p>
-<h1 id="小结">小结</h1><p>所有的准备工作都已经做完了 编写一个Widget也变得很简单 你可以像写任何一个ViewController一样来写Widget 而纯代码的方式我相信会让很多人更得心应手</p>
+<h1 id="小结">小结</h1><p>文章的demo<a href="https://github.com/adad184/DemoTodayWidget" target="_blank" rel="external">在此</a></p>
+<p>所有的准备工作都已经做完了 编写一个Widget也变得很简单 你可以像写任何一个ViewController一样来写Widget 而纯代码的方式我相信会让很多人更得心应手</p>
 ]]></content>
     <summary type="html">
     <![CDATA[<h1 id="前言">前言</h1><p>随着iOS8的发布 各种iPhone的新玩法出现了 其中最引人关注的就是<code>today extension</code>(也叫做widget) 这个在android上存在了多年的小玩意 也是iPhone一直被人诟病的东西 终于能用上了</p>
