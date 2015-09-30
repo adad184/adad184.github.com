@@ -3,17 +3,30 @@
 <head>
   <meta charset="utf-8">
   
-  <title>里脊串的开发随笔</title>
+  <title>再见ZXing 使用系统原生代码处理QRCode | 里脊串的开发随笔</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="adad184 | 里脊串 | iOS | Objective-C | Swift | 技术 | 分享">
-<meta property="og:type" content="website">
-<meta property="og:title" content="里脊串的开发随笔">
-<meta property="og:url" content="http://adad184.com/index.html">
+  <meta name="description" content="前言
+二维码每个人都一定不陌生 尤其是在支付宝和微信的努力下 相信每个人都或多或少的使用过”扫一扫”这个功能而作为开发者 大家都应该有过二维码的开发经验 不管是练习还是研究 或者是公司的项目(尤其是社交类的APP 基本都有扫一扫加好友这个功能吧?) 
+介绍
+说到二维码 其实我们现在生活中接触到的都是QRCode —由日本人在上个世纪末用于汽车工业的一项发明 如今在移动互联网发光发亮而实际上 除了Q">
+<meta property="og:type" content="article">
+<meta property="og:title" content="再见ZXing 使用系统原生代码处理QRCode">
+<meta property="og:url" content="http://adad184.com/2015/09/10/goodbye-zxing/index.html">
 <meta property="og:site_name" content="里脊串的开发随笔">
-<meta property="og:description" content="adad184 | 里脊串 | iOS | Objective-C | Swift | 技术 | 分享">
+<meta property="og:description" content="前言
+二维码每个人都一定不陌生 尤其是在支付宝和微信的努力下 相信每个人都或多或少的使用过”扫一扫”这个功能而作为开发者 大家都应该有过二维码的开发经验 不管是练习还是研究 或者是公司的项目(尤其是社交类的APP 基本都有扫一扫加好友这个功能吧?) 
+介绍
+说到二维码 其实我们现在生活中接触到的都是QRCode —由日本人在上个世纪末用于汽车工业的一项发明 如今在移动互联网发光发亮而实际上 除了Q">
+<meta property="og:image" content="http://7xibqv.com1.z0.glb.clouddn.com/2015-09-30-goodbye-zxing1.jpg">
+<meta property="og:image" content="http://7xibqv.com1.z0.glb.clouddn.com/2015-09-30-goodbye-zxing2.jpg">
+<meta property="og:image" content="http://7xibqv.com1.z0.glb.clouddn.com/2015-09-30-goodbye-zxing3.jpg">
+<meta property="og:image" content="http://7xibqv.com1.z0.glb.clouddn.com/2015-09-30-goodbye-zxing4.jpg">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="里脊串的开发随笔">
-<meta name="twitter:description" content="adad184 | 里脊串 | iOS | Objective-C | Swift | 技术 | 分享">
+<meta name="twitter:title" content="再见ZXing 使用系统原生代码处理QRCode">
+<meta name="twitter:description" content="前言
+二维码每个人都一定不陌生 尤其是在支付宝和微信的努力下 相信每个人都或多或少的使用过”扫一扫”这个功能而作为开发者 大家都应该有过二维码的开发经验 不管是练习还是研究 或者是公司的项目(尤其是社交类的APP 基本都有扫一扫加好友这个功能吧?) 
+介绍
+说到二维码 其实我们现在生活中接触到的都是QRCode —由日本人在上个世纪末用于汽车工业的一项发明 如今在移动互联网发光发亮而实际上 除了Q">
   
     <link rel="alternative" href="/atom.xml" title="里脊串的开发随笔" type="application/atom+xml">
   
@@ -85,9 +98,7 @@ ga('send', 'pageview');
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-    <article id="post-goodbye-zxing" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-goodbye-zxing" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2015/09/10/goodbye-zxing/" class="article-date">
   <time datetime="2015-09-10T07:37:33.000Z" itemprop="datePublished">2015-09-10</time>
@@ -104,8 +115,8 @@ ga('send', 'pageview');
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/09/10/goodbye-zxing/">再见ZXing 使用系统原生代码处理QRCode</a>
+    <h1 class="article-title" itemprop="name">
+      再见ZXing 使用系统原生代码处理QRCode
     </h1>
   
 
@@ -178,67 +189,17 @@ ga('send', 'pageview');
     </footer>
   </div>
   
-</article>
-
-
-    <!--版权信息开始-->
-      <div class="copyright" style="text-align:center">
-
-<a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png" /></a><br />作者:<a href="http://www.weibo.com/ljc1986">@里脊串</a> 版权声明:<a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">署名-非商业性使用-禁止演绎 4.0</a>
-
-</div>
-    <!--版权信息结束-->
-
-
-
+    
+<nav id="article-nav">
   
-    <article id="post-introduce-to-appetize-io" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/09/10/introduce-to-appetize-io/" class="article-date">
-  <time datetime="2015-09-10T07:37:33.000Z" itemprop="datePublished">2015-09-10</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/开源项目/">开源项目</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/09/10/introduce-to-appetize-io/">使用appetize.io为你的demo创建在线预览</a>
-    </h1>
+    <a href="/2015/09/10/introduce-to-appetize-io/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">使用appetize.io为你的demo创建在线预览</div>
+    </a>
   
+</nav>
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="前言">前言</h2><hr>
-<p>前几天开源了<a href="https://github.com/adad184/MMPopupView">MMPopupView</a> 今天想上传到<a href="www.cocoacontrols.com">CocoaControls</a>上(CocoaControls应该不用过多介绍了吧? 想发现些新鲜好玩的控件 就每天去瞟两眼) 发现上传时填写信息项里多了一步<br><img src="http://7xibqv.com1.z0.glb.clouddn.com/2015-09-11-introduce-to-appetize-io4.jpeg" alt=""></p>
-<p>联想到CocoaControls之前改版了 应该是那个时候加入的<strong>appetize.io</strong>这个功能 简单来说 就是能让你的demo直接跑在网页里的服务 你只要把demo上传到<strong>appetize.io</strong>的网站上就可以了 </p>
-        
-          <p class="article-more-link">
-            <a href="/2015/09/10/introduce-to-appetize-io/#more">閱讀全文</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-
-      <a data-url="http://adad184.com/2015/09/10/introduce-to-appetize-io/" data-id="cif67zreo000afku278ra5upf" class="article-share-link">分享到</a>
-      
-        <a href="http://adad184.com/2015/09/10/introduce-to-appetize-io/#ds-thread" class="article-comment-link">文章評論</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/appetize-io/">appetize.io</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/demo/">demo</a></li></ul>
-
-    </footer>
-  </div>
   
 </article>
 
@@ -252,213 +213,10 @@ ga('send', 'pageview');
     <!--版权信息结束-->
 
 
+  <section id="comments">
+    <div id="ds-thread" class="ds-thread" data-thread-key="2015/09/10/goodbye-zxing/" data-title="再见ZXing 使用系统原生代码处理QRCode" data-url="http://adad184.com/2015/09/10/goodbye-zxing/"></div>
+  </section>
 
-  
-    <article id="post-opensource-mmpopupview" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/09/08/opensource-mmpopupview/" class="article-date">
-  <time datetime="2015-09-08T07:37:33.000Z" itemprop="datePublished">2015-09-08</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/开源项目/">开源项目</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/09/08/opensource-mmpopupview/">开源项目:MMPopupView</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="前言">前言</h2><hr>
-<p>弹出框组件应该是绝大多数应用都少不了的(只有极少数精心设计的APP会用不到) 当然我们的APP也不例外 之前我们APP的弹出框组件是我用<a href="https://github.com/facebook/pop">pop</a>写的 可是后来发现与系统原生动画有些冲突(pop内部用到了CATransaction 导致跟系统动画同时发生时会有问题) 所以上周花了大半天时间重写了一下<a href="https://github.com/adad184/MMPopupView">MMPopupView</a>这个组件</p>
-<p>因为新写的组件完全是用<a href="https://github.com/SnapKit/Masonry">Masonry</a>写的 我觉得是个非常好的示例教程 结合之前我写的<a href="http://adad184.com/2014/09/28/use-masonry-to-quick-solve-autolayout/">Masonry入门教程</a> 应该可以更好的理解和运用Masonry/Autolayout 所以我又花了一点时间重新整理成了一个简单的开源库 有兴趣的朋友可以研究一下</p>
-<p>运行的demo可以在<a href="http://v.youku.com/v_show/id_XMTMzMDIxNjA5Mg==.html">这里</a>查看</p>
-<p><img src="http://7xibqv.com1.z0.glb.clouddn.com/2015-09-07-opensource-mmpopupview0.jpg" alt=""></p>
-        
-          <p class="article-more-link">
-            <a href="/2015/09/08/opensource-mmpopupview/#more">閱讀全文</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-
-      <a data-url="http://adad184.com/2015/09/08/opensource-mmpopupview/" data-id="cif67zreq000gfku279d0q9g7" class="article-share-link">分享到</a>
-      
-        <a href="http://adad184.com/2015/09/08/opensource-mmpopupview/#ds-thread" class="article-comment-link">文章評論</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AlertView/">AlertView</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Popup/">Popup</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SheetView/">SheetView</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/开源/">开源</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-    <!--版权信息开始-->
-      <div class="copyright" style="text-align:center">
-
-<a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png" /></a><br />作者:<a href="http://www.weibo.com/ljc1986">@里脊串</a> 版权声明:<a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">署名-非商业性使用-禁止演绎 4.0</a>
-
-</div>
-    <!--版权信息结束-->
-
-
-
-  
-    <article id="post-image-rotate-with-antialiasing" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/08/31/image-rotate-with-antialiasing/" class="article-date">
-  <time datetime="2015-08-31T09:48:34.000Z" itemprop="datePublished">2015-08-31</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/技巧心得/">技巧心得</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/08/31/image-rotate-with-antialiasing/">图片变形的抗锯齿处理方法</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="前言">前言</h2><p>周末在微博上看到<a href="http://www.weibo.com/kevinzhow" target="_blank" rel="external">@周楷雯Kevin</a>说起CALayer抗锯齿的问题</p>
-<p><img src="http://7xibqv.com1.z0.glb.clouddn.com/2015-08-31-image-rotate-with-antialiasing1.png" alt=""></p>
-<p>具体做法是:<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">layer<span class="variable">.allowsEdgeAntialiasing</span> = <span class="literal">true</span></span><br></pre></td></tr></table></figure></p>
-<p>想起了很久以前也遇到过类似的问题 那时候要做一个类贴纸的应用 理所当然会遇到贴纸缩放和旋转的问题 所以锯齿的问题也是需要解决的 但是那时候是iOS4,5的时代 压根没有上面说的<code>allowsEdgeAntialiasing</code>这个东西(这个东西iOS7才公开 不过iOS6据说也可以用 但是黑科技嘛..你懂的)</p>
-<p>所以当时求助了万能的<a href="http://stackoverflow.com/a/5057451/1340076" target="_blank" rel="external">stackoverflow</a> 得到了一个非常简约而不简单的方法 就是我在微博上说的 <strong>只要把需要显示的图片留一个像素的透明边</strong> 就搞定了</p>
-<h2 id="方法">方法</h2><p>方法比较简单 我写成了一个UIImage的Category方法 然后一直尘封在我的工具库中好几年(遇到这个问题我才想起来)<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="built_in">UIImage</span> *)antiAlias</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">CGFloat</span> border = <span class="number">1.0</span>f;</span><br><span class="line">    <span class="built_in">CGRect</span> rect = <span class="built_in">CGRectMake</span>(border, border, <span class="keyword">self</span><span class="variable">.size</span><span class="variable">.width</span>-<span class="number">2</span>*border, <span class="keyword">self</span><span class="variable">.size</span><span class="variable">.height</span>-<span class="number">2</span>*border);</span><br><span class="line">	</span><br><span class="line">    <span class="built_in">UIImage</span> *img = <span class="literal">nil</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">UIGraphicsBeginImageContext</span>(<span class="built_in">CGSizeMake</span>(rect<span class="variable">.size</span><span class="variable">.width</span>,rect<span class="variable">.size</span><span class="variable">.height</span>));</span><br><span class="line">    [<span class="keyword">self</span> drawInRect:<span class="built_in">CGRectMake</span>(-<span class="number">1</span>, -<span class="number">1</span>, <span class="keyword">self</span><span class="variable">.size</span><span class="variable">.width</span>, <span class="keyword">self</span><span class="variable">.size</span><span class="variable">.height</span>)];</span><br><span class="line">    img = <span class="built_in">UIGraphicsGetImageFromCurrentImageContext</span>();</span><br><span class="line">    <span class="built_in">UIGraphicsEndImageContext</span>();</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">UIGraphicsBeginImageContext</span>(<span class="keyword">self</span><span class="variable">.size</span>);</span><br><span class="line">    [img drawInRect:rect];</span><br><span class="line">    <span class="built_in">UIImage</span>* antiImage = <span class="built_in">UIGraphicsGetImageFromCurrentImageContext</span>();</span><br><span class="line">    <span class="built_in">UIGraphicsEndImageContext</span>();</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> antiImage;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>先来看看实际的效果(看不清楚的同学可以点大图)</p>
-<p><img src="http://7xibqv.com1.z0.glb.clouddn.com/2015-08-31-image-rotate-with-antialiasing3.jpg" alt=""></p>
-<p>可以看到旋转的时候若不做任何处理 确实是会有明显的锯齿 而使用透明边的方法 或者设置<code>allowsEdgeAntialiasing</code> 都可以消除锯齿 </p>
-<p>接下来看看这两种方法的性能比较 测试方法是在我的iPhone 5S上接连对500个UIImageView进行旋转 对比帧数 其结果如下</p>
-<p><img src="http://7xibqv.com1.z0.glb.clouddn.com/2015-08-31-image-rotate-with-antialiasing2.png" alt=""></p>
-<p>结果表明 <code>allowsEdgeAntialiasing</code>的性能还是比透明边的方式要差一点 所以…</p>
-<ul>
-<li>如果你的应用要支持iOS6- 可以参考透明边的方法 唯一的缺点是显示出来会比原来小那么一点点(我的做法是直接cut掉1px的边 当然你也可以直接在图像外面加1px的透明边)</li>
-<li>如果你的应用仅支持iOS7 推荐使用<strong>allowsEdgeAntialiasing</strong>来设置 简单方便咯 如果性能上觉得吃力的话 可以再考虑透明边的方法</li>
-</ul>
-<h2 id="小结">小结</h2><hr>
-<p>文中的demo可以在<a href="https://github.com/adad184/DemoAntiAliasing" target="_blank" rel="external">这里</a>找到</p>
-<p>测试的方法也许不太严谨(也是临时起意写的这篇 所以并没有花太多时间) 如果有错误 请大家提出来</p>
-
-      
-    </div>
-    <footer class="article-footer">
-
-      <a data-url="http://adad184.com/2015/08/31/image-rotate-with-antialiasing/" data-id="cif67zres000qfku2soqek5mr" class="article-share-link">分享到</a>
-      
-        <a href="http://adad184.com/2015/08/31/image-rotate-with-antialiasing/#ds-thread" class="article-comment-link">文章評論</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/图片/">图片</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/抗锯齿/">抗锯齿</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/旋转/">旋转</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-    <!--版权信息开始-->
-      <div class="copyright" style="text-align:center">
-
-<a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png" /></a><br />作者:<a href="http://www.weibo.com/ljc1986">@里脊串</a> 版权声明:<a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">署名-非商业性使用-禁止演绎 4.0</a>
-
-</div>
-    <!--版权信息结束-->
-
-
-
-  
-    <article id="post-practice-in-i18n-dialling-code" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/08/18/practice-in-i18n-dialling-code/" class="article-date">
-  <time datetime="2015-08-18T09:48:34.000Z" itemprop="datePublished">2015-08-18</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/技巧心得/">技巧心得</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/08/18/practice-in-i18n-dialling-code/">处理i18n国际电话区号的代码实践</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="前言">前言</h2><p>上周在忙产品的国际化(i18n)的问题 其中一个很重要的地方就是电话号码的国际化(我们以电话号码为主账号) 电话号码有个很重要的部分就是区号 </p>
-<p><img src="http://7xibqv.com1.z0.glb.clouddn.com/2015-08-18-practice-in-i18n-dialling-code5.png" alt=""></p>
-<p>上图是我们产品的区号选择 除了常规的电话号码之外 后面还有一个区号 代表这个电话号码所属的是哪个国家和地区 关于区号的概念 可以看一下<a href="https://zh.wikipedia.org/wiki/%E5%9B%BD%E9%99%85%E7%94%B5%E8%AF%9D%E5%8C%BA%E5%8F%B7%E5%88%97%E8%A1%A8">维基百科</a></p>
-        
-          <p class="article-more-link">
-            <a href="/2015/08/18/practice-in-i18n-dialling-code/#more">閱讀全文</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-
-      <a data-url="http://adad184.com/2015/08/18/practice-in-i18n-dialling-code/" data-id="cif67zrev000zfku2h5lv4msi" class="article-share-link">分享到</a>
-      
-        <a href="http://adad184.com/2015/08/18/practice-in-i18n-dialling-code/#ds-thread" class="article-comment-link">文章評論</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/区号/">区号</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/多语言/">多语言</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/电话/">电话</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-    <!--版权信息开始-->
-      <div class="copyright" style="text-align:center">
-
-<a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png" /></a><br />作者:<a href="http://www.weibo.com/ljc1986">@里脊串</a> 版权声明:<a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">署名-非商业性使用-禁止演绎 4.0</a>
-
-</div>
-    <!--版权信息结束-->
-
-
-
-  
-  
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
-    </nav>
-  
 </section>
         
           <aside id="sidebar">
