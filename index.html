@@ -128,7 +128,7 @@ ga('send', 'pageview');
 <p>如果你跟我一样嫌<code>NSLocalizedString</code>的<code>comment</code>碍事 也可以用正则替换掉</p>
 <blockquote>
 <ol>
-<li>Find <code>NSLocalizedString\((@&quot;\w+&quot;),\s*\w+\)</code></li>
+<li>Find <code>NSLocalizedString\((@&quot;\w+&quot;),\s*@&quot;\w+&quot;\)</code></li>
 <li>Replace With <code>NSLocalizedString\($1, nil\)</code></li>
 </ol>
 </blockquote>
