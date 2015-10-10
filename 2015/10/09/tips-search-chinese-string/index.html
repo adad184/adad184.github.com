@@ -6,21 +6,21 @@
   <title>Tips:使用Xcode查找项目中的中文字符串 | 里脊串的开发随笔</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="项目刚启动的时候 我们一般为了快速开发 会在使用字符串的时候直接选择硬编码到代码中 比如1self.lblTime.text = @&quot;1分钟前&quot;;
-但是之后 如果有国际化的需求的话 我们又会改成这样1self.lblTime.text = NSLocalizedString(@&quot;one_min_ago&quot;, @&quot;@&quot;1分钟前&quot;&quot;)];
-不过随着代码越来越多 不免有疏漏 所以有时我们要去搜索一些漏网之">
+但是之后 如果有国际化的需求的话 我们又会改成这样1self.lblTime.text = NSLocalizedString(@&quot;one_min_ago&quot;, @&quot;1分钟前&quot;&quot;)];
+不过随着代码越来越多 不免有疏漏 所以有时我们要去搜索一些漏网之鱼">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Tips:使用Xcode查找项目中的中文字符串">
 <meta property="og:url" content="http://adad184.com/2015/10/09/tips-search-chinese-string/index.html">
 <meta property="og:site_name" content="里脊串的开发随笔">
 <meta property="og:description" content="项目刚启动的时候 我们一般为了快速开发 会在使用字符串的时候直接选择硬编码到代码中 比如1self.lblTime.text = @&quot;1分钟前&quot;;
-但是之后 如果有国际化的需求的话 我们又会改成这样1self.lblTime.text = NSLocalizedString(@&quot;one_min_ago&quot;, @&quot;@&quot;1分钟前&quot;&quot;)];
-不过随着代码越来越多 不免有疏漏 所以有时我们要去搜索一些漏网之">
+但是之后 如果有国际化的需求的话 我们又会改成这样1self.lblTime.text = NSLocalizedString(@&quot;one_min_ago&quot;, @&quot;1分钟前&quot;&quot;)];
+不过随着代码越来越多 不免有疏漏 所以有时我们要去搜索一些漏网之鱼">
 <meta property="og:image" content="http://7xibqv.com1.z0.glb.clouddn.com/2015-10-09-tips-search-chinese-string1.png">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Tips:使用Xcode查找项目中的中文字符串">
 <meta name="twitter:description" content="项目刚启动的时候 我们一般为了快速开发 会在使用字符串的时候直接选择硬编码到代码中 比如1self.lblTime.text = @&quot;1分钟前&quot;;
-但是之后 如果有国际化的需求的话 我们又会改成这样1self.lblTime.text = NSLocalizedString(@&quot;one_min_ago&quot;, @&quot;@&quot;1分钟前&quot;&quot;)];
-不过随着代码越来越多 不免有疏漏 所以有时我们要去搜索一些漏网之">
+但是之后 如果有国际化的需求的话 我们又会改成这样1self.lblTime.text = NSLocalizedString(@&quot;one_min_ago&quot;, @&quot;1分钟前&quot;&quot;)];
+不过随着代码越来越多 不免有疏漏 所以有时我们要去搜索一些漏网之鱼">
   
     <link rel="alternative" href="/atom.xml" title="里脊串的开发随笔" type="application/atom+xml">
   
@@ -119,7 +119,7 @@ ga('send', 'pageview');
     <div class="article-entry" itemprop="articleBody">
       
         <p>项目刚启动的时候 我们一般为了快速开发 会在使用字符串的时候直接选择硬编码到代码中 比如<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">self</span><span class="variable">.lblTime</span><span class="variable">.text</span> = <span class="string">@"1分钟前"</span>;</span><br></pre></td></tr></table></figure></p>
-<p>但是之后 如果有国际化的需求的话 我们又会改成这样<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">self</span><span class="variable">.lblTime</span><span class="variable">.text</span> = <span class="built_in">NSLocalizedString</span>(<span class="string">@"one_min_ago"</span>, <span class="string">@"@"</span><span class="number">1</span>分钟前<span class="string">""</span>)];</span><br></pre></td></tr></table></figure></p>
+<p>但是之后 如果有国际化的需求的话 我们又会改成这样<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">self</span><span class="variable">.lblTime</span><span class="variable">.text</span> = <span class="built_in">NSLocalizedString</span>(<span class="string">@"one_min_ago"</span>, <span class="string">@"1分钟前"</span><span class="string">")];</span></span><br></pre></td></tr></table></figure></p>
 <p>不过随着代码越来越多 不免有疏漏 所以有时我们要去搜索一些漏网之鱼 这里分享一个快捷的方法</p>
 <blockquote>
 <ol>
