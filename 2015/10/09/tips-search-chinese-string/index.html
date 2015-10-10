@@ -125,7 +125,7 @@ ga('send', 'pageview');
 <ol>
 <li>打开”Find Navigator” </li>
 <li>切换搜索模式到 “Find &gt; Regular Expression” </li>
-<li>输入<code>@&quot;[^&quot;]?[\u4E00-\u9FA5]+[^&quot;]*?&quot;</code>  (swift请去掉”@” 输入<code>&quot;[^&quot;]?[\u4E00-\u9FA5]+[^&quot;]*?&quot;</code> 就好了)</li>
+<li>输入<code>@&quot;[^&quot;]*[\u4E00-\u9FA5]+[^&quot;\n]*?&quot;</code>  (swift请去掉”@” 输入<code>@&quot;[^&quot;]*[\u4E00-\u9FA5]+[^&quot;\n]*?&quot;</code> 就好了)</li>
 </ol>
 </blockquote>
 <p>看看效果<br><img src="http://7xibqv.com1.z0.glb.clouddn.com/2015-10-09-tips-search-chinese-string1.png" alt=""></p>
@@ -133,7 +133,7 @@ ga('send', 'pageview');
 <p>如果你跟我一样嫌<code>NSLocalizedString</code>的<code>comment</code>碍事 也可以用正则替换掉</p>
 <blockquote>
 <ol>
-<li>Find <code>NSLocalizedString\((@&quot;.+?&quot;),\s*@&quot;[^\)]+?&quot;\s*\)</code></li>
+<li>Find <code>NSLocalizedString\((@&quot;[^\)]*?&quot;),[^)]*@&quot;[^\)]*&quot;\)</code></li>
 <li>Replace With <code>NSLocalizedString\($1, nil\)</code></li>
 </ol>
 </blockquote>
