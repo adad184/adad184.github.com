@@ -4,7 +4,7 @@
   <subtitle><![CDATA[途有境而观无垠]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://adad184.com/"/>
-  <updated>2015-10-10T02:19:55.000Z</updated>
+  <updated>2015-10-10T02:22:34.000Z</updated>
   <id>http://adad184.com/</id>
   
   <author>
@@ -19,9 +19,9 @@
     <link href="http://adad184.com/2015/10/09/tips-search-chinese-string/"/>
     <id>http://adad184.com/2015/10/09/tips-search-chinese-string/</id>
     <published>2015-10-09T07:37:33.000Z</published>
-    <updated>2015-10-10T02:19:55.000Z</updated>
+    <updated>2015-10-10T02:22:34.000Z</updated>
     <content type="html"><![CDATA[<p>项目刚启动的时候 我们一般为了快速开发 会在使用字符串的时候直接选择硬编码到代码中 比如<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">self</span><span class="variable">.lblTime</span><span class="variable">.text</span> = <span class="string">@"1分钟前"</span>;</span><br></pre></td></tr></table></figure></p>
-<p>但是之后 如果有国际化的需求的话 我们又会改成这样<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">self</span><span class="variable">.lblTime</span><span class="variable">.text</span> = <span class="built_in">NSLocalizedString</span>(<span class="string">@"one_min_ago"</span>, <span class="string">@"1分钟前"</span><span class="string">")];</span></span><br></pre></td></tr></table></figure></p>
+<p>但是之后 如果有国际化的需求的话 我们又会改成这样<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">self</span><span class="variable">.lblTime</span><span class="variable">.text</span> = <span class="built_in">NSLocalizedString</span>(<span class="string">@"one_min_ago"</span>, <span class="string">@"1分钟前"</span>)];</span><br></pre></td></tr></table></figure></p>
 <p>不过随着代码越来越多 不免有疏漏 所以有时我们要去搜索一些漏网之鱼 这里分享一个快捷的方法</p>
 <blockquote>
 <ol>
