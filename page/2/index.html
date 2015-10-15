@@ -87,6 +87,80 @@ ga('send', 'pageview');
       <div class="outer">
         <section id="main">
   
+    <article id="post-image-rotate-with-antialiasing" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/08/31/image-rotate-with-antialiasing/" class="article-date">
+  <time datetime="2015-08-31T09:48:34.000Z" itemprop="datePublished">2015-08-31</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/技巧心得/">技巧心得</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/08/31/image-rotate-with-antialiasing/">图片变形的抗锯齿处理方法</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="前言">前言</h2><p>周末在微博上看到<a href="http://www.weibo.com/kevinzhow" target="_blank" rel="external">@周楷雯Kevin</a>说起CALayer抗锯齿的问题</p>
+<p><img src="http://7xibqv.com1.z0.glb.clouddn.com/2015-08-31-image-rotate-with-antialiasing1.png" alt=""></p>
+<p>具体做法是:<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">layer<span class="variable">.allowsEdgeAntialiasing</span> = <span class="literal">true</span></span><br></pre></td></tr></table></figure></p>
+<p>想起了很久以前也遇到过类似的问题 那时候要做一个类贴纸的应用 理所当然会遇到贴纸缩放和旋转的问题 所以锯齿的问题也是需要解决的 但是那时候是iOS4,5的时代 压根没有上面说的<code>allowsEdgeAntialiasing</code>这个东西(这个东西iOS7才公开 不过iOS6据说也可以用 但是黑科技嘛..你懂的)</p>
+<p>所以当时求助了万能的<a href="http://stackoverflow.com/a/5057451/1340076" target="_blank" rel="external">stackoverflow</a> 得到了一个非常简约而不简单的方法 就是我在微博上说的 <strong>只要把需要显示的图片留一个像素的透明边</strong> 就搞定了</p>
+<h2 id="方法">方法</h2><p>方法比较简单 我写成了一个UIImage的Category方法 然后一直尘封在我的工具库中好几年(遇到这个问题我才想起来)<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="built_in">UIImage</span> *)antiAlias</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">CGFloat</span> border = <span class="number">1.0</span>f;</span><br><span class="line">    <span class="built_in">CGRect</span> rect = <span class="built_in">CGRectMake</span>(border, border, <span class="keyword">self</span><span class="variable">.size</span><span class="variable">.width</span>-<span class="number">2</span>*border, <span class="keyword">self</span><span class="variable">.size</span><span class="variable">.height</span>-<span class="number">2</span>*border);</span><br><span class="line">	</span><br><span class="line">    <span class="built_in">UIImage</span> *img = <span class="literal">nil</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">UIGraphicsBeginImageContext</span>(<span class="built_in">CGSizeMake</span>(rect<span class="variable">.size</span><span class="variable">.width</span>,rect<span class="variable">.size</span><span class="variable">.height</span>));</span><br><span class="line">    [<span class="keyword">self</span> drawInRect:<span class="built_in">CGRectMake</span>(-<span class="number">1</span>, -<span class="number">1</span>, <span class="keyword">self</span><span class="variable">.size</span><span class="variable">.width</span>, <span class="keyword">self</span><span class="variable">.size</span><span class="variable">.height</span>)];</span><br><span class="line">    img = <span class="built_in">UIGraphicsGetImageFromCurrentImageContext</span>();</span><br><span class="line">    <span class="built_in">UIGraphicsEndImageContext</span>();</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">UIGraphicsBeginImageContext</span>(<span class="keyword">self</span><span class="variable">.size</span>);</span><br><span class="line">    [img drawInRect:rect];</span><br><span class="line">    <span class="built_in">UIImage</span>* antiImage = <span class="built_in">UIGraphicsGetImageFromCurrentImageContext</span>();</span><br><span class="line">    <span class="built_in">UIGraphicsEndImageContext</span>();</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> antiImage;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>先来看看实际的效果(看不清楚的同学可以点大图)</p>
+<p><img src="http://7xibqv.com1.z0.glb.clouddn.com/2015-08-31-image-rotate-with-antialiasing3.jpg" alt=""></p>
+<p>可以看到旋转的时候若不做任何处理 确实是会有明显的锯齿 而使用透明边的方法 或者设置<code>allowsEdgeAntialiasing</code> 都可以消除锯齿 </p>
+<p>接下来看看这两种方法的性能比较 测试方法是在我的iPhone 5S上接连对500个UIImageView进行旋转 对比帧数 其结果如下</p>
+<p><img src="http://7xibqv.com1.z0.glb.clouddn.com/2015-08-31-image-rotate-with-antialiasing2.png" alt=""></p>
+<p>结果表明 <code>allowsEdgeAntialiasing</code>的性能还是比透明边的方式要差一点 所以…</p>
+<ul>
+<li>如果你的应用要支持iOS6- 可以参考透明边的方法 唯一的缺点是显示出来会比原来小那么一点点(我的做法是直接cut掉1px的边 当然你也可以直接在图像外面加1px的透明边)</li>
+<li>如果你的应用仅支持iOS7 推荐使用<strong>allowsEdgeAntialiasing</strong>来设置 简单方便咯 如果性能上觉得吃力的话 可以再考虑透明边的方法</li>
+</ul>
+<h2 id="小结">小结</h2><hr>
+<p>文中的demo可以在<a href="https://github.com/adad184/DemoAntiAliasing" target="_blank" rel="external">这里</a>找到</p>
+<p>测试的方法也许不太严谨(也是临时起意写的这篇 所以并没有花太多时间) 如果有错误 请大家提出来</p>
+
+      
+    </div>
+    <footer class="article-footer">
+
+      <a data-url="http://adad184.com/2015/08/31/image-rotate-with-antialiasing/" data-id="cifrn3z9c0014k1u24njc6xtj" class="article-share-link">分享到</a>
+      
+        <a href="http://adad184.com/2015/08/31/image-rotate-with-antialiasing/#ds-thread" class="article-comment-link">文章評論</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/图片/">图片</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/抗锯齿/">抗锯齿</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/旋转/">旋转</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+    <!--版权信息开始-->
+      <div class="copyright" style="text-align:center">
+
+<a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png" /></a><br />作者:<a href="http://www.weibo.com/ljc1986">@里脊串</a> 版权声明:<a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">署名-非商业性使用-禁止演绎 4.0</a>
+
+</div>
+    <!--版权信息结束-->
+
+
+
+  
     <article id="post-practice-in-i18n-dialling-code" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2015/08/18/practice-in-i18n-dialling-code/" class="article-date">
@@ -125,7 +199,7 @@ ga('send', 'pageview');
     </div>
     <footer class="article-footer">
 
-      <a data-url="http://adad184.com/2015/08/18/practice-in-i18n-dialling-code/" data-id="cifjb7hrl00188hu2wcy2hhz9" class="article-share-link">分享到</a>
+      <a data-url="http://adad184.com/2015/08/18/practice-in-i18n-dialling-code/" data-id="cifrn3z9f001ck1u23nyq06cg" class="article-share-link">分享到</a>
       
         <a href="http://adad184.com/2015/08/18/practice-in-i18n-dialling-code/#ds-thread" class="article-comment-link">文章評論</a>
       
@@ -194,7 +268,7 @@ ga('send', 'pageview');
     </div>
     <footer class="article-footer">
 
-      <a data-url="http://adad184.com/2015/08/11/practice-in-mapview-navigation-with-URI/" data-id="cifjb7hro001g8hu2aqc11vc4" class="article-share-link">分享到</a>
+      <a data-url="http://adad184.com/2015/08/11/practice-in-mapview-navigation-with-URI/" data-id="cifrn3z9i001kk1u2n2lwpre9" class="article-share-link">分享到</a>
       
         <a href="http://adad184.com/2015/08/11/practice-in-mapview-navigation-with-URI/#ds-thread" class="article-comment-link">文章評論</a>
       
@@ -256,7 +330,7 @@ ga('send', 'pageview');
     </div>
     <footer class="article-footer">
 
-      <a data-url="http://adad184.com/2015/08/01/advanced-icarousel-tutorial-copycat-of-ios9-task-tray/" data-id="cifjb7hrr001p8hu2zsuj0u88" class="article-share-link">分享到</a>
+      <a data-url="http://adad184.com/2015/08/01/advanced-icarousel-tutorial-copycat-of-ios9-task-tray/" data-id="cifrn3z9l001tk1u2mozwapoe" class="article-share-link">分享到</a>
       
         <a href="http://adad184.com/2015/08/01/advanced-icarousel-tutorial-copycat-of-ios9-task-tray/#ds-thread" class="article-comment-link">文章評論</a>
       
@@ -321,83 +395,12 @@ ga('send', 'pageview');
     </div>
     <footer class="article-footer">
 
-      <a data-url="http://adad184.com/2015/07/28/use-git-with-sourcetree-and-beyondcompare/" data-id="cifjb7hrx001z8hu23md1c8sl" class="article-share-link">分享到</a>
+      <a data-url="http://adad184.com/2015/07/28/use-git-with-sourcetree-and-beyondcompare/" data-id="cifrn3z9p0023k1u2ha4a99pr" class="article-share-link">分享到</a>
       
         <a href="http://adad184.com/2015/07/28/use-git-with-sourcetree-and-beyondcompare/#ds-thread" class="article-comment-link">文章評論</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/BeyondCompare/">BeyondCompare</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/">Git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SourceTree/">SourceTree</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/工具/">工具</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-    <!--版权信息开始-->
-      <div class="copyright" style="text-align:center">
-
-<a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png" /></a><br />作者:<a href="http://www.weibo.com/ljc1986">@里脊串</a> 版权声明:<a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">署名-非商业性使用-禁止演绎 4.0</a>
-
-</div>
-    <!--版权信息结束-->
-
-
-
-  
-    <article id="post-how-to-deal-with-background-location-update" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/07/22/how-to-deal-with-background-location-update/" class="article-date">
-  <time datetime="2015-07-22T02:47:29.000Z" itemprop="datePublished">2015-07-22</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/技巧心得/">技巧心得</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/07/22/how-to-deal-with-background-location-update/">后台定位上传的代码实践</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="前言">前言</h2><hr>
-<p><a href="http://adad184.com/2015/07/13/improve-performance-with-mkmapview/">之前的文章</a>说过 我现在做的是LBS定位的社交APP 其中主要的一个功能就是能够实时定位社交圈中各个成员的位置 <strong>后台实时上传位置</strong>则是非常重要的一个技术点 接下来就来说说我关于这方面的实践经验</p>
-<h2 id="需求">需求</h2><hr>
-<p>先来看看实现这个功能的具体需求是什么 由于我们是实时定位的生活类社交APP 所以我们需要做到一下几点</p>
-<blockquote>
-<p><strong>1. 如果用户的位置在持续变化 则隔一段时间上报一次</strong><br>　　由于我们希望能够实时的将用户的位置变化反馈在APP里 所以定时的上报是刚需</p>
-<p><strong>2. 如果用户的移动速度很慢 则隔一段距离上报一次</strong><br>　　如果用户是低速率的状态(比如步行的移动速度大概就是1m/s左右) 这个时候如果还按(1)中的方式来上报的话 由于变化太小 地图上的点会非常的密集 这种数据的意义不大(而且如果要做轨迹服务的话 这些密集点都是必须优化掉的) 所以这时候我们按照距离间隔来上报</p>
-<p><strong>3. 如果用户的位置在到达某处后没有变化 则不继续上报</strong><br>　　我们只关心位置的变化 如果用户的位置没有变化或者变化很小 其实是不需要上报其位置的(比如进入的公司 或者等一个很长时间的红灯) 这时候我们就不上报(以达到省电的目的)</p>
-<p><strong>4. 切换到后台也要能定位上报</strong><br>　　后台上报是必须的 用户不可能一直运行着我们的APP (iOS4开始就支持了)</p>
-<p><strong>5. APP因各种原因终止运行后(用户主动关闭, 系统杀掉) 也要能定位上报</strong><br>　　用户主动关闭APP的几率不大 但是因系统调度被杀掉的情况是很普遍的 这个时候我们也要能够上报 (iOS7开始已支持被杀掉后唤醒)</p>
-</blockquote>
-<p>分析完需求 接下来就开始介绍如何实现</p>
-        
-          <p class="article-more-link">
-            <a href="/2015/07/22/how-to-deal-with-background-location-update/#more">閱讀全文</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-
-      <a data-url="http://adad184.com/2015/07/22/how-to-deal-with-background-location-update/" data-id="cifjb7hs000298hu23q7zx8jv" class="article-share-link">分享到</a>
-      
-        <a href="http://adad184.com/2015/07/22/how-to-deal-with-background-location-update/#ds-thread" class="article-comment-link">文章評論</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/后台/">后台</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/定位/">定位</a></li></ul>
 
     </footer>
   </div>
@@ -429,7 +432,7 @@ ga('send', 'pageview');
   <div class="widget-wrap">
     <h3 class="widget-title">分類</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/开源项目/">开源项目</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/技巧心得/">技巧心得</a><span class="category-list-count">17</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/技巧心的/">技巧心的</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/生活琐碎/">生活琐碎</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/经验介绍/">经验介绍</a><span class="category-list-count">8</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/开源项目/">开源项目</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/技巧心得/">技巧心得</a><span class="category-list-count">19</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/生活琐碎/">生活琐碎</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/经验介绍/">经验介绍</a><span class="category-list-count">8</span></li></ul>
     </div>
   </div>
 
@@ -438,7 +441,7 @@ ga('send', 'pageview');
   <div class="widget-wrap">
     <h3 class="widget-title">標簽</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AlertView/">AlertView</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Autolayout/">Autolayout</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BeyondCompare/">BeyondCompare</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MKMapView/">MKMapView</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Masonry/">Masonry</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NimbusKit/">NimbusKit</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Popup/">Popup</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/QRCode/">QRCode</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SheetView/">SheetView</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SourceTree/">SourceTree</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Swift/">Swift</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tips/">Tips</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Today-Extension/">Today Extension</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UIScrollView/">UIScrollView</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UITableView/">UITableView</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UIViewController/">UIViewController</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/URI/">URI</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Widget/">Widget</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Xcode/">Xcode</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ZXing/">ZXing</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/appetize-io/">appetize.io</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/demo/">demo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iCarousel/">iCarousel</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iMessage/">iMessage</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iOS9/">iOS9</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pop/">pop</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/任务管理器/">任务管理器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/优化/">优化</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/动画/">动画</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/区号/">区号</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/后台/">后台</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/图片/">图片</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/地图/">地图</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/多语言/">多语言</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/字符串/">字符串</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/定位/">定位</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/实践/">实践</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/家庭/">家庭</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/导航/">导航</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工具/">工具</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/开源/">开源</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/性能/">性能</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/手势/">手势</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/技巧/">技巧</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/抗锯齿/">抗锯齿</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/插件/">插件</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/支付/">支付</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/支付宝/">支付宝</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/教程/">教程</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/旋转/">旋转</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/旋转屏幕/">旋转屏幕</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/最美创意/">最美创意</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生活/">生活</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/电话/">电话</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/第三方库/">第三方库</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/脚本/">脚本</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/获奖/">获奖</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/表单/">表单</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计/">设计</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/资源/">资源</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/键盘/">键盘</a><span class="tag-list-count">2</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AlertView/">AlertView</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Autolayout/">Autolayout</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BeyondCompare/">BeyondCompare</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Launch-Image/">Launch Image</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MKMapView/">MKMapView</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Masonry/">Masonry</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NimbusKit/">NimbusKit</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Popup/">Popup</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/QRCode/">QRCode</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SheetView/">SheetView</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SourceTree/">SourceTree</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Swift/">Swift</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tips/">Tips</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Today-Extension/">Today Extension</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UIScrollView/">UIScrollView</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UITableView/">UITableView</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UIViewController/">UIViewController</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/URI/">URI</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Widget/">Widget</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Xcode/">Xcode</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ZXing/">ZXing</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/appetize-io/">appetize.io</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/demo/">demo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iCarousel/">iCarousel</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iMessage/">iMessage</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iOS9/">iOS9</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pop/">pop</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/任务管理器/">任务管理器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/优化/">优化</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/动画/">动画</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/区号/">区号</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/后台/">后台</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/图片/">图片</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/地图/">地图</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/多语言/">多语言</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/字符串/">字符串</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/定位/">定位</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/实践/">实践</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/家庭/">家庭</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/导航/">导航</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工具/">工具</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/开源/">开源</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/性能/">性能</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/手势/">手势</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/技巧/">技巧</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/抗锯齿/">抗锯齿</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/插件/">插件</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/支付/">支付</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/支付宝/">支付宝</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/教程/">教程</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/旋转/">旋转</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/旋转屏幕/">旋转屏幕</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/最美创意/">最美创意</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生活/">生活</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/电话/">电话</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/第三方库/">第三方库</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/脚本/">脚本</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/获奖/">获奖</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/表单/">表单</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计/">设计</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/资源/">资源</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/键盘/">键盘</a><span class="tag-list-count">2</span></li></ul>
     </div>
   </div>
 
@@ -447,7 +450,7 @@ ga('send', 'pageview');
   <div class="widget-wrap">
     <h3 class="widget-title">標簽雲</h3>
     <div class="widget tagcloud">
-      <a href="/tags/AlertView/" style="font-size: 10px;">AlertView</a><a href="/tags/Autolayout/" style="font-size: 12.5px;">Autolayout</a><a href="/tags/BeyondCompare/" style="font-size: 10px;">BeyondCompare</a><a href="/tags/Git/" style="font-size: 10px;">Git</a><a href="/tags/MKMapView/" style="font-size: 10px;">MKMapView</a><a href="/tags/Masonry/" style="font-size: 12.5px;">Masonry</a><a href="/tags/NimbusKit/" style="font-size: 10px;">NimbusKit</a><a href="/tags/Popup/" style="font-size: 10px;">Popup</a><a href="/tags/QRCode/" style="font-size: 10px;">QRCode</a><a href="/tags/SheetView/" style="font-size: 10px;">SheetView</a><a href="/tags/SourceTree/" style="font-size: 10px;">SourceTree</a><a href="/tags/Swift/" style="font-size: 10px;">Swift</a><a href="/tags/Tips/" style="font-size: 10px;">Tips</a><a href="/tags/Today-Extension/" style="font-size: 10px;">Today Extension</a><a href="/tags/UIScrollView/" style="font-size: 10px;">UIScrollView</a><a href="/tags/UITableView/" style="font-size: 15px;">UITableView</a><a href="/tags/UIViewController/" style="font-size: 10px;">UIViewController</a><a href="/tags/URI/" style="font-size: 10px;">URI</a><a href="/tags/Widget/" style="font-size: 10px;">Widget</a><a href="/tags/Xcode/" style="font-size: 12.5px;">Xcode</a><a href="/tags/ZXing/" style="font-size: 10px;">ZXing</a><a href="/tags/appetize-io/" style="font-size: 10px;">appetize.io</a><a href="/tags/demo/" style="font-size: 10px;">demo</a><a href="/tags/iCarousel/" style="font-size: 10px;">iCarousel</a><a href="/tags/iMessage/" style="font-size: 10px;">iMessage</a><a href="/tags/iOS9/" style="font-size: 10px;">iOS9</a><a href="/tags/pop/" style="font-size: 12.5px;">pop</a><a href="/tags/任务管理器/" style="font-size: 10px;">任务管理器</a><a href="/tags/优化/" style="font-size: 12.5px;">优化</a><a href="/tags/动画/" style="font-size: 12.5px;">动画</a><a href="/tags/区号/" style="font-size: 10px;">区号</a><a href="/tags/后台/" style="font-size: 10px;">后台</a><a href="/tags/图片/" style="font-size: 10px;">图片</a><a href="/tags/地图/" style="font-size: 10px;">地图</a><a href="/tags/多语言/" style="font-size: 10px;">多语言</a><a href="/tags/字符串/" style="font-size: 10px;">字符串</a><a href="/tags/定位/" style="font-size: 10px;">定位</a><a href="/tags/实践/" style="font-size: 10px;">实践</a><a href="/tags/家庭/" style="font-size: 10px;">家庭</a><a href="/tags/导航/" style="font-size: 10px;">导航</a><a href="/tags/工具/" style="font-size: 10px;">工具</a><a href="/tags/开源/" style="font-size: 20px;">开源</a><a href="/tags/性能/" style="font-size: 10px;">性能</a><a href="/tags/手势/" style="font-size: 10px;">手势</a><a href="/tags/技巧/" style="font-size: 10px;">技巧</a><a href="/tags/抗锯齿/" style="font-size: 10px;">抗锯齿</a><a href="/tags/插件/" style="font-size: 10px;">插件</a><a href="/tags/支付/" style="font-size: 10px;">支付</a><a href="/tags/支付宝/" style="font-size: 10px;">支付宝</a><a href="/tags/教程/" style="font-size: 17.5px;">教程</a><a href="/tags/旋转/" style="font-size: 10px;">旋转</a><a href="/tags/旋转屏幕/" style="font-size: 10px;">旋转屏幕</a><a href="/tags/最美创意/" style="font-size: 15px;">最美创意</a><a href="/tags/生活/" style="font-size: 10px;">生活</a><a href="/tags/电话/" style="font-size: 10px;">电话</a><a href="/tags/第三方库/" style="font-size: 10px;">第三方库</a><a href="/tags/脚本/" style="font-size: 10px;">脚本</a><a href="/tags/获奖/" style="font-size: 10px;">获奖</a><a href="/tags/表单/" style="font-size: 12.5px;">表单</a><a href="/tags/设计/" style="font-size: 10px;">设计</a><a href="/tags/资源/" style="font-size: 10px;">资源</a><a href="/tags/键盘/" style="font-size: 12.5px;">键盘</a>
+      <a href="/tags/AlertView/" style="font-size: 10px;">AlertView</a><a href="/tags/Autolayout/" style="font-size: 12.5px;">Autolayout</a><a href="/tags/BeyondCompare/" style="font-size: 10px;">BeyondCompare</a><a href="/tags/Git/" style="font-size: 10px;">Git</a><a href="/tags/Launch-Image/" style="font-size: 10px;">Launch Image</a><a href="/tags/MKMapView/" style="font-size: 10px;">MKMapView</a><a href="/tags/Masonry/" style="font-size: 12.5px;">Masonry</a><a href="/tags/NimbusKit/" style="font-size: 10px;">NimbusKit</a><a href="/tags/Popup/" style="font-size: 10px;">Popup</a><a href="/tags/QRCode/" style="font-size: 10px;">QRCode</a><a href="/tags/SheetView/" style="font-size: 10px;">SheetView</a><a href="/tags/SourceTree/" style="font-size: 10px;">SourceTree</a><a href="/tags/Swift/" style="font-size: 10px;">Swift</a><a href="/tags/Tips/" style="font-size: 12.5px;">Tips</a><a href="/tags/Today-Extension/" style="font-size: 10px;">Today Extension</a><a href="/tags/UIScrollView/" style="font-size: 10px;">UIScrollView</a><a href="/tags/UITableView/" style="font-size: 15px;">UITableView</a><a href="/tags/UIViewController/" style="font-size: 10px;">UIViewController</a><a href="/tags/URI/" style="font-size: 10px;">URI</a><a href="/tags/Widget/" style="font-size: 10px;">Widget</a><a href="/tags/Xcode/" style="font-size: 12.5px;">Xcode</a><a href="/tags/ZXing/" style="font-size: 10px;">ZXing</a><a href="/tags/appetize-io/" style="font-size: 10px;">appetize.io</a><a href="/tags/demo/" style="font-size: 10px;">demo</a><a href="/tags/iCarousel/" style="font-size: 10px;">iCarousel</a><a href="/tags/iMessage/" style="font-size: 10px;">iMessage</a><a href="/tags/iOS9/" style="font-size: 10px;">iOS9</a><a href="/tags/pop/" style="font-size: 12.5px;">pop</a><a href="/tags/任务管理器/" style="font-size: 10px;">任务管理器</a><a href="/tags/优化/" style="font-size: 12.5px;">优化</a><a href="/tags/动画/" style="font-size: 12.5px;">动画</a><a href="/tags/区号/" style="font-size: 10px;">区号</a><a href="/tags/后台/" style="font-size: 10px;">后台</a><a href="/tags/图片/" style="font-size: 10px;">图片</a><a href="/tags/地图/" style="font-size: 10px;">地图</a><a href="/tags/多语言/" style="font-size: 10px;">多语言</a><a href="/tags/字符串/" style="font-size: 10px;">字符串</a><a href="/tags/定位/" style="font-size: 10px;">定位</a><a href="/tags/实践/" style="font-size: 10px;">实践</a><a href="/tags/家庭/" style="font-size: 10px;">家庭</a><a href="/tags/导航/" style="font-size: 10px;">导航</a><a href="/tags/工具/" style="font-size: 10px;">工具</a><a href="/tags/开源/" style="font-size: 20px;">开源</a><a href="/tags/性能/" style="font-size: 10px;">性能</a><a href="/tags/手势/" style="font-size: 10px;">手势</a><a href="/tags/技巧/" style="font-size: 10px;">技巧</a><a href="/tags/抗锯齿/" style="font-size: 10px;">抗锯齿</a><a href="/tags/插件/" style="font-size: 10px;">插件</a><a href="/tags/支付/" style="font-size: 10px;">支付</a><a href="/tags/支付宝/" style="font-size: 10px;">支付宝</a><a href="/tags/教程/" style="font-size: 17.5px;">教程</a><a href="/tags/旋转/" style="font-size: 10px;">旋转</a><a href="/tags/旋转屏幕/" style="font-size: 10px;">旋转屏幕</a><a href="/tags/最美创意/" style="font-size: 15px;">最美创意</a><a href="/tags/生活/" style="font-size: 10px;">生活</a><a href="/tags/电话/" style="font-size: 10px;">电话</a><a href="/tags/第三方库/" style="font-size: 10px;">第三方库</a><a href="/tags/脚本/" style="font-size: 10px;">脚本</a><a href="/tags/获奖/" style="font-size: 10px;">获奖</a><a href="/tags/表单/" style="font-size: 12.5px;">表单</a><a href="/tags/设计/" style="font-size: 10px;">设计</a><a href="/tags/资源/" style="font-size: 10px;">资源</a><a href="/tags/键盘/" style="font-size: 12.5px;">键盘</a>
     </div>
   </div>
 
@@ -456,7 +459,7 @@ ga('send', 'pageview');
   <div class="widget-wrap">
     <h3 class="widget-title">歸檔</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">十月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">九月 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">五月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">四月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">三月 2015</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">十一月 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">十月 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">九月 2014</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">八月 2014</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/01/">一月 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/12/">十二月 2013</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/11/">十一月 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/10/">十月 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/09/">九月 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/08/">八月 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/07/">七月 2013</a><span class="archive-list-count">1</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">十月 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">九月 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">五月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">四月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">三月 2015</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">十一月 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">十月 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">九月 2014</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">八月 2014</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/01/">一月 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/12/">十二月 2013</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/11/">十一月 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/10/">十月 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/09/">九月 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/08/">八月 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/07/">七月 2013</a><span class="archive-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -466,6 +469,10 @@ ga('send', 'pageview');
     <h3 class="widget-title">近期文章</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2015/10/15/tips-access-current-launch-image/">Tips:获取APP的Launch Image</a>
+          </li>
         
           <li>
             <a href="/2015/10/09/tips-search-chinese-string/">Tips:使用Xcode查找项目中的中文字符串</a>
@@ -481,10 +488,6 @@ ga('send', 'pageview');
         
           <li>
             <a href="/2015/09/08/opensource-mmpopupview/">开源项目:MMPopupView</a>
-          </li>
-        
-          <li>
-            <a href="/2015/08/31/image-rotate-with-antialiasing/">图片变形的抗锯齿处理方法</a>
           </li>
         
       </ul>

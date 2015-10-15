@@ -4,7 +4,7 @@
   <subtitle><![CDATA[途有境而观无垠]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://adad184.com/"/>
-  <updated>2015-10-10T02:29:37.000Z</updated>
+  <updated>2015-10-15T03:01:00.000Z</updated>
   <id>http://adad184.com/</id>
   
   <author>
@@ -15,11 +15,42 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title><![CDATA[Tips:获取APP的Launch Image]]></title>
+    <link href="http://adad184.com/2015/10/15/tips-access-current-launch-image/"/>
+    <id>http://adad184.com/2015/10/15/tips-access-current-launch-image/</id>
+    <published>2015-10-15T07:37:33.000Z</published>
+    <updated>2015-10-15T03:01:00.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="Tips">Tips</h2><hr>
+<p>启动图(LaunchImage)的管理其实在iOS开始中算比较简单的了 尤其是Xcode引入了<code>xcassets</code>之后 完全是傻瓜式的操作 但是有的时候我们还是需要在Launch Image上做文章</p>
+<p>LaunchImage在APP初始化完之后会立即消失并显示APP的界面 但是有的时候我们不希望它这么快就消失(比如有的人希望有个过渡效果 有的人希望等某些设置或者数据加载完之后再消失)<br>那么其实很简单 我们只要自己再把LaunchImage显示出来并且置顶就OK了 </p>
+<p>比如下面这样</p>
+<p><img src="http://7xibqv.com1.z0.glb.clouddn.com/2015-10-15-tips-access-current-launch-image1.gif" alt=""></p>
+<p>不过我们配置了那么多适用于不同屏幕分辨率的LaunchImage 如何获取适合于当前屏幕分辨率的LaunchImage呢?</p>
+<p>普通的办法是 把所有LaunchImage加入到工程并根据屏幕分辨率来命名 比如(640_960.png 640_1136.png …) 然后在程序中用代码拼接出对应的文件名 并引用</p>
+<p>但是这种办法比较原始 而且万一以后苹果又出了一些其他分辨率的设备 或者启动图发生变化的时候 又需要人工的修改工程配置 不太好 而且还需要多占一份资源(APP的容量又变大啦)</p>
+<p>而stackflow上的<a href="http://stackoverflow.com/users/1320010/cherpak-evgeny" target="_blank" rel="external">Cherpak Evgeny</a>分享了一个<a href="http://stackoverflow.com/a/27797958/1340076" target="_blank" rel="external">更好的办法</a> 直接读取NSBundle中的设置 即可获取当前适用的LaunchImage</p>
+<p>我以上面的图为例写了个演示代码<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">CGSize</span> viewSize = <span class="keyword">self</span><span class="variable">.window</span><span class="variable">.bounds</span><span class="variable">.size</span>;</span><br><span class="line"><span class="built_in">NSString</span> *viewOrientation = <span class="string">@"Portrait"</span>;    <span class="comment">//横屏请设置成 @"Landscape"</span></span><br><span class="line"><span class="built_in">NSString</span> *launchImage = <span class="literal">nil</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">NSArray</span>* imagesDict = [[[<span class="built_in">NSBundle</span> mainBundle] infoDictionary] valueForKey:<span class="string">@"UILaunchImages"</span>];</span><br><span class="line"><span class="keyword">for</span> (<span class="built_in">NSDictionary</span>* dict <span class="keyword">in</span> imagesDict)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">CGSize</span> imageSize = <span class="built_in">CGSizeFromString</span>(dict[<span class="string">@"UILaunchImageSize"</span>]);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">CGSizeEqualToSize</span>(imageSize, viewSize) &amp;&amp; [viewOrientation isEqualToString:dict[<span class="string">@"UILaunchImageOrientation"</span>]])</span><br><span class="line">    &#123;</span><br><span class="line">        launchImage = dict[<span class="string">@"UILaunchImageName"</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">UIImageView</span> *launchView = [[<span class="built_in">UIImageView</span> alloc] initWithImage:[<span class="built_in">UIImage</span> imageNamed:launchImage]];</span><br><span class="line">launchView<span class="variable">.frame</span> = <span class="keyword">self</span><span class="variable">.window</span><span class="variable">.bounds</span>;</span><br><span class="line">launchView<span class="variable">.contentMode</span> = <span class="built_in">UIViewContentModeScaleAspectFill</span>;</span><br><span class="line">[<span class="keyword">self</span><span class="variable">.window</span> addSubview:launchView];</span><br><span class="line"></span><br><span class="line">[<span class="built_in">UIView</span> animateWithDuration:<span class="number">2.0</span>f</span><br><span class="line">                      delay:<span class="number">0.0</span>f</span><br><span class="line">                    options:<span class="built_in">UIViewAnimationOptionBeginFromCurrentState</span></span><br><span class="line">                 animations:^&#123;</span><br><span class="line">                     </span><br><span class="line">                     launchView<span class="variable">.alpha</span> = <span class="number">0.0</span>f;</span><br><span class="line">                     launchView<span class="variable">.layer</span><span class="variable">.transform</span> = <span class="built_in">CATransform3DScale</span>(<span class="built_in">CATransform3DIdentity</span>, <span class="number">1.2</span>, <span class="number">1.2</span>, <span class="number">1</span>);</span><br><span class="line">                     </span><br><span class="line">                 &#125;</span><br><span class="line">                 completion:^(<span class="built_in">BOOL</span> finished) &#123;</span><br><span class="line">                     </span><br><span class="line">                     [launchView removeFromSuperview];</span><br><span class="line">                     </span><br><span class="line">                 &#125;];</span><br></pre></td></tr></table></figure></p>
+<p>这样就能轻松搞定LaunchImage了~</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h2 id="Tips">Tips</h2><hr>
+<p>启动图(LaunchImage)的管理其实在iOS开始中算比较简单的了 尤其是Xcode引入了<code>xcassets</code>之后 完全是傻瓜式的操作 但是有的时候我们还是需要在Launch Image上做文]]>
+    </summary>
+    
+      <category term="Launch Image" scheme="http://adad184.com/tags/Launch-Image/"/>
+    
+      <category term="Tips" scheme="http://adad184.com/tags/Tips/"/>
+    
+      <category term="技巧心得" scheme="http://adad184.com/categories/%E6%8A%80%E5%B7%A7%E5%BF%83%E5%BE%97/"/>
+    
+  </entry>
+  
+  <entry>
     <title><![CDATA[Tips:使用Xcode查找项目中的中文字符串]]></title>
     <link href="http://adad184.com/2015/10/09/tips-search-chinese-string/"/>
     <id>http://adad184.com/2015/10/09/tips-search-chinese-string/</id>
     <published>2015-10-09T07:37:33.000Z</published>
-    <updated>2015-10-10T02:29:37.000Z</updated>
+    <updated>2015-10-15T03:01:22.000Z</updated>
     <content type="html"><![CDATA[<p>项目刚启动的时候 我们一般为了快速开发 会在使用字符串的时候直接选择硬编码到代码中 比如<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">self</span><span class="variable">.lblTime</span><span class="variable">.text</span> = <span class="string">@"1分钟前"</span>;</span><br></pre></td></tr></table></figure></p>
 <p>但是之后 如果有国际化的需求的话 我们又会改成这样<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">self</span><span class="variable">.lblTime</span><span class="variable">.text</span> = <span class="built_in">NSLocalizedString</span>(<span class="string">@"one_min_ago"</span>, <span class="string">@"1分钟前"</span>);</span><br></pre></td></tr></table></figure></p>
 <p>不过随着代码越来越多 不免有疏漏 所以有时我们要去搜索一些漏网之鱼 这里分享一个快捷的方法</p>
@@ -50,7 +81,7 @@
     
       <category term="字符串" scheme="http://adad184.com/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
     
-      <category term="技巧心的" scheme="http://adad184.com/categories/%E6%8A%80%E5%B7%A7%E5%BF%83%E7%9A%84/"/>
+      <category term="技巧心得" scheme="http://adad184.com/categories/%E6%8A%80%E5%B7%A7%E5%BF%83%E5%BE%97/"/>
     
   </entry>
   

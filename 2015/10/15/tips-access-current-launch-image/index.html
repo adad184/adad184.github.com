@@ -3,17 +3,24 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Tag: pop | 里脊串的开发随笔</title>
+  <title>Tips:获取APP的Launch Image | 里脊串的开发随笔</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="adad184 | 里脊串 | iOS | Objective-C | Swift | 技术 | 分享">
-<meta property="og:type" content="website">
-<meta property="og:title" content="里脊串的开发随笔">
-<meta property="og:url" content="http://adad184.com/tags/pop/index.html">
+  <meta name="description" content="Tips
+启动图(LaunchImage)的管理其实在iOS开始中算比较简单的了 尤其是Xcode引入了xcassets之后 完全是傻瓜式的操作 但是有的时候我们还是需要在Launch Image上做文章
+LaunchImage在APP初始化完之后会立即消失并显示APP的界面 但是有的时候我们不希望它这么快就消失(比如有的人希望有个过渡效果 有的人希望等某些设置或者数据加载完之后再消失)那么其实很">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Tips:获取APP的Launch Image">
+<meta property="og:url" content="http://adad184.com/2015/10/15/tips-access-current-launch-image/index.html">
 <meta property="og:site_name" content="里脊串的开发随笔">
-<meta property="og:description" content="adad184 | 里脊串 | iOS | Objective-C | Swift | 技术 | 分享">
+<meta property="og:description" content="Tips
+启动图(LaunchImage)的管理其实在iOS开始中算比较简单的了 尤其是Xcode引入了xcassets之后 完全是傻瓜式的操作 但是有的时候我们还是需要在Launch Image上做文章
+LaunchImage在APP初始化完之后会立即消失并显示APP的界面 但是有的时候我们不希望它这么快就消失(比如有的人希望有个过渡效果 有的人希望等某些设置或者数据加载完之后再消失)那么其实很">
+<meta property="og:image" content="http://7xibqv.com1.z0.glb.clouddn.com/2015-10-15-tips-access-current-launch-image1.gif">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="里脊串的开发随笔">
-<meta name="twitter:description" content="adad184 | 里脊串 | iOS | Objective-C | Swift | 技术 | 分享">
+<meta name="twitter:title" content="Tips:获取APP的Launch Image">
+<meta name="twitter:description" content="Tips
+启动图(LaunchImage)的管理其实在iOS开始中算比较简单的了 尤其是Xcode引入了xcassets之后 完全是傻瓜式的操作 但是有的时候我们还是需要在Launch Image上做文章
+LaunchImage在APP初始化完之后会立即消失并显示APP的界面 但是有的时候我们不希望它这么快就消失(比如有的人希望有个过渡效果 有的人希望等某些设置或者数据加载完之后再消失)那么其实很">
   
     <link rel="alternative" href="/atom.xml" title="里脊串的开发随笔" type="application/atom+xml">
   
@@ -85,60 +92,86 @@ ga('send', 'pageview');
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2015" class="archive-year">2015</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2015/04/14/opensource-mmtweenanimation/" class="archive-article-date">
-  <time datetime="2015-04-14T03:32:01.000Z" itemprop="datePublished">04 14</time>
+        <section id="main"><article id="post-tips-access-current-launch-image" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/10/15/tips-access-current-launch-image/" class="article-date">
+  <time datetime="2015-10-15T07:37:33.000Z" itemprop="datePublished">2015-10-15</time>
 </a>
-      
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/技巧心得/">技巧心得</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/04/14/opensource-mmtweenanimation/">开源项目:MMTweenAnimation</a>
+    <h1 class="article-title" itemprop="name">
+      Tips:获取APP的Launch Image
     </h1>
   
 
-    </header>
-  </div>
-</article>
-
-  
+      </header>
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2015/03/11/intro-to-pop/" class="archive-article-date">
-  <time datetime="2015-03-11T00:47:29.000Z" itemprop="datePublished">03 11</time>
-</a>
+    <div class="article-entry" itemprop="articleBody">
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/03/11/intro-to-pop/">POP介绍与使用实践(快速上手动画)</a>
-    </h1>
-  
+        <h2 id="Tips">Tips</h2><hr>
+<p>启动图(LaunchImage)的管理其实在iOS开始中算比较简单的了 尤其是Xcode引入了<code>xcassets</code>之后 完全是傻瓜式的操作 但是有的时候我们还是需要在Launch Image上做文章</p>
+<p>LaunchImage在APP初始化完之后会立即消失并显示APP的界面 但是有的时候我们不希望它这么快就消失(比如有的人希望有个过渡效果 有的人希望等某些设置或者数据加载完之后再消失)<br>那么其实很简单 我们只要自己再把LaunchImage显示出来并且置顶就OK了 </p>
+<p>比如下面这样</p>
+<p><img src="http://7xibqv.com1.z0.glb.clouddn.com/2015-10-15-tips-access-current-launch-image1.gif" alt=""></p>
+<p>不过我们配置了那么多适用于不同屏幕分辨率的LaunchImage 如何获取适合于当前屏幕分辨率的LaunchImage呢?</p>
+<p>普通的办法是 把所有LaunchImage加入到工程并根据屏幕分辨率来命名 比如(640_960.png 640_1136.png …) 然后在程序中用代码拼接出对应的文件名 并引用</p>
+<p>但是这种办法比较原始 而且万一以后苹果又出了一些其他分辨率的设备 或者启动图发生变化的时候 又需要人工的修改工程配置 不太好 而且还需要多占一份资源(APP的容量又变大啦)</p>
+<p>而stackflow上的<a href="http://stackoverflow.com/users/1320010/cherpak-evgeny" target="_blank" rel="external">Cherpak Evgeny</a>分享了一个<a href="http://stackoverflow.com/a/27797958/1340076" target="_blank" rel="external">更好的办法</a> 直接读取NSBundle中的设置 即可获取当前适用的LaunchImage</p>
+<p>我以上面的图为例写了个演示代码<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">CGSize</span> viewSize = <span class="keyword">self</span><span class="variable">.window</span><span class="variable">.bounds</span><span class="variable">.size</span>;</span><br><span class="line"><span class="built_in">NSString</span> *viewOrientation = <span class="string">@"Portrait"</span>;    <span class="comment">//横屏请设置成 @"Landscape"</span></span><br><span class="line"><span class="built_in">NSString</span> *launchImage = <span class="literal">nil</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">NSArray</span>* imagesDict = [[[<span class="built_in">NSBundle</span> mainBundle] infoDictionary] valueForKey:<span class="string">@"UILaunchImages"</span>];</span><br><span class="line"><span class="keyword">for</span> (<span class="built_in">NSDictionary</span>* dict <span class="keyword">in</span> imagesDict)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">CGSize</span> imageSize = <span class="built_in">CGSizeFromString</span>(dict[<span class="string">@"UILaunchImageSize"</span>]);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">CGSizeEqualToSize</span>(imageSize, viewSize) &amp;&amp; [viewOrientation isEqualToString:dict[<span class="string">@"UILaunchImageOrientation"</span>]])</span><br><span class="line">    &#123;</span><br><span class="line">        launchImage = dict[<span class="string">@"UILaunchImageName"</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">UIImageView</span> *launchView = [[<span class="built_in">UIImageView</span> alloc] initWithImage:[<span class="built_in">UIImage</span> imageNamed:launchImage]];</span><br><span class="line">launchView<span class="variable">.frame</span> = <span class="keyword">self</span><span class="variable">.window</span><span class="variable">.bounds</span>;</span><br><span class="line">launchView<span class="variable">.contentMode</span> = <span class="built_in">UIViewContentModeScaleAspectFill</span>;</span><br><span class="line">[<span class="keyword">self</span><span class="variable">.window</span> addSubview:launchView];</span><br><span class="line"></span><br><span class="line">[<span class="built_in">UIView</span> animateWithDuration:<span class="number">2.0</span>f</span><br><span class="line">                      delay:<span class="number">0.0</span>f</span><br><span class="line">                    options:<span class="built_in">UIViewAnimationOptionBeginFromCurrentState</span></span><br><span class="line">                 animations:^&#123;</span><br><span class="line">                     </span><br><span class="line">                     launchView<span class="variable">.alpha</span> = <span class="number">0.0</span>f;</span><br><span class="line">                     launchView<span class="variable">.layer</span><span class="variable">.transform</span> = <span class="built_in">CATransform3DScale</span>(<span class="built_in">CATransform3DIdentity</span>, <span class="number">1.2</span>, <span class="number">1.2</span>, <span class="number">1</span>);</span><br><span class="line">                     </span><br><span class="line">                 &#125;</span><br><span class="line">                 completion:^(<span class="built_in">BOOL</span> finished) &#123;</span><br><span class="line">                     </span><br><span class="line">                     [launchView removeFromSuperview];</span><br><span class="line">                     </span><br><span class="line">                 &#125;];</span><br></pre></td></tr></table></figure></p>
+<p>这样就能轻松搞定LaunchImage了~</p>
 
-    </header>
+      
+    </div>
+    <footer class="article-footer">
+
+      <a data-url="http://adad184.com/2015/10/15/tips-access-current-launch-image/" data-id="cifrn3z8w0003k1u2xb0ghz50" class="article-share-link">分享到</a>
+      
+        <a href="http://adad184.com/2015/10/15/tips-access-current-launch-image/#ds-thread" class="article-comment-link">文章評論</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Launch-Image/">Launch Image</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Tips/">Tips</a></li></ul>
+
+    </footer>
   </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2015/10/09/tips-search-chinese-string/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Tips:使用Xcode查找项目中的中文字符串</div>
+    </a>
+  
+</nav>
+
+  
 </article>
 
-  
-  
-    </div></section>
-  
+
+    <!--版权信息开始-->
+      <div class="copyright" style="text-align:center">
+
+<a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png" /></a><br />作者:<a href="http://www.weibo.com/ljc1986">@里脊串</a> 版权声明:<a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">署名-非商业性使用-禁止演绎 4.0</a>
+
+</div>
+    <!--版权信息结束-->
+
+
+  <section id="comments">
+    <div id="ds-thread" class="ds-thread" data-thread-key="2015/10/15/tips-access-current-launch-image/" data-title="Tips:获取APP的Launch Image" data-url="http://adad184.com/2015/10/15/tips-access-current-launch-image/"></div>
+  </section>
+
 </section>
         
           <aside id="sidebar">
