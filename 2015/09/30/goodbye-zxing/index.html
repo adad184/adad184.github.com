@@ -138,6 +138,7 @@ ga('send', 'pageview');
 </ul>
 </blockquote>
 <p>而我从开始到现在一直是ZXing的忠实用户 除了Google的光环之外 那时候的ZXing资料也比ZBar多很多 不过随着iOS7的发布 苹果推出了内建的二维码扫描功能 这让这些第三方库多少显得有点尴尬了 </p>
+<a id="more"></a>
 <p>回到今天的主题上 为什么说要跟ZXing说再见呢? 其实我目前做的项目使用的也是ZXing 不过在开发过程中发现了一些很严重而且绕不过去的问题 比如下面这张图<br><img src="http://7xibqv.com1.z0.glb.clouddn.com/2015-09-30-goodbye-zxing1.jpg" alt="此处输入图片的描述"><br>如果使用相册读取QRCode的功能 ZXing是无法识别的 不信大家可以去<a href="http://zxing.org/w/decode.jspx" target="_blank" rel="external">zxing.org</a> 我也去Github<a href="https://github.com/zxing/zxing/issues/416" target="_blank" rel="external">提了issue</a> 不过作者也没有给出有效的解决办法 所以只能跟ZXing说88了(不过ZBar是可以扫描出来的哟!)</p>
 <p>先分析一下 我们使用QRCode一般都是要做如下几种场景的操作</p>
 <blockquote>
