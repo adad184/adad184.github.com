@@ -4,7 +4,7 @@
   <subtitle><![CDATA[途有境而观无垠]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://adad184.com/"/>
-  <updated>2015-10-15T03:05:05.000Z</updated>
+  <updated>2015-10-23T06:10:57.000Z</updated>
   <id>http://adad184.com/</id>
   
   <author>
@@ -13,6 +13,32 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[Tips:关于MKMapView的一些操作小技巧]]></title>
+    <link href="http://adad184.com/2015/10/23/tips-mapview-tricks/"/>
+    <id>http://adad184.com/2015/10/23/tips-mapview-tricks/</id>
+    <published>2015-10-23T07:37:33.000Z</published>
+    <updated>2015-10-23T06:10:57.000Z</updated>
+    <content type="html"><![CDATA[<p>最近在优化地图的体验 用到了一些小技巧 这里分享一下</p>
+<h3 id="判断一个Annotation是否在当前地图中可见">判断一个Annotation是否在当前地图中可见</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">MKMapRect</span> visibleMapRect = <span class="keyword">self</span><span class="variable">.mapView</span><span class="variable">.visibleMapRect</span>;</span><br><span class="line"><span class="built_in">NSSet</span> *visibleAnnotations = [<span class="keyword">self</span><span class="variable">.mapView</span> annotationsInMapRect:visibleMapRect];</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> ( [visibleAnnotations containsObject:anno] )</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//可见</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="将地图缩放到某个合适的位置_使一些Annotation同时可见">将地图缩放到某个合适的位置 使一些Annotation同时可见</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[<span class="keyword">self</span><span class="variable">.mapView</span> showAnnotations:@[anno1,anno2,anno3] animated:<span class="literal">YES</span>];</span><br><span class="line"></span><br><span class="line"><span class="comment">//使所有Annotation都可见</span></span><br><span class="line">[<span class="keyword">self</span><span class="variable">.mapView</span> showAnnotations:<span class="keyword">self</span><span class="variable">.mapView</span><span class="variable">.annotations</span> animated:<span class="literal">YES</span>];</span><br></pre></td></tr></table></figure>
+<h3 id="控制MapView动画的时间">控制MapView动画的时间</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">[<span class="built_in">MKMapView</span> animateWithDuration:<span class="number">0.8</span> delay:<span class="number">0.0</span> options:<span class="built_in">UIViewAnimationOptionCurveEaseInOut</span> animations:^&#123;</span><br><span class="line">    </span><br><span class="line">    [<span class="keyword">self</span><span class="variable">.mapView</span> setCenterCoordinate:anno<span class="variable">.coordinate</span> animated:<span class="literal">YES</span>];</span><br><span class="line">    </span><br><span class="line">&#125; completion:^(<span class="built_in">BOOL</span> finished) &#123;</span><br><span class="line">    </span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
+<p>如果将上面的功能组合起来 我们可以得到一个很不错的地图位置切换效果</p>
+<p><img src="http://7xibqv.com1.z0.glb.clouddn.com/2015-10-23-tips-mapview-tricks1.gif" alt=""></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>最近在优化地图的体验 用到了一些小技巧 这里分享一下</p>
+<h3 id="判断一个Annotation是否在当前地图中可见">判断一个Annotation是否在当前地图中可见</h3><figure class="highlight objc"><table><tr><]]>
+    </summary>
+    
+      <category term="MKMapView" scheme="http://adad184.com/tags/MKMapView/"/>
+    
+      <category term="Tips" scheme="http://adad184.com/tags/Tips/"/>
+    
+      <category term="技巧心得" scheme="http://adad184.com/categories/%E6%8A%80%E5%B7%A7%E5%BF%83%E5%BE%97/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[Tips:获取APP的Launch Image]]></title>

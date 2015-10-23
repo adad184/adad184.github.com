@@ -3,18 +3,21 @@
 <head>
   <meta charset="utf-8">
   
-  <title>hello my baby | 里脊串的开发随笔</title>
+  <title>Tips:关于MKMapView的一些操作小技巧 | 里脊串的开发随笔</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description">
+  <meta name="description" content="最近在优化地图的体验 用到了一些小技巧 这里分享一下
+判断一个Annotation是否在当前地图中可见1234567MKMapRect visibleMapRect = self.mapView.visibleMapRect;NSSet *visibleAnnotations = [self.mapView annotationsInMapRect:visibleMapRect];if ( [vi">
 <meta property="og:type" content="article">
-<meta property="og:title" content="hello my baby">
-<meta property="og:url" content="http://adad184.com/2014/08/27/hello-my-baby/index.html">
+<meta property="og:title" content="Tips:关于MKMapView的一些操作小技巧">
+<meta property="og:url" content="http://adad184.com/2015/10/23/tips-mapview-tricks/index.html">
 <meta property="og:site_name" content="里脊串的开发随笔">
-<meta property="og:description">
-<meta property="og:image" content="http://7xibqv.com1.z0.glb.clouddn.com/2014-08-27-hello-my-baby.png">
+<meta property="og:description" content="最近在优化地图的体验 用到了一些小技巧 这里分享一下
+判断一个Annotation是否在当前地图中可见1234567MKMapRect visibleMapRect = self.mapView.visibleMapRect;NSSet *visibleAnnotations = [self.mapView annotationsInMapRect:visibleMapRect];if ( [vi">
+<meta property="og:image" content="http://7xibqv.com1.z0.glb.clouddn.com/2015-10-23-tips-mapview-tricks1.gif">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="hello my baby">
-<meta name="twitter:description">
+<meta name="twitter:title" content="Tips:关于MKMapView的一些操作小技巧">
+<meta name="twitter:description" content="最近在优化地图的体验 用到了一些小技巧 这里分享一下
+判断一个Annotation是否在当前地图中可见1234567MKMapRect visibleMapRect = self.mapView.visibleMapRect;NSSet *visibleAnnotations = [self.mapView annotationsInMapRect:visibleMapRect];if ( [vi">
   
     <link rel="alternative" href="/atom.xml" title="里脊串的开发随笔" type="application/atom+xml">
   
@@ -86,14 +89,14 @@ ga('send', 'pageview');
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-hello-my-baby" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-tips-mapview-tricks" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2014/08/27/hello-my-baby/" class="article-date">
-  <time datetime="2014-08-27T08:21:14.000Z" itemprop="datePublished">2014-08-27</time>
+    <a href="/2015/10/23/tips-mapview-tricks/" class="article-date">
+  <time datetime="2015-10-23T07:37:33.000Z" itemprop="datePublished">2015-10-23</time>
 </a>
     
   <div class="article-category">
-    <a class="article-category-link" href="/categories/生活琐碎/">生活琐碎</a>
+    <a class="article-category-link" href="/categories/技巧心得/">技巧心得</a>
   </div>
 
   </div>
@@ -104,7 +107,7 @@ ga('send', 'pageview');
         
   
     <h1 class="article-title" itemprop="name">
-      hello my baby
+      Tips:关于MKMapView的一些操作小技巧
     </h1>
   
 
@@ -112,18 +115,23 @@ ga('send', 'pageview');
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><img src="http://7xibqv.com1.z0.glb.clouddn.com/2014-08-27-hello-my-baby.png" alt=""></p>
+        <p>最近在优化地图的体验 用到了一些小技巧 这里分享一下</p>
+<h3 id="判断一个Annotation是否在当前地图中可见">判断一个Annotation是否在当前地图中可见</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">MKMapRect</span> visibleMapRect = <span class="keyword">self</span><span class="variable">.mapView</span><span class="variable">.visibleMapRect</span>;</span><br><span class="line"><span class="built_in">NSSet</span> *visibleAnnotations = [<span class="keyword">self</span><span class="variable">.mapView</span> annotationsInMapRect:visibleMapRect];</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> ( [visibleAnnotations containsObject:anno] )</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//可见</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="将地图缩放到某个合适的位置_使一些Annotation同时可见">将地图缩放到某个合适的位置 使一些Annotation同时可见</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[<span class="keyword">self</span><span class="variable">.mapView</span> showAnnotations:@[anno1,anno2,anno3] animated:<span class="literal">YES</span>];</span><br><span class="line"></span><br><span class="line"><span class="comment">//使所有Annotation都可见</span></span><br><span class="line">[<span class="keyword">self</span><span class="variable">.mapView</span> showAnnotations:<span class="keyword">self</span><span class="variable">.mapView</span><span class="variable">.annotations</span> animated:<span class="literal">YES</span>];</span><br></pre></td></tr></table></figure>
+<h3 id="控制MapView动画的时间">控制MapView动画的时间</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">[<span class="built_in">MKMapView</span> animateWithDuration:<span class="number">0.8</span> delay:<span class="number">0.0</span> options:<span class="built_in">UIViewAnimationOptionCurveEaseInOut</span> animations:^&#123;</span><br><span class="line">    </span><br><span class="line">    [<span class="keyword">self</span><span class="variable">.mapView</span> setCenterCoordinate:anno<span class="variable">.coordinate</span> animated:<span class="literal">YES</span>];</span><br><span class="line">    </span><br><span class="line">&#125; completion:^(<span class="built_in">BOOL</span> finished) &#123;</span><br><span class="line">    </span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
+<p>如果将上面的功能组合起来 我们可以得到一个很不错的地图位置切换效果</p>
+<p><img src="http://7xibqv.com1.z0.glb.clouddn.com/2015-10-23-tips-mapview-tricks1.gif" alt=""></p>
 
       
     </div>
     <footer class="article-footer">
 
-      <a data-url="http://adad184.com/2014/08/27/hello-my-baby/" data-id="cig39ejxa0053dwu2kyq37z3x" class="article-share-link">分享到</a>
+      <a data-url="http://adad184.com/2015/10/23/tips-mapview-tricks/" data-id="cig39ejve0003dwu2cdmwu3fy" class="article-share-link">分享到</a>
       
-        <a href="http://adad184.com/2014/08/27/hello-my-baby/#ds-thread" class="article-comment-link">文章評論</a>
+        <a href="http://adad184.com/2015/10/23/tips-mapview-tricks/#ds-thread" class="article-comment-link">文章評論</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/生活/">生活</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MKMapView/">MKMapView</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Tips/">Tips</a></li></ul>
 
     </footer>
   </div>
@@ -131,19 +139,10 @@ ga('send', 'pageview');
     
 <nav id="article-nav">
   
-    <a href="/2014/08/27/alipay-sdk-sucks/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          支付宝iOS SDK的那些坑(系统繁忙，请稍后再试)
-        
-      </div>
-    </a>
   
-  
-    <a href="/2014/08/26/ru-he-kuai-su-de-shan-chu-imessageli-de-xin-xi/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2015/10/15/tips-access-current-launch-image/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">如何快速的删除mac上imessage里的(垃圾)信息</div>
+      <div class="article-nav-title">Tips:获取APP的Launch Image</div>
     </a>
   
 </nav>
@@ -162,7 +161,7 @@ ga('send', 'pageview');
 
 
   <section id="comments">
-    <div id="ds-thread" class="ds-thread" data-thread-key="2014/08/27/hello-my-baby/" data-title="hello my baby" data-url="http://adad184.com/2014/08/27/hello-my-baby/"></div>
+    <div id="ds-thread" class="ds-thread" data-thread-key="2015/10/23/tips-mapview-tricks/" data-title="Tips:关于MKMapView的一些操作小技巧" data-url="http://adad184.com/2015/10/23/tips-mapview-tricks/"></div>
   </section>
 
 </section>
