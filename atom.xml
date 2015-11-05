@@ -4,7 +4,7 @@
   <subtitle><![CDATA[途有境而观无垠]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://adad184.com/"/>
-  <updated>2015-10-29T03:28:15.000Z</updated>
+  <updated>2015-10-23T06:10:57.000Z</updated>
   <id>http://adad184.com/</id>
   
   <author>
@@ -13,19 +13,6 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title><![CDATA[tips-draw-in-code]]></title>
-    <link href="http://adad184.com/2015/10/29/tips-draw-in-code/"/>
-    <id>http://adad184.com/2015/10/29/tips-draw-in-code/</id>
-    <published>2015-10-29T03:28:15.000Z</published>
-    <updated>2015-10-29T03:28:15.000Z</updated>
-    <content type="html"></content>
-    <summary type="html">
-    
-    </summary>
-    
-  </entry>
   
   <entry>
     <title><![CDATA[Tips:关于MKMapView的一些操作小技巧]]></title>
