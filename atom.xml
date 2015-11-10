@@ -4,7 +4,7 @@
   <subtitle><![CDATA[途有境而观无垠]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://adad184.com/"/>
-  <updated>2015-10-23T06:10:57.000Z</updated>
+  <updated>2015-11-10T08:13:53.000Z</updated>
   <id>http://adad184.com/</id>
   
   <author>
@@ -13,6 +13,37 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[Tips:取消UICollectionView的隐式动画]]></title>
+    <link href="http://adad184.com/2015/11/10/disable-uicollectionview-implicit-animation/"/>
+    <id>http://adad184.com/2015/11/10/disable-uicollectionview-implicit-animation/</id>
+    <published>2015-11-10T07:37:33.000Z</published>
+    <updated>2015-11-10T08:13:53.000Z</updated>
+    <content type="html"><![CDATA[<p>UICollectionView在<code>reloadItems</code>的时候 默认会附加一个隐式的fade动画 有时候很讨厌 尤其是当你的cell是复合cell的情况下 (比如cell使用到了UIStackView)</p>
+<p>下面几种方法都可以帮你去除这些动画</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">//方法一</span></span><br><span class="line">[<span class="built_in">UIView</span> performWithoutAnimation:^&#123;</span><br><span class="line"></span><br><span class="line">    [collectionView reloadItemsAtIndexPaths:@[[<span class="built_in">NSIndexPath</span> indexPathForItem:index inSection:<span class="number">0</span>]]];</span><br><span class="line">&#125;];</span><br><span class="line"></span><br><span class="line"><span class="comment">//方法二</span></span><br><span class="line">[<span class="built_in">UIView</span> animateWithDuration:<span class="number">0</span> animations:^&#123;</span><br><span class="line">    [collectionView performBatchUpdates:^&#123;</span><br><span class="line">        [collectionView reloadItemsAtIndexPaths:@[[<span class="built_in">NSIndexPath</span> indexPathForItem:index inSection:<span class="number">0</span>]]];</span><br><span class="line">    &#125; completion:<span class="literal">nil</span>];</span><br><span class="line">&#125;];</span><br><span class="line">    </span><br><span class="line"><span class="comment">//方法三</span></span><br><span class="line">[<span class="built_in">UIView</span> setAnimationsEnabled:<span class="literal">NO</span>];</span><br><span class="line">[<span class="keyword">self</span><span class="variable">.trackPanel</span> performBatchUpdates:^&#123;</span><br><span class="line">    [collectionView reloadItemsAtIndexPaths:@[[<span class="built_in">NSIndexPath</span> indexPathForItem:index inSection:<span class="number">0</span>]]];</span><br><span class="line">&#125; completion:^(<span class="built_in">BOOL</span> finished) &#123;</span><br><span class="line">    [<span class="built_in">UIView</span> setAnimationsEnabled:<span class="literal">YES</span>];</span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
+<p>如果你的APP只支持iOS7+ 推荐使用第一种方式<code>performWithoutAnimation</code>(感谢<a href="http://weibo.com/u/1364395395" target="_blank" rel="external">@sunnyxx</a>的tip) 简单方便</p>
+<hr>
+<p>but</p>
+<p>问题还没有结束 上面介绍的方法只能解决UIView的Animation 如果你的cell中还包含有CALayer的动画 比如这样</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)layoutSubviews</span><br><span class="line">&#123;</span><br><span class="line">    [<span class="keyword">super</span> layoutSubviews];</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">self</span><span class="variable">.frameLayer</span><span class="variable">.frame</span> = <span class="keyword">self</span><span class="variable">.frameView</span><span class="variable">.bounds</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上述情况多用于自定义控件使用了layer.mask的情况 如果有这种情况 上面提到的方法是无法取消CALayer的动画的 但是解决办法也很简单</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)layoutSubviews</span><br><span class="line">&#123;</span><br><span class="line">    [<span class="keyword">super</span> layoutSubviews];</span><br><span class="line">    </span><br><span class="line">    [<span class="built_in">CATransaction</span> begin];</span><br><span class="line">    [<span class="built_in">CATransaction</span> setDisableActions:<span class="literal">YES</span>];</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">self</span><span class="variable">.frameLayer</span><span class="variable">.frame</span> = <span class="keyword">self</span><span class="variable">.frameView</span><span class="variable">.bounds</span>;</span><br><span class="line">    </span><br><span class="line">    [<span class="built_in">CATransaction</span> commit];</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>done!</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>UICollectionView在<code>reloadItems</code>的时候 默认会附加一个隐式的fade动画 有时候很讨厌 尤其是当你的cell是复合cell的情况下 (比如cell使用到了UIStackView)</p>
+<p>下面几种方法都可以帮你去除这些]]>
+    </summary>
+    
+      <category term="Animation" scheme="http://adad184.com/tags/Animation/"/>
+    
+      <category term="UICollectionView" scheme="http://adad184.com/tags/UICollectionView/"/>
+    
+      <category term="技巧心得" scheme="http://adad184.com/categories/%E6%8A%80%E5%B7%A7%E5%BF%83%E5%BE%97/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[Tips:关于MKMapView的一些操作小技巧]]></title>
