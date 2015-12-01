@@ -4,7 +4,7 @@
   <subtitle><![CDATA[途有境而观无垠]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://adad184.com/"/>
-  <updated>2015-11-10T08:13:53.000Z</updated>
+  <updated>2015-12-01T08:24:25.000Z</updated>
   <id>http://adad184.com/</id>
   
   <author>
@@ -13,6 +13,77 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[UIScrollview与Autolayout的那点破事]]></title>
+    <link href="http://adad184.com/2015/11/10/scrollview-under-autolayout/"/>
+    <id>http://adad184.com/2015/11/10/scrollview-under-autolayout/</id>
+    <published>2015-11-10T07:37:33.000Z</published>
+    <updated>2015-12-01T08:24:25.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="前言">前言</h2><hr>
+<p>自从写了<a href="http://adad184.com/2014/09/28/use-masonry-to-quick-solve-autolayout/" target="_blank" rel="external">介绍Masonry</a>那篇文章以后 就一直有人对UIScrollView的那个例子不是很理解 </p>
+<figure class="highlight axapta"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">UIView *<span class="keyword">container</span> = [UIView <span class="keyword">new</span>];</span><br><span class="line">[scrollView addSubview:<span class="keyword">container</span>];</span><br><span class="line">[<span class="keyword">container</span> mas_makeConstraints:^(MASConstraintMaker *make) &#123;</span><br><span class="line">    make.edges.equalTo(scrollView);</span><br><span class="line">    make.width.equalTo(scrollView);</span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
+<ul>
+<li>为什么要用一个container包含其他subview?</li>
+<li>为什么指定了edges 还要指定width? 不是多此一举吗?</li>
+</ul>
+<p>那么今天我就按照我的理解来说明一下这个问题</p>
+<a id="more"></a>
+<h2 id="梳理">梳理</h2><hr>
+<p>直入主题 要解释之前的问题 最重要的一个概念就是</p>
+<blockquote>
+<p>UIScrollView依靠与其subviews之间的约束来确定ContentSize的大小</p>
+</blockquote>
+<p>换成代码 是这个样子<br><figure class="highlight clojure"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="collection">[scrollView mas_makeConstraints:^<span class="list">(<span class="keyword">MASConstraintMaker</span> *make)</span> <span class="collection">&#123;</span><br><span class="line">    make.left.equalTo<span class="list">(<span class="keyword">v1.mas_left</span>)</span><span class="comment">;</span></span><br><span class="line">    make.right.equalTo<span class="list">(<span class="keyword">v1.mas_right</span>)</span><span class="comment">;</span></span><br><span class="line">    make.top.equalTo<span class="list">(<span class="keyword">v1.mas_top</span>)</span><span class="comment">;</span></span><br><span class="line">    make.bottom.equalTo<span class="list">(<span class="keyword">v1.mas_bottom</span>)</span><span class="comment">;</span></span><br><span class="line">&#125;</span>]</span><span class="comment">;</span></span><br></pre></td></tr></table></figure></p>
+<p>这是因为UIScrollView是个非常特殊的view UIScrollView与其subview之间<strong>相对位置的约束</strong> 并不会直接用于frame的计算 而是会转化为对ContentSize的计算</p>
+<p>换句话说 当UIScrollView知道了上下左右的约束分别指向subview什么位置之后 只要subview的位置固定下来了 ContentSize的大小就确定下来了</p>
+<p>下面来个简单的例子(下面所有例子都在文尾的demo中)</p>
+<h4 id="示例1">示例1</h4><figure class="highlight clojure"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="collection">[v1 mas_makeConstraints:^<span class="list">(<span class="keyword">MASConstraintMaker</span> *make)</span> <span class="collection">&#123;</span><br><span class="line">    make.edges.equalTo<span class="list">(<span class="keyword">scrollView</span>)</span><span class="comment">;</span></span><br><span class="line">    make.width.equalTo<span class="list">(<span class="keyword">scrollView</span>)</span><span class="comment">;</span></span><br><span class="line">    make.height.equalTo<span class="list">(<span class="keyword">scrollView</span>)</span>.multipliedBy<span class="list">(<span class="number">1.5</span>)</span><span class="comment">;</span></span><br><span class="line">&#125;</span>]</span><span class="comment">;</span></span><br></pre></td></tr></table></figure>
+<p>效果(<strong>为了方便理解 我将ContentSize用红线框了出来 另外为了查看ContentSize我把UIScrollView的clipToCbounds打开了 可以通过左上角的开关来切换实际的效果</strong>)</p>
+<p><img src="http://7xibqv.com1.z0.glb.clouddn.com/2015-12-01-scrollview-under-autolayout1.jpg" alt=""></p>
+<p>这里我建立了一个宽等于scrollview 高等于scrollview高度1.5倍的view 然后scrollview成功的计算出了ContentSize</p>
+<p>关键就在于<br><figure class="highlight gcode"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make.edges.equalTo<span class="comment">(scrollView)</span>;</span><br></pre></td></tr></table></figure></p>
+<p>这句话其实等同与之前我提到的<br><figure class="highlight clojure"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="collection">[scrollView mas_makeConstraints:^<span class="list">(<span class="keyword">MASConstraintMaker</span> *make)</span> <span class="collection">&#123;</span><br><span class="line">    make.left.equalTo<span class="list">(<span class="keyword">v1.mas_left</span>)</span><span class="comment">;</span></span><br><span class="line">    make.right.equalTo<span class="list">(<span class="keyword">v1.mas_right</span>)</span><span class="comment">;</span></span><br><span class="line">    make.top.equalTo<span class="list">(<span class="keyword">v1.mas_top</span>)</span><span class="comment">;</span></span><br><span class="line">    make.bottom.equalTo<span class="list">(<span class="keyword">v1.mas_bottom</span>)</span><span class="comment">;</span></span><br><span class="line">&#125;</span>]</span><span class="comment">;</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="示例2">示例2</h4><p>如果尝试改变v1的大小 会怎么样呢?</p>
+<figure class="highlight clojure"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="collection">[v1 mas_makeConstraints:^<span class="list">(<span class="keyword">MASConstraintMaker</span> *make)</span> <span class="collection">&#123;</span><br><span class="line">    make.edges.equalTo<span class="list">(<span class="keyword">scrollView</span>)</span><span class="comment">;</span></span><br><span class="line">    </span><br><span class="line">    make.size.equalTo<span class="list">(<span class="keyword">scrollView</span>)</span>.sizeOffset<span class="list">(<span class="keyword">CGSizeMake</span><span class="list">(<span class="number">80</span>, <span class="number">80</span>)</span>)</span><span class="comment">;</span></span><br><span class="line">&#125;</span>]</span><span class="comment">;</span></span><br></pre></td></tr></table></figure>
+<p>效果<br><img src="http://7xibqv.com1.z0.glb.clouddn.com/2015-12-01-scrollview-under-autolayout2.jpg" alt=""></p>
+<p>这里我将v1的大小设置为了稍稍比scrollView大那么一点点</p>
+<h4 id="示例3">示例3</h4><p>接下来示例就会稍微复杂点 如果同时有两个view 会如何呢?<br><figure class="highlight scheme"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="list">[<span class="keyword">v1</span> mas_makeConstraints:^<span class="list">(<span class="keyword">MASConstraintMaker</span> *make)</span> &#123;</span><br><span class="line">    </span><br><span class="line">    make.left.top.right.equalTo<span class="list">(<span class="keyword">scrollView</span>)</span>.insets<span class="list">(<span class="keyword">UIEdgeInsetsMake</span><span class="list">(<span class="keyword">10</span>, <span class="number">10</span>, <span class="number">0</span>, <span class="number">10</span>)</span>)</span><span class="comment">;</span></span><br><span class="line">    </span><br><span class="line">    make.width.equalTo<span class="list">(<span class="keyword">scrollView</span>)</span>.multipliedBy<span class="list">(<span class="keyword">1.1</span>)</span><span class="comment">;</span></span><br><span class="line">    make.bottom.equalTo<span class="list">(<span class="keyword">v2.mas_top</span>)</span>.offset<span class="list">(<span class="keyword">-50</span>)</span><span class="comment">;</span></span><br><span class="line">    make.height.equalTo<span class="list">(<span class="keyword">@200</span>)</span><span class="comment">;</span></span><br><span class="line">&#125;]<span class="comment">;</span></span><br><span class="line"></span><br><span class="line"><span class="list">[<span class="keyword">v2</span> mas_makeConstraints:^<span class="list">(<span class="keyword">MASConstraintMaker</span> *make)</span> &#123;</span><br><span class="line">    make.bottom.equalTo<span class="list">(<span class="keyword">scrollView</span>)</span><span class="comment">;</span></span><br><span class="line">    </span><br><span class="line">    make.left.right.equalTo<span class="list">(<span class="keyword">v1</span>)</span>.insets<span class="list">(<span class="keyword">UIEdgeInsetsMake</span><span class="list">(<span class="keyword">0</span>, <span class="number">50</span>, <span class="number">0</span>, <span class="number">50</span>)</span>)</span><span class="comment">;</span></span><br><span class="line">    make.height.equalTo<span class="list">(<span class="keyword">@250</span>)</span><span class="comment">;</span></span><br><span class="line">&#125;]<span class="comment">;</span></span></span></span><br></pre></td></tr></table></figure></p>
+<p>效果<br><img src="http://7xibqv.com1.z0.glb.clouddn.com/2015-12-01-scrollview-under-autolayout3.jpg" alt=""></p>
+<p>这个例子中 scrollview的四个方向的约束并没有放在同一个subview上 而是分别指向了两个view</p>
+<h4 id="示例4">示例4</h4><p>如果将四个方向的约束分别放到四个不同的view上面 会怎么样呢?</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">CGSize size = CGSizeMake(<span class="number">200</span>, <span class="number">200</span>);</span><br><span class="line"></span><br><span class="line">[v1 mas_makeConstraints:^(MASConstraintMaker *<span class="built_in">make</span>) &#123;</span><br><span class="line">    <span class="built_in">make</span>.centerY.equalTo(scrollView.mas_top);</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">make</span>.size.mas_equalTo(size);</span><br><span class="line">&#125;];</span><br><span class="line"></span><br><span class="line">[v2 mas_makeConstraints:^(MASConstraintMaker *<span class="built_in">make</span>) &#123;</span><br><span class="line">    <span class="built_in">make</span>.centerX.equalTo(scrollView.mas_left);</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">make</span>.size.mas_equalTo(size);</span><br><span class="line">    <span class="built_in">make</span>.right.equalTo(v1.mas_left);</span><br><span class="line">    <span class="built_in">make</span>.top.equalTo(v1.mas_bottom);</span><br><span class="line">&#125;];</span><br><span class="line"></span><br><span class="line">[v3 mas_makeConstraints:^(MASConstraintMaker *<span class="built_in">make</span>) &#123;</span><br><span class="line">    <span class="built_in">make</span>.centerX.equalTo(scrollView.mas_right);</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">make</span>.size.mas_equalTo(size);</span><br><span class="line">    <span class="built_in">make</span>.left.equalTo(v1.mas_right);</span><br><span class="line">    <span class="built_in">make</span>.top.equalTo(v1.mas_bottom);</span><br><span class="line">&#125;];</span><br><span class="line"></span><br><span class="line">[v4 mas_makeConstraints:^(MASConstraintMaker *<span class="built_in">make</span>) &#123;</span><br><span class="line">    <span class="built_in">make</span>.centerY.equalTo(scrollView.mas_bottom);</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">make</span>.size.mas_equalTo(size);</span><br><span class="line">    <span class="built_in">make</span>.left.equalTo(v1.mas_left);</span><br><span class="line">    <span class="built_in">make</span>.top.equalTo(v2.mas_bottom);</span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
+<p>效果<br><img src="http://7xibqv.com1.z0.glb.clouddn.com/2015-12-01-scrollview-under-autolayout4.jpg" alt=""></p>
+<p>如果你看懂了示例4的代码与效果 相信你对这个问题的所有疑惑都应该已经解除了</p>
+<p>那么再回到最开始那个问题<br><figure class="highlight gcode"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">make.edges.equalTo<span class="comment">(scrollView)</span>;</span><br><span class="line">make.width.equalTo<span class="comment">(scrollView)</span>;</span><br></pre></td></tr></table></figure></p>
+<p>如果我们需要竖向的滑动 就把width设为和scrollview相同<br>如果需要横向的滑动 就把height设为和scrollview相同</p>
+<p>就是这么简单</p>
+<h2 id="小结">小结</h2><hr>
+<p>源码和Demo请点<a href="https://github.com/adad184/DemoScrollViewAutolayout" target="_blank" rel="external">这里</a></p>
+<p>前不久<a href="http://weibo.com/nixzhu" target="_blank" rel="external">@nixzhu</a>也写了一篇关于<a href="https://github.com/nixzhu/dev-blog/blob/master/autolayout-tips.md#tip-2" target="_blank" rel="external">UIScrollView的文章</a> 然后我在微博上回复说”<strong>使用一个单一的containerView占满全部，然后把所有的subview添加到containerView中</strong>“ 不过nixzh 表示他是极力避免这样的 但是后在这个问题上 我是<strong>极力推荐</strong>这样使用的 </p>
+<p>就如同示例1和示例2一样 如果你需要添加subview 你只要简单的添加到v1上 并添加与v1的约束 就可以获得正确的ContentSize了</p>
+<p>如果不这样做 就类似示例3和示例4 这些边界约束都需要一个一个的设置 这其实是没有必要的</p>
+<p>使用单一的containerView其实是这个问题上的最佳实践</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h2 id="前言">前言</h2><hr>
+<p>自从写了<a href="http://adad184.com/2014/09/28/use-masonry-to-quick-solve-autolayout/">介绍Masonry</a>那篇文章以后 就一直有人对UIScrollView的那个例子不是很理解 </p>
+<figure class="highlight axapta"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">UIView *<span class="keyword">container</span> = [UIView <span class="keyword">new</span>];</span><br><span class="line">[scrollView addSubview:<span class="keyword">container</span>];</span><br><span class="line">[<span class="keyword">container</span> mas_makeConstraints:^(MASConstraintMaker *make) &#123;</span><br><span class="line">    make.edges.equalTo(scrollView);</span><br><span class="line">    make.width.equalTo(scrollView);</span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
+<ul>
+<li>为什么要用一个container包含其他subview?</li>
+<li>为什么指定了edges 还要指定width? 不是多此一举吗?</li>
+</ul>
+<p>那么今天我就按照我的理解来说明一下这个问题</p>]]>
+    
+    </summary>
+    
+      <category term="Autolayout" scheme="http://adad184.com/tags/Autolayout/"/>
+    
+      <category term="UIScrollView" scheme="http://adad184.com/tags/UIScrollView/"/>
+    
+      <category term="技巧心得" scheme="http://adad184.com/categories/%E6%8A%80%E5%B7%A7%E5%BF%83%E5%BE%97/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[Tips:取消UICollectionView的隐式动画]]></title>

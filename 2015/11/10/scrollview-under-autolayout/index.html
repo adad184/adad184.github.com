@@ -3,32 +3,27 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Git的好伙伴:SourceTree &amp; BeyondCompare | 里脊串的开发随笔</title>
+  <title>UIScrollview与Autolayout的那点破事 | 里脊串的开发随笔</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="前言作为一个Coder 源代码控制管理系统(SCM)肯定是不陌生的 比如我就用过VSS-&amp;gt;SVN-&amp;gt;Git 其他有名的还有CVS和Mercurial等等移动互联网时代 Git基本已成为大家的不二之选了(Github功不可没啊)
-今天不介绍Git的好处和使用方法 主要介绍一下两款与Git配套使用的好工具
-
-SourceTree
-BeyondCompare">
+  <meta name="description" content="前言
+自从写了介绍Masonry那篇文章以后 就一直有人对UIScrollView的那个例子不是很理解 
+123456UIView *container = [UIView new];[scrollView addSubview:container];[container mas_makeConstraints:^(MASConstraintMaker *make) &amp;#123;    make.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Git的好伙伴:SourceTree & BeyondCompare">
-<meta property="og:url" content="http://adad184.com/2015/07/28/use-git-with-sourcetree-and-beyondcompare/index.html">
+<meta property="og:title" content="UIScrollview与Autolayout的那点破事">
+<meta property="og:url" content="http://adad184.com/2015/11/10/scrollview-under-autolayout/index.html">
 <meta property="og:site_name" content="里脊串的开发随笔">
-<meta property="og:description" content="前言作为一个Coder 源代码控制管理系统(SCM)肯定是不陌生的 比如我就用过VSS-&amp;gt;SVN-&amp;gt;Git 其他有名的还有CVS和Mercurial等等移动互联网时代 Git基本已成为大家的不二之选了(Github功不可没啊)
-今天不介绍Git的好处和使用方法 主要介绍一下两款与Git配套使用的好工具
-
-SourceTree
-BeyondCompare">
-<meta property="og:image" content="https://www.sourcetreeapp.com/images/sourcetree-hero-mac-bookmarks@2x.png">
-<meta property="og:image" content="https://www.sourcetreeapp.com/images/sourcetree-hero-mac-log@2x.png">
-<meta property="og:image" content="http://7xibqv.com1.z0.glb.clouddn.com/2015-07-28-use-git-with-sourcetree-and-beyondcompare1.png">
+<meta property="og:description" content="前言
+自从写了介绍Masonry那篇文章以后 就一直有人对UIScrollView的那个例子不是很理解 
+123456UIView *container = [UIView new];[scrollView addSubview:container];[container mas_makeConstraints:^(MASConstraintMaker *make) &amp;#123;    make.">
+<meta property="og:image" content="http://7xibqv.com1.z0.glb.clouddn.com/2015-12-01-scrollview-under-autolayout1.jpg">
+<meta property="og:image" content="http://7xibqv.com1.z0.glb.clouddn.com/2015-12-01-scrollview-under-autolayout2.jpg">
+<meta property="og:image" content="http://7xibqv.com1.z0.glb.clouddn.com/2015-12-01-scrollview-under-autolayout3.jpg">
+<meta property="og:image" content="http://7xibqv.com1.z0.glb.clouddn.com/2015-12-01-scrollview-under-autolayout4.jpg">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Git的好伙伴:SourceTree & BeyondCompare">
-<meta name="twitter:description" content="前言作为一个Coder 源代码控制管理系统(SCM)肯定是不陌生的 比如我就用过VSS-&amp;gt;SVN-&amp;gt;Git 其他有名的还有CVS和Mercurial等等移动互联网时代 Git基本已成为大家的不二之选了(Github功不可没啊)
-今天不介绍Git的好处和使用方法 主要介绍一下两款与Git配套使用的好工具
-
-SourceTree
-BeyondCompare">
+<meta name="twitter:title" content="UIScrollview与Autolayout的那点破事">
+<meta name="twitter:description" content="前言
+自从写了介绍Masonry那篇文章以后 就一直有人对UIScrollView的那个例子不是很理解 
+123456UIView *container = [UIView new];[scrollView addSubview:container];[container mas_makeConstraints:^(MASConstraintMaker *make) &amp;#123;    make.">
   
     <link rel="alternative" href="/atom.xml" title="里脊串的开发随笔" type="application/atom+xml">
   
@@ -100,14 +95,14 @@ ga('send', 'pageview');
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-use-git-with-sourcetree-and-beyondcompare" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-scrollview-under-autolayout" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2015/07/28/use-git-with-sourcetree-and-beyondcompare/" class="article-date">
-  <time datetime="2015-07-28T09:48:34.000Z" itemprop="datePublished">2015-07-28</time>
+    <a href="/2015/11/10/scrollview-under-autolayout/" class="article-date">
+  <time datetime="2015-11-10T07:37:33.000Z" itemprop="datePublished">2015-11-10</time>
 </a>
     
   <div class="article-category">
-    <a class="article-category-link" href="/categories/经验介绍/">经验介绍</a>
+    <a class="article-category-link" href="/categories/技巧心得/">技巧心得</a>
   </div>
 
   </div>
@@ -118,7 +113,7 @@ ga('send', 'pageview');
         
   
     <h1 class="article-title" itemprop="name">
-      Git的好伙伴:SourceTree &amp; BeyondCompare
+      UIScrollview与Autolayout的那点破事
     </h1>
   
 
@@ -126,52 +121,61 @@ ga('send', 'pageview');
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="前言">前言</h2><p>作为一个Coder 源代码控制管理系统(SCM)肯定是不陌生的 比如我就用过<strong>VSS</strong>-&gt;<strong>SVN</strong>-&gt;<strong>Git</strong> 其他有名的还有<strong>CVS</strong>和<strong>Mercurial</strong>等等<br>移动互联网时代 Git基本已成为大家的不二之选了(<a href="https://github.com/" target="_blank" rel="external">Github</a>功不可没啊)</p>
-<p>今天不介绍Git的好处和使用方法 主要介绍一下两款与Git配套使用的好工具</p>
+        <h2 id="前言">前言</h2><hr>
+<p>自从写了<a href="http://adad184.com/2014/09/28/use-masonry-to-quick-solve-autolayout/" target="_blank" rel="external">介绍Masonry</a>那篇文章以后 就一直有人对UIScrollView的那个例子不是很理解 </p>
+<figure class="highlight axapta"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">UIView *<span class="keyword">container</span> = [UIView <span class="keyword">new</span>];</span><br><span class="line">[scrollView addSubview:<span class="keyword">container</span>];</span><br><span class="line">[<span class="keyword">container</span> mas_makeConstraints:^(MASConstraintMaker *make) &#123;</span><br><span class="line">    make.edges.equalTo(scrollView);</span><br><span class="line">    make.width.equalTo(scrollView);</span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
 <ul>
-<li><a href="https://www.sourcetreeapp.com/" target="_blank" rel="external">SourceTree</a></li>
-<li><a href="http://www.scootersoftware.com/" target="_blank" rel="external">BeyondCompare</a></li>
+<li>为什么要用一个container包含其他subview?</li>
+<li>为什么指定了edges 还要指定width? 不是多此一举吗?</li>
 </ul>
+<p>那么今天我就按照我的理解来说明一下这个问题</p>
 <a id="more"></a>
-<h2 id="SourceTree">SourceTree</h2><p>作为一个懒人 Git的命令行我是不太爱的 所以GUI的工具就成了我的首选<br>Mac下的Git工具真是五花八门 著名的有<a href="http://www.git-tower.com/" target="_blank" rel="external">Tower</a> <a href="http://www.syntevo.com/smartgit/" target="_blank" rel="external">SmartGit</a>等等(更多可以看下<a href="https://git-scm.com/download/gui/linux" target="_blank" rel="external">这里的介绍</a>)</p>
-<p>今天我们介绍的是<strong>SourceTree</strong> 出品方为<a href="https://www.atlassian.com/" target="_blank" rel="external">Atlassian</a> 旗下的产品还有著名的track工具<a href="https://www.atlassian.com/software/jira" target="_blank" rel="external">JIRA</a> Github的竞争者<a href="https://www.atlassian.com/software/bitbucket/overview" target="_blank" rel="external">Bitbucket</a>等等(这两个我也是经常用的 尤其是BitBucket 支持免费私有仓哦~) </p>
-<p>SourceTree的特点如下</p>
+<h2 id="梳理">梳理</h2><hr>
+<p>直入主题 要解释之前的问题 最重要的一个概念就是</p>
 <blockquote>
-<ul>
-<li><strong>免费</strong><br>SourceTree是免费使用的 只要简单的注册一下就好了</li>
-<li><strong>跨平台</strong><br>Windows和Mac都可以用</li>
-<li><strong>完美支持Github和Bitbucket</strong><br>我所有Github和Bitbucket上的项目都是用它来管理的 当然 公司的项目也是用SourceTree管理 无不干扰</li>
-<li><strong>支持Git Flow</strong><br><a href="http://nvie.com/posts/a-successful-git-branching-model/" target="_blank" rel="external">Git Flow</a>(<a href="http://www.juvenxu.com/2010/11/28/a-successful-git-branching-model/" target="_blank" rel="external">翻译版</a>)是一套关于Git的使用实践 现在已得到广泛的认可和推广 如果使用得当 开发管理的过程将变得更轻松和清晰</li>
-</ul>
+<p>UIScrollView依靠与其subviews之间的约束来确定ContentSize的大小</p>
 </blockquote>
-<p>这是SourceTree的Repo列表界面 也是打开时的默认界面 这里可以对所有的Repo进行统一的管理 也支持分组<br><img src="https://www.sourcetreeapp.com/images/sourcetree-hero-mac-bookmarks@2x.png" alt=""></p>
-<p>这是SourceTree的Repo详情界面 这里是单独对某个Repo操作的地方 Git的所有操作你都可以在GUI上进行 非常的方便顺手<br><img src="https://www.sourcetreeapp.com/images/sourcetree-hero-mac-log@2x.png" alt=""></p>
-<p>具体细节就请自己使用之后慢慢体会吧 这里就不多介绍了</p>
-<h2 id="BeyondCompare">BeyondCompare</h2><p>我的BeyondCompare使用经验可以追溯到很多年前(那时候还在深圳的公司) 虽然大部分代码都是跑在Linux上的 但是公司还是选择在Windows上面做交叉编译 那个时候我们用的开发工具就是<a href="http://www.sourceinsight.com/" target="_blank" rel="external">SourceInsight</a>+BeyondCompare(SourceInsight也是神器 用过的同学应该都知道好在哪 可惜的是没有Mac版  而那个时候BC还是2.x的版本)</p>
-<p>BeyondCompare是一款非常强大的文件对比工具 (比Xcode和SourceTree自带的不知道高明到哪去了 (ーωーก) 如果有过Merge经验的同学肯定能体会到有大量冲突时的痛苦 BeyondCompare可以帮你轻松解决这个问题</p>
-<p>可是BeyondCompare之前是一直只有Windows版的 3.0开始支持Linux 4.0开始才支持Mac</p>
-<p>接下来介绍一下SourceTree中如何集成BeyondCompare</p>
-<ol>
-<li>先安装好BeyondCompare(请支持正版)</li>
-<li><p>打开SourceTree的<strong>Preferences</strong> 选择<strong>Diff</strong> 在下面的<strong>External Diff/Merge</strong>中做如下设置<br> Visual Diff Tool: <strong>Other</strong><br> Diff Command: <strong>/usr/local/bin/bcomp</strong><br> Arguments: <strong>\$LOCAL \$REMOTE</strong></p>
-<p> Merge Tool: <strong>Other</strong><br> Merge Command: <strong>/usr/local/bin/bcomp</strong><br> Arguments: <strong>\$LOCAL \$REMOTE \$BASE \$MERGED</strong></p>
-</li>
-<li>打开终端 输入命令<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ln -s /Applications/Beyond\ Compare.app/Contents/MacOS/bcomp /usr/local/bin/</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>这样就设置完成了 当有冲突的时候 在菜单中选择<strong>Resolve Conflicts</strong> -&gt; <strong>Launch External Merge Tool</strong> 即可打开BeyondCompare进行Merge操作<br><img src="http://7xibqv.com1.z0.glb.clouddn.com/2015-07-28-use-git-with-sourcetree-and-beyondcompare1.png" alt=""></p>
-<h2 id="小结">小结</h2><p>工欲善其事必先利其器 好的开发工具可以让你事半功倍 节约宝贵的时间 这样就可以少加班了 (ﾉ&gt;ω&lt;)ﾉ (然并卵)</p>
+<p>换成代码 是这个样子<br><figure class="highlight clojure"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="collection">[scrollView mas_makeConstraints:^<span class="list">(<span class="keyword">MASConstraintMaker</span> *make)</span> <span class="collection">&#123;</span><br><span class="line">    make.left.equalTo<span class="list">(<span class="keyword">v1.mas_left</span>)</span><span class="comment">;</span></span><br><span class="line">    make.right.equalTo<span class="list">(<span class="keyword">v1.mas_right</span>)</span><span class="comment">;</span></span><br><span class="line">    make.top.equalTo<span class="list">(<span class="keyword">v1.mas_top</span>)</span><span class="comment">;</span></span><br><span class="line">    make.bottom.equalTo<span class="list">(<span class="keyword">v1.mas_bottom</span>)</span><span class="comment">;</span></span><br><span class="line">&#125;</span>]</span><span class="comment">;</span></span><br></pre></td></tr></table></figure></p>
+<p>这是因为UIScrollView是个非常特殊的view UIScrollView与其subview之间<strong>相对位置的约束</strong> 并不会直接用于frame的计算 而是会转化为对ContentSize的计算</p>
+<p>换句话说 当UIScrollView知道了上下左右的约束分别指向subview什么位置之后 只要subview的位置固定下来了 ContentSize的大小就确定下来了</p>
+<p>下面来个简单的例子(下面所有例子都在文尾的demo中)</p>
+<h4 id="示例1">示例1</h4><figure class="highlight clojure"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="collection">[v1 mas_makeConstraints:^<span class="list">(<span class="keyword">MASConstraintMaker</span> *make)</span> <span class="collection">&#123;</span><br><span class="line">    make.edges.equalTo<span class="list">(<span class="keyword">scrollView</span>)</span><span class="comment">;</span></span><br><span class="line">    make.width.equalTo<span class="list">(<span class="keyword">scrollView</span>)</span><span class="comment">;</span></span><br><span class="line">    make.height.equalTo<span class="list">(<span class="keyword">scrollView</span>)</span>.multipliedBy<span class="list">(<span class="number">1.5</span>)</span><span class="comment">;</span></span><br><span class="line">&#125;</span>]</span><span class="comment">;</span></span><br></pre></td></tr></table></figure>
+<p>效果(<strong>为了方便理解 我将ContentSize用红线框了出来 另外为了查看ContentSize我把UIScrollView的clipToCbounds打开了 可以通过左上角的开关来切换实际的效果</strong>)</p>
+<p><img src="http://7xibqv.com1.z0.glb.clouddn.com/2015-12-01-scrollview-under-autolayout1.jpg" alt=""></p>
+<p>这里我建立了一个宽等于scrollview 高等于scrollview高度1.5倍的view 然后scrollview成功的计算出了ContentSize</p>
+<p>关键就在于<br><figure class="highlight gcode"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make.edges.equalTo<span class="comment">(scrollView)</span>;</span><br></pre></td></tr></table></figure></p>
+<p>这句话其实等同与之前我提到的<br><figure class="highlight clojure"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="collection">[scrollView mas_makeConstraints:^<span class="list">(<span class="keyword">MASConstraintMaker</span> *make)</span> <span class="collection">&#123;</span><br><span class="line">    make.left.equalTo<span class="list">(<span class="keyword">v1.mas_left</span>)</span><span class="comment">;</span></span><br><span class="line">    make.right.equalTo<span class="list">(<span class="keyword">v1.mas_right</span>)</span><span class="comment">;</span></span><br><span class="line">    make.top.equalTo<span class="list">(<span class="keyword">v1.mas_top</span>)</span><span class="comment">;</span></span><br><span class="line">    make.bottom.equalTo<span class="list">(<span class="keyword">v1.mas_bottom</span>)</span><span class="comment">;</span></span><br><span class="line">&#125;</span>]</span><span class="comment">;</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="示例2">示例2</h4><p>如果尝试改变v1的大小 会怎么样呢?</p>
+<figure class="highlight clojure"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="collection">[v1 mas_makeConstraints:^<span class="list">(<span class="keyword">MASConstraintMaker</span> *make)</span> <span class="collection">&#123;</span><br><span class="line">    make.edges.equalTo<span class="list">(<span class="keyword">scrollView</span>)</span><span class="comment">;</span></span><br><span class="line">    </span><br><span class="line">    make.size.equalTo<span class="list">(<span class="keyword">scrollView</span>)</span>.sizeOffset<span class="list">(<span class="keyword">CGSizeMake</span><span class="list">(<span class="number">80</span>, <span class="number">80</span>)</span>)</span><span class="comment">;</span></span><br><span class="line">&#125;</span>]</span><span class="comment">;</span></span><br></pre></td></tr></table></figure>
+<p>效果<br><img src="http://7xibqv.com1.z0.glb.clouddn.com/2015-12-01-scrollview-under-autolayout2.jpg" alt=""></p>
+<p>这里我将v1的大小设置为了稍稍比scrollView大那么一点点</p>
+<h4 id="示例3">示例3</h4><p>接下来示例就会稍微复杂点 如果同时有两个view 会如何呢?<br><figure class="highlight scheme"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="list">[<span class="keyword">v1</span> mas_makeConstraints:^<span class="list">(<span class="keyword">MASConstraintMaker</span> *make)</span> &#123;</span><br><span class="line">    </span><br><span class="line">    make.left.top.right.equalTo<span class="list">(<span class="keyword">scrollView</span>)</span>.insets<span class="list">(<span class="keyword">UIEdgeInsetsMake</span><span class="list">(<span class="keyword">10</span>, <span class="number">10</span>, <span class="number">0</span>, <span class="number">10</span>)</span>)</span><span class="comment">;</span></span><br><span class="line">    </span><br><span class="line">    make.width.equalTo<span class="list">(<span class="keyword">scrollView</span>)</span>.multipliedBy<span class="list">(<span class="keyword">1.1</span>)</span><span class="comment">;</span></span><br><span class="line">    make.bottom.equalTo<span class="list">(<span class="keyword">v2.mas_top</span>)</span>.offset<span class="list">(<span class="keyword">-50</span>)</span><span class="comment">;</span></span><br><span class="line">    make.height.equalTo<span class="list">(<span class="keyword">@200</span>)</span><span class="comment">;</span></span><br><span class="line">&#125;]<span class="comment">;</span></span><br><span class="line"></span><br><span class="line"><span class="list">[<span class="keyword">v2</span> mas_makeConstraints:^<span class="list">(<span class="keyword">MASConstraintMaker</span> *make)</span> &#123;</span><br><span class="line">    make.bottom.equalTo<span class="list">(<span class="keyword">scrollView</span>)</span><span class="comment">;</span></span><br><span class="line">    </span><br><span class="line">    make.left.right.equalTo<span class="list">(<span class="keyword">v1</span>)</span>.insets<span class="list">(<span class="keyword">UIEdgeInsetsMake</span><span class="list">(<span class="keyword">0</span>, <span class="number">50</span>, <span class="number">0</span>, <span class="number">50</span>)</span>)</span><span class="comment">;</span></span><br><span class="line">    make.height.equalTo<span class="list">(<span class="keyword">@250</span>)</span><span class="comment">;</span></span><br><span class="line">&#125;]<span class="comment">;</span></span></span></span><br></pre></td></tr></table></figure></p>
+<p>效果<br><img src="http://7xibqv.com1.z0.glb.clouddn.com/2015-12-01-scrollview-under-autolayout3.jpg" alt=""></p>
+<p>这个例子中 scrollview的四个方向的约束并没有放在同一个subview上 而是分别指向了两个view</p>
+<h4 id="示例4">示例4</h4><p>如果将四个方向的约束分别放到四个不同的view上面 会怎么样呢?</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">CGSize size = CGSizeMake(<span class="number">200</span>, <span class="number">200</span>);</span><br><span class="line"></span><br><span class="line">[v1 mas_makeConstraints:^(MASConstraintMaker *<span class="built_in">make</span>) &#123;</span><br><span class="line">    <span class="built_in">make</span>.centerY.equalTo(scrollView.mas_top);</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">make</span>.size.mas_equalTo(size);</span><br><span class="line">&#125;];</span><br><span class="line"></span><br><span class="line">[v2 mas_makeConstraints:^(MASConstraintMaker *<span class="built_in">make</span>) &#123;</span><br><span class="line">    <span class="built_in">make</span>.centerX.equalTo(scrollView.mas_left);</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">make</span>.size.mas_equalTo(size);</span><br><span class="line">    <span class="built_in">make</span>.right.equalTo(v1.mas_left);</span><br><span class="line">    <span class="built_in">make</span>.top.equalTo(v1.mas_bottom);</span><br><span class="line">&#125;];</span><br><span class="line"></span><br><span class="line">[v3 mas_makeConstraints:^(MASConstraintMaker *<span class="built_in">make</span>) &#123;</span><br><span class="line">    <span class="built_in">make</span>.centerX.equalTo(scrollView.mas_right);</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">make</span>.size.mas_equalTo(size);</span><br><span class="line">    <span class="built_in">make</span>.left.equalTo(v1.mas_right);</span><br><span class="line">    <span class="built_in">make</span>.top.equalTo(v1.mas_bottom);</span><br><span class="line">&#125;];</span><br><span class="line"></span><br><span class="line">[v4 mas_makeConstraints:^(MASConstraintMaker *<span class="built_in">make</span>) &#123;</span><br><span class="line">    <span class="built_in">make</span>.centerY.equalTo(scrollView.mas_bottom);</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">make</span>.size.mas_equalTo(size);</span><br><span class="line">    <span class="built_in">make</span>.left.equalTo(v1.mas_left);</span><br><span class="line">    <span class="built_in">make</span>.top.equalTo(v2.mas_bottom);</span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
+<p>效果<br><img src="http://7xibqv.com1.z0.glb.clouddn.com/2015-12-01-scrollview-under-autolayout4.jpg" alt=""></p>
+<p>如果你看懂了示例4的代码与效果 相信你对这个问题的所有疑惑都应该已经解除了</p>
+<p>那么再回到最开始那个问题<br><figure class="highlight gcode"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">make.edges.equalTo<span class="comment">(scrollView)</span>;</span><br><span class="line">make.width.equalTo<span class="comment">(scrollView)</span>;</span><br></pre></td></tr></table></figure></p>
+<p>如果我们需要竖向的滑动 就把width设为和scrollview相同<br>如果需要横向的滑动 就把height设为和scrollview相同</p>
+<p>就是这么简单</p>
+<h2 id="小结">小结</h2><hr>
+<p>源码和Demo请点<a href="https://github.com/adad184/DemoScrollViewAutolayout" target="_blank" rel="external">这里</a></p>
+<p>前不久<a href="http://weibo.com/nixzhu" target="_blank" rel="external">@nixzhu</a>也写了一篇关于<a href="https://github.com/nixzhu/dev-blog/blob/master/autolayout-tips.md#tip-2" target="_blank" rel="external">UIScrollView的文章</a> 然后我在微博上回复说”<strong>使用一个单一的containerView占满全部，然后把所有的subview添加到containerView中</strong>“ 不过nixzh 表示他是极力避免这样的 但是后在这个问题上 我是<strong>极力推荐</strong>这样使用的 </p>
+<p>就如同示例1和示例2一样 如果你需要添加subview 你只要简单的添加到v1上 并添加与v1的约束 就可以获得正确的ContentSize了</p>
+<p>如果不这样做 就类似示例3和示例4 这些边界约束都需要一个一个的设置 这其实是没有必要的</p>
+<p>使用单一的containerView其实是这个问题上的最佳实践</p>
 
       
     </div>
     <footer class="article-footer">
 
-      <a data-url="http://adad184.com/2015/07/28/use-git-with-sourcetree-and-beyondcompare/" data-id="cihn4cfyc002kmxu2j2hf750v" class="article-share-link">分享到</a>
+      <a data-url="http://adad184.com/2015/11/10/scrollview-under-autolayout/" data-id="cihn4cfwm0003mxu25suqs96v" class="article-share-link">分享到</a>
       
-        <a href="http://adad184.com/2015/07/28/use-git-with-sourcetree-and-beyondcompare/#ds-thread" class="article-comment-link">文章評論</a>
+        <a href="http://adad184.com/2015/11/10/scrollview-under-autolayout/#ds-thread" class="article-comment-link">文章評論</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/BeyondCompare/">BeyondCompare</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/">Git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SourceTree/">SourceTree</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/工具/">工具</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Autolayout/">Autolayout</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/UIScrollView/">UIScrollView</a></li></ul>
 
     </footer>
   </div>
@@ -179,19 +183,10 @@ ga('send', 'pageview');
     
 <nav id="article-nav">
   
-    <a href="/2015/08/01/advanced-icarousel-tutorial-copycat-of-ios9-task-tray/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          如何轻松实现iOS9多任务管理器效果(iCarousel高级教程)
-        
-      </div>
-    </a>
   
-  
-    <a href="/2015/07/22/how-to-deal-with-background-location-update/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2015/11/10/disable-uicollectionview-implicit-animation/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">后台定位上传的代码实践</div>
+      <div class="article-nav-title">Tips:取消UICollectionView的隐式动画</div>
     </a>
   
 </nav>
@@ -210,7 +205,7 @@ ga('send', 'pageview');
 
 
   <section id="comments">
-    <div id="ds-thread" class="ds-thread" data-thread-key="2015/07/28/use-git-with-sourcetree-and-beyondcompare/" data-title="Git的好伙伴:SourceTree &amp; BeyondCompare" data-url="http://adad184.com/2015/07/28/use-git-with-sourcetree-and-beyondcompare/"></div>
+    <div id="ds-thread" class="ds-thread" data-thread-key="2015/11/10/scrollview-under-autolayout/" data-title="UIScrollview与Autolayout的那点破事" data-url="http://adad184.com/2015/11/10/scrollview-under-autolayout/"></div>
   </section>
 
 </section>
